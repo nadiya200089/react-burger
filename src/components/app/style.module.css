@@ -1,0 +1,19 @@
+.app {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.main {
+    width: 1280px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(600px, 1 fr));
+    gap: 40px;
+}
+
+.title {
+    width: 1280px;
+    margin-left: auto;
+    margin-right: auto;
+}

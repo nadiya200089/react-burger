@@ -6,23 +6,13 @@ import { AppHeader } from '../app-header/app-header';
 import { BurgerIngredients } from '../burger-ingredients/burger-ingredients';
 import { BurgerConstructor } from '../burger-constructor/burger-constructor ';
 
-// getIngredients()
-// .then(data => {console.log(data)})   здесь к консоли все данные с сервера: объект с массивом ингредиентов
-
-
 export const App = () => {
     const [ingredients, setIngredients] = useState([]);
 
     useEffect(() => {
         getIngredients()
-        .then(ingredients => {setIngredients(ingredients.data) 
-            console.log(ingredients.data)
-        })
-        // console.log(data); // data is not defined 
-        // console.log(ingredients); //  в консоли пустой массив: []
+        .then(ingredients => setIngredients(ingredients.data))
     }, []);
-
- 
 
     return (
     <div className={style.app}>

@@ -7,6 +7,8 @@ import { useEffect, useState } from 'react';
 import { Modal } from '../modal/modal';
 import { ingredientsPropTypes } from '../utils/prop-types';
 
+console.log(1);
+
 export const BurgerConstructor = ({ constructorIngredients }) => {
     const buns = constructorIngredients.find(data => data.type === "bun");
     const mainIngredients = constructorIngredients.filter(data => data.type !== "bun");

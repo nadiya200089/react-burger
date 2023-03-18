@@ -32,8 +32,8 @@ export const Category = ({ title, id, ingredients }) => {
 
 };
 
-// Category.propTypes = {
-//     title: PropTypes.string.isRequired,
-//     id: PropTypes.string.isRequired,
-//     ingredients: PropTypes.arrayOf(ingredientsPropTypes.isRequired).isRequired
-// }
+Category.propTypes = {
+    title: PropTypes.string.isRequired,
+    id: PropTypes.string.isRequired,
+    ingredients: PropTypes.arrayOf(ingredientsPropTypes.isRequired).isRequired
+}

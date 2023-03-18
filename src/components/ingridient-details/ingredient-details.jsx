@@ -6,7 +6,7 @@ import { ingredientsPropTypes } from '../utils/prop-types';
 
 export const IngredientDetails = ({ data }) => {
     return (
-        <>
+        <div className={style.ingredient_details}>
             <div className={classNames(style.title, 'text', 'text_type_main-large')}>Детали ингредиента</div>
             <div>
                 <img className={style.image_large} src={data.image_large}></img>
@@ -16,7 +16,7 @@ export const IngredientDetails = ({ data }) => {
             </div>
             <div className={style.details}>
                 <div className={classNames(style.element, 'text', 'text_color_inactive')}>
-                    <h3 className='text_type_main-small mb-1'>Калории, ккал</h3>
+                    <h3 className='text_type_main-small mb-1'>Калории,ккал</h3>
                     <div className='text_type_digits-default'>{data.calories}</div>
                 </div>
                 <div className={classNames(style.element, 'text', 'text_color_inactive')}>
@@ -33,12 +33,12 @@ export const IngredientDetails = ({ data }) => {
                 </div>
             </div>
 
-        </>
+        </div>
 
     )
 
 }
 
-// IngredientDetails.propTypes = {
-//     ingredients: PropTypes.arrayOf(ingredientsPropTypes.isRequired).isRequired
-// }
+IngredientDetails.propTypes = {
+    ingredients: PropTypes.arrayOf(ingredientsPropTypes.isRequired).isRequired
+}

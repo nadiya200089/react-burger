@@ -12,7 +12,6 @@ export const Modal = ({ onClose, children }) => {
    return createPortal(
       <>
          <div className={style.modal}>
-         
             <div className={style.close}>
                <CloseIcon type="primary" onClick={onClose} />
             </div>

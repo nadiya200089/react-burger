@@ -1,4 +1,3 @@
-//import { Logo } from '@ya.praktikum/react-developer-burger-ui-components'
 import { useEffect, useState } from 'react';
 import style from './style.module.css';
 import classNames from 'classnames';
@@ -7,14 +6,23 @@ import { AppHeader } from '../app-header/app-header';
 import { BurgerIngredients } from '../burger-ingredients/burger-ingredients';
 import { BurgerConstructor } from '../burger-constructor/burger-constructor ';
 
+// getIngredients()
+// .then(data => {console.log(data)})   здесь к консоли все данные с сервера: объект с массивом ингредиентов
+
+
 export const App = () => {
     const [ingredients, setIngredients] = useState([]);
-    console.log(ingredients);
 
     useEffect(() => {
         getIngredients()
-        .then(data => {setIngredients(data)})
-    }, [])
+        .then(ingredients => {setIngredients(ingredients.data) 
+            console.log(ingredients.data)
+        })
+        // console.log(data); // data is not defined 
+        // console.log(ingredients); //  в консоли пустой массив: []
+    }, []);
+
+ 
 
     return (
     <div className={style.app}>

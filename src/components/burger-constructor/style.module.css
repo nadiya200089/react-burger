@@ -1,0 +1,33 @@
+.constructor {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+
+.main_ingredients {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    overflow-y: scroll;
+}
+
+.bun {
+display: flex;
+flex-direction: column;
+align-items: center ;
+}
+
+.main {
+    display: flex;
+    gap: 24px;
+    align-items: center;
+}
+
+.order {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    align-items: center;
+    justify-content: end;
+}

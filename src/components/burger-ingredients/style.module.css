@@ -1,8 +1,18 @@
+.ingredients {
+    width: 600px;
+    display: flex;
+    flex-direction: column;
+  
+}
+
 .menu {
     width: 100%;
     display: flex;
 }
- .list {
-    display: grid;
-     grid-template-columns: 1fr 1fr;
- }
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    overflow-y: scroll;
+}
+

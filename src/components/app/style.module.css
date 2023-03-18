@@ -1,15 +1,18 @@
 .app {
+    width: 1280px;
     display: flex;
     flex-direction: column;
     height: 100vh;
+    margin: 0 auto;
 }
 
 .main {
-    width: 1280px;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
     margin: 0 auto;
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(600px, 1 fr));
-    gap: 40px;
+    overflow: hidden;
 }
 
 .title {

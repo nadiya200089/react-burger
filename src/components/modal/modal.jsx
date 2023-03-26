@@ -8,6 +8,15 @@ import { ModalOverlay } from "../modal-overlay/modal-overlay";
 const modalRoot = document.querySelector('#modals');
 
 export const Modal = ({ onClose, children }) => {
+//    const [ingredientModal, setIngredientModal] = useState(null);
+//    const closeModalIngredient = () => { 
+//       setIngredientModal(null) 
+//   ;}
+//    useEffect(() => {
+//       const closeByEsc = (target) => { if (target.key === 'Escape') { setIngredientModal(null) } }
+//       document.addEventListener('keydown', closeByEsc)
+//       return () => document.removeEventListener('keydown', closeByEsc)
+//   }, [])
 
    return createPortal(
       <>
@@ -18,6 +27,7 @@ export const Modal = ({ onClose, children }) => {
             {children}
          </div>
          <ModalOverlay onClick={onClose} />
+         {/* {ingredientModal && <Modal onClose={closeModalIngredient} > <IngredientDetails data={ingredientModal} /> </Modal>} */}
       </>, modalRoot)
 
 }

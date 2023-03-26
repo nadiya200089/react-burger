@@ -10,6 +10,7 @@
     flex-direction: column;
     gap: 16px;
     overflow-y: scroll;
+    min-height: 50px;
 }
 
 .bun {

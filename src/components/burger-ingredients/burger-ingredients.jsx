@@ -5,10 +5,23 @@ import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Category } from '../category/category';
 import { ingredientsPropTypes } from '../utils/prop-types';
-
-export const BurgerIngredients = ({ ingredients }) => {
+import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { addConstructor } from '../services/reducers/constructor';
+export const BurgerIngredients = () => {
     const [current, setCurrent] = useState('buns');
+    const dispatch = useDispatch();
+
+
+    const ingredients = useSelector(state => state.ingredientsStore.data);
+
     const buns = ingredients.filter(item => item.type === 'bun');
+
+    if (buns && buns.length) {
+        console.log('buns', buns);
+        dispatch(addConstructor(buns[0]));
+    }
+
     const main = ingredients.filter(item => item.type === 'main');
     const sauce = ingredients.filter(item => item.type === 'sauce');
 

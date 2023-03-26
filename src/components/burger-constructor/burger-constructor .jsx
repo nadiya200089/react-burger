@@ -6,12 +6,28 @@ import { OrderDetails } from '../order-details/order-details';
 import { useEffect, useState } from 'react';
 import { Modal } from '../modal/modal';
 import { ingredientsPropTypes } from '../utils/prop-types';
+import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { deleteIngredient, addConstructor } from '../services/reducers/constructor';
 
-export const BurgerConstructor = ({ constructorIngredients }) => {
-    const buns = constructorIngredients.find(data => data.type === "bun");
-    const mainIngredients = constructorIngredients.filter(data => data.type !== "bun");
+import { useDrop } from "react-dnd";
+import { createNoSubstitutionTemplateLiteral } from 'typescript';
+import DragAndDropContainer from './components/DragAndDropContainer';
+
+export const BurgerConstructor = () => {
+    const {bun, ingredients} = useSelector(state => state.constructorStore);
+    const dispatch = useDispatch()
+    // const [, dropTarget] = useDrop({
+    //     accept: "ingredient",
+    //     drop(itemId) {
+    //        console.log('test');
+    //     },
+    // });
+    // const buns = constructorIngredients.find(data => data.type === "bun");
+   // const mainIngredients = ingredients.filter(ingredients => ingredients.type !== "bun");
 
     const [orderModal, setOrderModal] = useState(false);
+
     useEffect(() => {
         const closeByEsc = (target) => { if (target.key === 'Escape') { setOrderModal(null) } }
         document.addEventListener('keydown', closeByEsc)
@@ -19,16 +35,57 @@ export const BurgerConstructor = ({ constructorIngredients }) => {
     }, [])
     const closeOrderModal = () => { setOrderModal(false) }
 
+    const handleDeleteIngredient = (id) => {
+        dispatch(deleteIngredient(id));
+    };
+
+    const onDropIngridientHandler = (objIngridient) => {
+        dispatch(addConstructor(objIngridient));
+    };
+
+    const onDropBanHandler = (objBun) => {
+        dispatch(addConstructor(objBun));
+    };
+
     return (
-            <div className={style.constructor}>
-                <div className={classNames(style.bun, 'ml-5')}><ConstructorElement thumbnail={buns?.image} text={`${buns?.name} (верх)`} {...buns} key={buns?._id} isLocked={true}
-                    type="top"></ConstructorElement></div>
-                <div className={classNames(style.main_ingredients, 'custom-scroll')}>
-                    {mainIngredients.map(data => <div key={data._id} className={classNames(style.main, "mr-4")}><DragIcon type="primary" /> <ConstructorElement className="ml-2 mr-2 mb-2 mt-2"
-                        key={data._id} text={data.name} thumbnail={data.image} {...data} /> </div>)}
-                </div>
-                <div className={classNames(style.bun, 'ml-5')}><ConstructorElement thumbnail={buns?.image} text={`${buns?.name} (низ)`} {...buns} isLocked={true}
-                    key={buns?._id} type="bottom" /></div>
+            <div className={style.constructor} >
+                    <DragAndDropContainer onDropHandler={onDropBanHandler}>
+                        <div className={classNames(style.bun, 'ml-5')}>
+                            <ConstructorElement 
+                                thumbnail={bun?.image}
+                                text={`${bun?.name} (верх)`}
+                                {...bun}
+                                isLocked={true}
+                                type="top"
+                            />
+                        </div>
+                    </DragAndDropContainer>
+                   
+                    
+                    <DragAndDropContainer onDropHandler={onDropIngridientHandler}>
+                        <div  className={classNames(style.main_ingredients, 'custom-scroll')}>
+                            {
+                                ingredients.map(data => (
+                                    <div key={data.uuid} className={classNames(style.main, "mr-4")}>
+                                        <DragIcon  type="primary" /> <ConstructorElement className="ml-2 mr-2 mb-2 mt-2"
+                                            key={data.uuid} text={data.name} thumbnail={data.image} {...data} 
+                                        handleClose={()=> handleDeleteIngredient(data.uuid)}
+                                        /> 
+                                    </div>)
+                                )
+                            }
+                        </div>
+                    </DragAndDropContainer>
+                       
+                <div className={classNames(style.bun, 'ml-5')}>
+                    <ConstructorElement 
+                        thumbnail={bun?.image}
+                        text={`${bun?.name} (низ)`} 
+                        {...bun}
+                        isLocked={true}
+                        type="bottom" 
+                    />
+                 </div>
                 <div className={classNames(style.order, ' mt-6 mr-6')}>
                     <div className="text text_type_digits-medium" >610</div>
                     <CurrencyIcon type="primary" />
@@ -36,11 +93,7 @@ export const BurgerConstructor = ({ constructorIngredients }) => {
                         Оформить заказ </Button>
                 </div>
                 {orderModal && <Modal onClose={closeOrderModal}> <OrderDetails data={orderModal} /> </Modal>}
-            </div>
-        
-      
-
-
+            </div>   
     )
 }
 BurgerConstructor.propTypes = {

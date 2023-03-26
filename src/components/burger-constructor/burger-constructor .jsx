@@ -9,7 +9,7 @@ import { ingredientsPropTypes } from '../utils/prop-types';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { deleteIngredient, addConstructor } from '../services/reducers/constructor';
-import DragAndDropContainer from './components/DragAndDropContainer';
+import DropContainer from './components/DropContainer';
 
 export const BurgerConstructor = () => {
     const { bun, ingredients } = useSelector(state => state.constructorStore);
@@ -38,7 +38,7 @@ export const BurgerConstructor = () => {
 
     return (
         <div className={style.constructor} >
-            <DragAndDropContainer onDropHandler={onDropBanHandler}>
+            <DropContainer onDropHandler={onDropBanHandler}>
                 <div className={classNames(style.bun, 'ml-5')}>
                     <ConstructorElement
                         thumbnail={bun?.image}
@@ -48,11 +48,11 @@ export const BurgerConstructor = () => {
                         type="top"
                     />
                 </div>
-            </DragAndDropContainer>
+            </DropContainer>
 
             {/* <DndProvider backend={HTML5Backend}>
                 <Container>
-                    <DragAndDropContainer onDropHandler={onDropIngridientHandler}>
+                    <DropContainer onDropHandler={onDropIngridientHandler}>
                         <div className={classNames(style.main_ingredients, 'custom-scroll')}>
                             {
                                 ingredients.map(data => (
@@ -65,10 +65,10 @@ export const BurgerConstructor = () => {
                                 )
                             }
                         </div>
-                    </DragAndDropContainer>
+                    </DropContainer>
                 </Container>
             </DndProvider> */}
-            <DragAndDropContainer onDropHandler={onDropIngridientHandler}>
+            <DropContainer onDropHandler={onDropIngridientHandler}>
                 <div className={classNames(style.main_ingredients, 'custom-scroll')}>
                     {
                         ingredients.map(data => (
@@ -81,7 +81,7 @@ export const BurgerConstructor = () => {
                         )
                     }
                 </div>
-            </DragAndDropContainer>
+            </DropContainer>
 
             <div className={classNames(style.bun, 'ml-5')}>
                 <ConstructorElement

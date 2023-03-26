@@ -10,6 +10,7 @@ import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { deleteIngredient, addConstructor } from '../services/reducers/constructor';
 import DropContainer from './components/DropContainer';
+import { DragAndDropContainer } from './components/dnd/DragAndDropContainer';
 
 export const BurgerConstructor = () => {
     const { bun, ingredients } = useSelector(state => state.constructorStore);
@@ -68,20 +69,32 @@ export const BurgerConstructor = () => {
                     </DropContainer>
                 </Container>
             </DndProvider> */}
-            <DropContainer onDropHandler={onDropIngridientHandler}>
+            {/* <DropContainer onDropHandler={onDropIngridientHandler}> */}
                 <div className={classNames(style.main_ingredients, 'custom-scroll')}>
                     {
-                        ingredients.map(data => (
-                            <div key={data.uuid} className={classNames(style.main, "mr-4")}>
-                                <DragIcon type="primary" /> <ConstructorElement className="ml-2 mr-2 mb-2 mt-2"
-                                    key={data.uuid} text={data.name} thumbnail={data.image} {...data}
-                                    handleClose={() => handleDeleteIngredient(data.uuid)}
-                                />
-                            </div>)
+                        ingredients.map((data, index) => (
+                            <DragAndDropContainer 
+                                index={index}
+                                id={data.uuid}
+                                moveCard={() => console.log('run move')}
+                            >
+                                <div key={data.uuid} className={classNames(style.main, "mr-4")}>
+                                    <DragIcon type="primary" /> 
+                                    <ConstructorElement 
+                                        className="ml-2 mr-2 mb-2 mt-2"
+                                        key={data.uuid}
+                                        text={data.name}
+                                        thumbnail={data.image}
+                                        {...data}
+                                        handleClose={() => handleDeleteIngredient(data.uuid)}
+                                    />
+                                </div>
+                            </DragAndDropContainer>
+                            )
                         )
                     }
                 </div>
-            </DropContainer>
+            {/* </DropContainer> */}
 
             <div className={classNames(style.bun, 'ml-5')}>
                 <ConstructorElement

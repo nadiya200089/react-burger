@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDrop } from "react-dnd";
 
-const DropTarget = ({children, onDropHandler, typeAccept = "ingredient" }) => {
+const DragAndDropContainer = ({children, onDropHandler, typeAccept = "ingredient" }) => {
     const [{isHover}, dropTarget] = useDrop({
         accept: typeAccept,
         drop(itemId) {
@@ -24,4 +24,4 @@ const DropTarget = ({children, onDropHandler, typeAccept = "ingredient" }) => {
     );
 };
 
-export default DropTarget; 
+export default DragAndDropContainer; 

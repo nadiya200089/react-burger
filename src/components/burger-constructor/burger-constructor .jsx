@@ -9,22 +9,11 @@ import { ingredientsPropTypes } from '../utils/prop-types';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { deleteIngredient, addConstructor } from '../services/reducers/constructor';
-
-import { useDrop } from "react-dnd";
-import { createNoSubstitutionTemplateLiteral } from 'typescript';
 import DragAndDropContainer from './components/DragAndDropContainer';
 
 export const BurgerConstructor = () => {
-    const {bun, ingredients} = useSelector(state => state.constructorStore);
+    const { bun, ingredients } = useSelector(state => state.constructorStore);
     const dispatch = useDispatch()
-    // const [, dropTarget] = useDrop({
-    //     accept: "ingredient",
-    //     drop(itemId) {
-    //        console.log('test');
-    //     },
-    // });
-    // const buns = constructorIngredients.find(data => data.type === "bun");
-   // const mainIngredients = ingredients.filter(ingredients => ingredients.type !== "bun");
 
     const [orderModal, setOrderModal] = useState(false);
 
@@ -48,52 +37,69 @@ export const BurgerConstructor = () => {
     };
 
     return (
-            <div className={style.constructor} >
-                    <DragAndDropContainer onDropHandler={onDropBanHandler}>
-                        <div className={classNames(style.bun, 'ml-5')}>
-                            <ConstructorElement 
-                                thumbnail={bun?.image}
-                                text={`${bun?.name} (верх)`}
-                                {...bun}
-                                isLocked={true}
-                                type="top"
-                            />
-                        </div>
-                    </DragAndDropContainer>
-                   
-                    
+        <div className={style.constructor} >
+            <DragAndDropContainer onDropHandler={onDropBanHandler}>
+                <div className={classNames(style.bun, 'ml-5')}>
+                    <ConstructorElement
+                        thumbnail={bun?.image}
+                        text={`${bun?.name} (верх)`}
+                        {...bun}
+                        isLocked={true}
+                        type="top"
+                    />
+                </div>
+            </DragAndDropContainer>
+
+            {/* <DndProvider backend={HTML5Backend}>
+                <Container>
                     <DragAndDropContainer onDropHandler={onDropIngridientHandler}>
-                        <div  className={classNames(style.main_ingredients, 'custom-scroll')}>
+                        <div className={classNames(style.main_ingredients, 'custom-scroll')}>
                             {
                                 ingredients.map(data => (
                                     <div key={data.uuid} className={classNames(style.main, "mr-4")}>
-                                        <DragIcon  type="primary" /> <ConstructorElement className="ml-2 mr-2 mb-2 mt-2"
-                                            key={data.uuid} text={data.name} thumbnail={data.image} {...data} 
-                                        handleClose={()=> handleDeleteIngredient(data.uuid)}
-                                        /> 
+                                        <DragIcon type="primary" /> <ConstructorElement className="ml-2 mr-2 mb-2 mt-2"
+                                            key={data.uuid} text={data.name} thumbnail={data.image} {...data}
+                                            handleClose={() => handleDeleteIngredient(data.uuid)}
+                                        />
                                     </div>)
                                 )
                             }
                         </div>
                     </DragAndDropContainer>
-                       
-                <div className={classNames(style.bun, 'ml-5')}>
-                    <ConstructorElement 
-                        thumbnail={bun?.image}
-                        text={`${bun?.name} (низ)`} 
-                        {...bun}
-                        isLocked={true}
-                        type="bottom" 
-                    />
-                 </div>
-                <div className={classNames(style.order, ' mt-6 mr-6')}>
-                    <div className="text text_type_digits-medium" >610</div>
-                    <CurrencyIcon type="primary" />
-                    <Button extraClass="ml-10" htmlType="button" type="primary" size="large" onClick={() => setOrderModal(true)}>
-                        Оформить заказ </Button>
+                </Container>
+            </DndProvider> */}
+            <DragAndDropContainer onDropHandler={onDropIngridientHandler}>
+                <div className={classNames(style.main_ingredients, 'custom-scroll')}>
+                    {
+                        ingredients.map(data => (
+                            <div key={data.uuid} className={classNames(style.main, "mr-4")}>
+                                <DragIcon type="primary" /> <ConstructorElement className="ml-2 mr-2 mb-2 mt-2"
+                                    key={data.uuid} text={data.name} thumbnail={data.image} {...data}
+                                    handleClose={() => handleDeleteIngredient(data.uuid)}
+                                />
+                            </div>)
+                        )
+                    }
                 </div>
-                {orderModal && <Modal onClose={closeOrderModal}> <OrderDetails data={orderModal} /> </Modal>}
-            </div>   
+            </DragAndDropContainer>
+
+            <div className={classNames(style.bun, 'ml-5')}>
+                <ConstructorElement
+                    thumbnail={bun?.image}
+                    text={`${bun?.name} (низ)`}
+                    {...bun}
+                    isLocked={true}
+                    type="bottom"
+                />
+            </div>
+            <div className={classNames(style.order, ' mt-6 mr-6')}>
+                <div className="text text_type_digits-medium" >610</div>
+                <CurrencyIcon type="primary" />
+                <Button extraClass="ml-10" htmlType="button" type="primary" size="large" onClick={() => setOrderModal(true)}>
+                    Оформить заказ </Button>
+            </div>
+            {orderModal && <Modal onClose={closeOrderModal}> <OrderDetails data={orderModal} /> </Modal>}
+        </div>
     )
 }
 BurgerConstructor.propTypes = {

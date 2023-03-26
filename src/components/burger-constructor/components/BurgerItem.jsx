@@ -1,28 +1,55 @@
-import style from '../style.module.css';
-import classNames from 'classnames';
-import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+// import { useRef } from 'react'
+// import { useDrag, useDrop } from 'react-dnd'
 
-
-import { useDrag } from 'react-dnd';
-
-
-export const BurgerItem = (props) => {
-    const { data } = props;
-
-    const [{ isDragging }, dragRef] = useDrag(
-        () => ({
-          type: 'main',
-          collect: (monitor) => ({
-            isDragging: Boolean(monitor.isDragging())
-          }),
-            //   drop: () => console.log('test')
-        }),
-        []
-    );
-   return (
-        <div ref={dragRef} style={{opacity: isDragging ? 0.1 : 1 }}  key={data._id} className={classNames(style.main, "mr-4")}>
-            <DragIcon  type="primary" /> <ConstructorElement className="ml-2 mr-2 mb-2 mt-2"
-                key={data._id} text={data.name} thumbnail={data.image} {...data} /> 
-        </div>
-   )
-}
+// export const Ingredient = ({ ingredients, index, moveIngredient }) => {
+//   const ref = useRef(null)
+//   const [{ handlerId }, drop] = useDrop({
+//     accept: 'ingredient',
+//     collect(monitor) {
+//       return {
+//         handlerId: monitor.getHandlerId(),
+//       }
+//     },
+//     hover(ingredients, monitor) {
+//       if (!ref.current) {
+//         return
+//       }
+//       const dragIndex = ingredients.index
+//       const hoverIndex = index
+//       if (dragIndex === hoverIndex) {
+//         return
+//       }
+//       const hoverBoundingRect = ref.current?.getBoundingClientRect()
+//       const hoverMiddleY =
+//         (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2
+//       const clientOffset = monitor.getClientOffset()
+//       const hoverClientY = clientOffset.y - hoverBoundingRect.top
+      
+//       if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
+//         return
+//       }
+//       if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
+//         return
+//       }
+//       moveIngredient(dragIndex, hoverIndex)
+//       ingredients.index = hoverIndex
+//     },
+//   })
+//   const [{ isDragging }, drag] = useDrag({
+//     type: 'ingredient',
+//     item: () => {
+//       return { index }
+//     },
+//     collect: (monitor) => ({
+//       isDragging: monitor.isDragging(),
+//     }),
+//   })
+//   const opacity = isDragging ? 0 : 1
+//   drag(drop(ref))
+//   return (
+//     <div ref={ref} style={{ opacity }} data-handler-id={handlerId}>
+      
+//     </div>
+//   )
+// }
+//  export default Ingredient;

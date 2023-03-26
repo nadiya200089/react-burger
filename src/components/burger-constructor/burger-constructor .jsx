@@ -69,15 +69,11 @@ export const BurgerConstructor = () => {
                     </DropContainer>
                 </Container>
             </DndProvider> */}
-            {/* <DropContainer onDropHandler={onDropIngridientHandler}> */}
+
                 <div className={classNames(style.main_ingredients, 'custom-scroll')}>
                     {
                         ingredients.map((data, index) => (
-                            <DragAndDropContainer 
-                                index={index}
-                                id={data.uuid}
-                                moveCard={() => console.log('run move')}
-                            >
+
                                 <div key={data.uuid} className={classNames(style.main, "mr-4")}>
                                     <DragIcon type="primary" /> 
                                     <ConstructorElement 
@@ -89,12 +85,12 @@ export const BurgerConstructor = () => {
                                         handleClose={() => handleDeleteIngredient(data.uuid)}
                                     />
                                 </div>
-                            </DragAndDropContainer>
+                
                             )
                         )
                     }
                 </div>
-            {/* </DropContainer> */}
+
 
             <div className={classNames(style.bun, 'ml-5')}>
                 <ConstructorElement

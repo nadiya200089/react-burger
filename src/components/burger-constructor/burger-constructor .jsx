@@ -3,12 +3,12 @@ import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import { ConstructorElement, DragIcon, Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { OrderDetails } from '../order-details/order-details';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Modal } from '../modal/modal';
 import { ingredientsPropTypes } from '../utils/prop-types';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
-import { deleteIngredient, addConstructor } from '../services/reducers/constructor';
+import { deleteIngredient, addConstructor, orderPrice } from '../services/reducers/constructor';
 import DropContainer from './components/DropContainer';
 import { DragAndDropContainer } from './components/dnd/DragAndDropContainer';
 
@@ -36,6 +36,19 @@ export const BurgerConstructor = () => {
     const onDropBanHandler = (objBun) => {
         dispatch(addConstructor(objBun));
     };
+
+    const countPrice = useMemo(() => {
+        let totalPrice = 0;
+        if (bun === null || undefined) {
+            totalPrice = 0;
+        }
+        else {
+            totalPrice +=bun?.price * 2
+        }
+        ingredients?.map(ingredient => {totalPrice += ingredient.price});
+        return totalPrice;
+    })
+
 
     return (
         <div className={style.constructor} >
@@ -70,26 +83,26 @@ export const BurgerConstructor = () => {
                 </Container>
             </DndProvider> */}
 
-                <div className={classNames(style.main_ingredients, 'custom-scroll')}>
-                    {
-                        ingredients.map((data, index) => (
+            <div className={classNames(style.main_ingredients, 'custom-scroll')}>
+                {
+                    ingredients.map((data, index) => (
 
-                                <div key={data.uuid} className={classNames(style.main, "mr-4")}>
-                                    <DragIcon type="primary" /> 
-                                    <ConstructorElement 
-                                        className="ml-2 mr-2 mb-2 mt-2"
-                                        key={data.uuid}
-                                        text={data.name}
-                                        thumbnail={data.image}
-                                        {...data}
-                                        handleClose={() => handleDeleteIngredient(data.uuid)}
-                                    />
-                                </div>
-                
-                            )
-                        )
-                    }
-                </div>
+                        <div key={data.uuid} className={classNames(style.main, "mr-4")}>
+                            <DragIcon type="primary" />
+                            <ConstructorElement
+                                className="ml-2 mr-2 mb-2 mt-2"
+                                key={data.uuid}
+                                text={data.name}
+                                thumbnail={data.image}
+                                {...data}
+                                handleClose={() => handleDeleteIngredient(data.uuid)}
+                            />
+                        </div>
+
+                    )
+                    )
+                }
+            </div>
 
 
             <div className={classNames(style.bun, 'ml-5')}>
@@ -102,7 +115,7 @@ export const BurgerConstructor = () => {
                 />
             </div>
             <div className={classNames(style.order, ' mt-6 mr-6')}>
-                <div className="text text_type_digits-medium" >610</div>
+                <div className="text text_type_digits-medium" >{countPrice}</div>
                 <CurrencyIcon type="primary" />
                 <Button extraClass="ml-10" htmlType="button" type="primary" size="large" onClick={() => setOrderModal(true)}>
                     Оформить заказ </Button>

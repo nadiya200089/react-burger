@@ -8,7 +8,7 @@ import { Modal } from '../modal/modal';
 import { ingredientsPropTypes } from '../utils/prop-types';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
-import { deleteIngredient, addConstructor, orderPrice } from '../services/reducers/constructor';
+import { deleteIngredient, addConstructor, moveItem  } from '../services/reducers/constructor';
 import DropContainer from './components/DropContainer';
 import { DragAndDropContainer } from './components/dnd/DragAndDropContainer';
 
@@ -24,6 +24,8 @@ export const BurgerConstructor = () => {
         return () => document.removeEventListener('keydown', closeByEsc)
     }, [])
     const closeOrderModal = () => { setOrderModal(false) }
+
+
 
     const handleDeleteIngredient = (id) => {
         dispatch(deleteIngredient(id));
@@ -50,6 +52,9 @@ export const BurgerConstructor = () => {
     })
 
 
+    const handleMoveCard = (di, hi) => {
+       dispatch(moveItem({di, hi}));
+    }
     return (
         <div className={style.constructor} >
             <DropContainer onDropHandler={onDropBanHandler}>
@@ -63,26 +68,34 @@ export const BurgerConstructor = () => {
                     />
                 </div>
             </DropContainer>
+            <DropContainer onDropHandler={onDropBanHandler}>
 
-            {/* <DndProvider backend={HTML5Backend}>
-                <Container>
-                    <DropContainer onDropHandler={onDropIngridientHandler}>
                         <div className={classNames(style.main_ingredients, 'custom-scroll')}>
                             {
-                                ingredients.map(data => (
-                                    <div key={data.uuid} className={classNames(style.main, "mr-4")}>
-                                        <DragIcon type="primary" /> <ConstructorElement className="ml-2 mr-2 mb-2 mt-2"
-                                            key={data.uuid} text={data.name} thumbnail={data.image} {...data}
-                                            handleClose={() => handleDeleteIngredient(data.uuid)}
-                                        />
-                                    </div>)
+                                 ingredients.map((data, index) => (
+                                    <DragAndDropContainer 
+                                        index={index}
+                                        id={data.uuid}
+                                        moveCard={handleMoveCard}
+                                    >
+                                        <div key={data.uuid} className={classNames(style.main, "mr-4")}>
+                                            <DragIcon type="primary" /> 
+                                            <ConstructorElement 
+                                                className="ml-2 mr-2 mb-2 mt-2"
+                                                key={data.uuid}
+                                                text={data.name}
+                                                thumbnail={data.image}
+                                                {...data}
+                                                handleClose={() => handleDeleteIngredient(data.uuid)}
+                                            />
+                                        </div>
+                                    </DragAndDropContainer>
+                                    )
                                 )
                             }
                         </div>
-                    </DropContainer>
-                </Container>
-            </DndProvider> */}
-            <DropContainer onDropHandler={onDropIngridientHandler}>
+               </DropContainer>         
+            {/* <DropContainer onDropHandler={onDropIngridientHandler}>
                 <div className={classNames(style.main_ingredients, 'custom-scroll')}>
                     {
                         ingredients.map((data, index) => (
@@ -103,7 +116,7 @@ export const BurgerConstructor = () => {
                         )
                     }
                 </div>
-            </DropContainer>
+            </DropContainer> */}
            
 
 

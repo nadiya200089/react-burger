@@ -19,6 +19,13 @@ export const constructorSlice = createSlice({
       }
       state.ingredients.push({ ...action.payload, uuid: uuidv4() });
     },
+    moveItem: (state, action) => {
+        const { di, hi } = action.payload;
+        const ingrds = state.ingredients;
+        console.log(ingrds)
+        ingrds.splice(di, 0, ingrds.splice(hi, 1)[0]);
+        console.log(ingrds)
+    },
     deleteIngredient: (state, action) => {
       const id = action.payload;
       const index = state.ingredients.findIndex(item => item.uuid === id);
@@ -33,5 +40,5 @@ export const constructorSlice = createSlice({
   }
 });
 
-export const { deleteIngredient, addConstructor, orderPrice } = constructorSlice.actions;
+export const { deleteIngredient, addConstructor, moveItem } = constructorSlice.actions;
 export default constructorSlice.reducer;

@@ -82,27 +82,29 @@ export const BurgerConstructor = () => {
                     </DropContainer>
                 </Container>
             </DndProvider> */}
+            <DropContainer onDropHandler={onDropIngridientHandler}>
+                <div className={classNames(style.main_ingredients, 'custom-scroll')}>
+                    {
+                        ingredients.map((data, index) => (
 
-            <div className={classNames(style.main_ingredients, 'custom-scroll')}>
-                {
-                    ingredients.map((data, index) => (
+                            <div key={data.uuid} className={classNames(style.main, "mr-4")}>
+                                <DragIcon type="primary" />
+                                <ConstructorElement
+                                    className="ml-2 mr-2 mb-2 mt-2"
+                                    key={data.uuid}
+                                    text={data.name}
+                                    thumbnail={data.image}
+                                    {...data}
+                                    handleClose={() => handleDeleteIngredient(data.uuid)}
+                                />
+                            </div>
 
-                        <div key={data.uuid} className={classNames(style.main, "mr-4")}>
-                            <DragIcon type="primary" />
-                            <ConstructorElement
-                                className="ml-2 mr-2 mb-2 mt-2"
-                                key={data.uuid}
-                                text={data.name}
-                                thumbnail={data.image}
-                                {...data}
-                                handleClose={() => handleDeleteIngredient(data.uuid)}
-                            />
-                        </div>
-
-                    )
-                    )
-                }
-            </div>
+                        )
+                        )
+                    }
+                </div>
+            </DropContainer>
+           
 
 
             <div className={classNames(style.bun, 'ml-5')}>

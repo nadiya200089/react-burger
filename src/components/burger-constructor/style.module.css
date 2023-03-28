@@ -11,6 +11,7 @@
     gap: 16px;
     overflow-y: scroll;
     min-height: 50px;
+    cursor: pointer;
 }
 
 .bun {

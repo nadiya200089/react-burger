@@ -1,10 +1,12 @@
 import { BurgerIngredient } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useDrag } from "react-dnd";
+import style from './style.module.css';
+
 import { useDispatch } from "react-redux";
 import { addConstructor } from "../services/reducers/constructor";
 
 
-export function BurgerIngredientDrag({data, onClick}) {
+export function BurgerIngredientDrag({data, count, onClick}) {
        // const dispatch = useDispatch()
 
     const [{ isDrag }, dragRef] = useDrag({
@@ -14,15 +16,15 @@ export function BurgerIngredientDrag({data, onClick}) {
             isDrag: monitor.isDragging()
         })
     })
-    //const opacity = isDrag ? 0.1 : 1
+    const opacity = isDrag ? 0.4 : 1
 
     return (
-        <div ref={dragRef}>
+        <div ref={dragRef} calssName={style.dragIngredient}>
             <BurgerIngredient
                 key={data._id}
                 {...data}
-                count={1}
-                // style={opacity}
+                count={count}
+                style={{opacity}}
                 onClick= {onClick}
                  />
         </div>

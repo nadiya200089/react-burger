@@ -14,11 +14,6 @@ export const fetchIngredients = createAsyncThunk(
     if (!response) {
       return rejectWithValue('Ошибка')
     }
-    console.log('response', response);
-    // const firstBan = response.data.find(item => item.type === 'bun');
-    // console.log('firstBun', firstBan);
-
-    // dispatch()
     return fulfillWithValue(response.data)
   }
 

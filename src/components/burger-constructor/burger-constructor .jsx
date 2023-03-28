@@ -9,11 +9,30 @@ import { ingredientsPropTypes } from '../utils/prop-types';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { deleteIngredient, addConstructor, moveItem  } from '../services/reducers/constructor';
-import {plusCount} from '../services/reducers/ingredients';
+import ingredients, {plusCount} from '../services/reducers/ingredients';
 
 
 import DropContainer from './components/DropContainer';
 import { DragAndDropContainer } from './components/dnd/DragAndDropContainer';
+
+
+// function getResponseData(res) {
+//     if (!res.ok) {
+//         return Promise.reject(`Ошибка`); 
+//     }
+//     return res.json();
+//   }
+//  function getOrderNumber(_id) {
+//     return fetch(`https://norma.nomoreparties.space/api/orders`, {
+//       method: 'POST',
+//       body: JSON.stringify({
+//         ingredients: _id,
+     
+//       })
+//     })
+//     .then(getResponseData)
+//   }
+//   console.log(getOrderNumber());
 
 export const BurgerConstructor = () => {
     const { bun, ingredients } = useSelector(state => state.constructorStore);
@@ -28,7 +47,26 @@ export const BurgerConstructor = () => {
     }, [])
     const closeOrderModal = () => { setOrderModal(false) }
 
-
+    //API
+    const handleSaveOrder = () => {
+        const ids = ingredients.map(ingredient => ingredient._id);
+        return fetch(`https://norma.nomoreparties.space/api/orders`, {
+            method: 'POST',
+            header: {
+                'Content-Type': 'application/json;charset=uft-8'
+            },
+            body: JSON.stringify({
+                'ingredients': ["609646e4dc916e00276b286e", "60d3b41abdacab0026a733cb"],
+            
+            })
+        })
+        .then(result  => {
+            console.log(result);
+        })
+        .catch(error => {
+            console.log('error', error);
+        })
+    }
 
     const handleDeleteIngredient = (id) => {
         dispatch(deleteIngredient(id));
@@ -140,7 +178,7 @@ export const BurgerConstructor = () => {
             <div className={classNames(style.order, ' mt-6 mr-6')}>
                 <div className="text text_type_digits-medium" >{countPrice}</div>
                 <CurrencyIcon type="primary" />
-                <Button extraClass="ml-10" htmlType="button" type="primary" size="large" onClick={() => setOrderModal(true)}>
+                <Button extraClass="ml-10" htmlType="button" type="primary" size="large" onClick={handleSaveOrder}>
                     Оформить заказ </Button>
             </div>
             {orderModal && <Modal onClose={closeOrderModal}> <OrderDetails data={orderModal} /> </Modal>}

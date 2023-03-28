@@ -79,14 +79,14 @@ export const DragAndDropContainer = ({ children, id, index, moveCard }) => {
       isDragging: monitor.isDragging(),
     }),
   })
-  const opacity = isDragging ? 0 : 1;
+  const opacity = isDragging ? 0.5 : 1;
 
   drag(drop(ref))
   
   return (
     <div 
       ref={ref} 
-      style={{ ...style, opacity }} 
+      style={{ opacity }} 
       data-handler-id={handlerId}
     >
       {children}

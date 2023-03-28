@@ -11,5 +11,4 @@ export const store = configureStore({
     },
     devTools: true
 })
-console.log(ingredients);
 export default store;

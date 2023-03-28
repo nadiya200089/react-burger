@@ -1,3 +1,4 @@
+import React from 'react';
 import style from './style.module.css';
 import classNames from 'classnames';
 import { BurgerIngredient } from '@ya.praktikum/react-developer-burger-ui-components';
@@ -11,7 +12,8 @@ import { addConstructor } from '../services/reducers/constructor';
 import BurgerIngredientDrag from '../burgerIngredientDrag/burgerIngredientDrag';
 
 
-export const Category = ({ title, id, ingredients }) => {
+export const Category =  React.forwardRef
+(({ title, id, ingredients }, ref) => {
     const [ingredientModal, setIngredientModal] = useState(null);
     const dispatch = useDispatch()
     const closeModalIngredient = () => { 
@@ -27,27 +29,23 @@ export const Category = ({ title, id, ingredients }) => {
     return (
         <>
             <h2 className="text text_type_main-large mb-6 mt-10" id={id}>{title}</h2>
-            <div className={classNames(style.list, 'mb-16')}>
+            <div className={classNames(style.list, 'mb-16')} ref={ref}>
 
                 {ingredients?.map(data => <BurgerIngredientDrag data={data} key={data._id}
                 {...data}
                 
                 count={1} onClick={() => {
-                    dispatch(addConstructor(data));
+                    // dispatch(addConstructor(data));
                     setIngredientModal(data)
                 }
                 } />
-                // <BurgerIngredient key={data._id} {...data} count={1} onClick={() => { 
-                //      dispatch(addConstructor(data));
-                //      setIngredientModal(data)}
-                //      } />
                      )}
             </div>
             {ingredientModal && <Modal onClose={closeModalIngredient} > <IngredientDetails data={ingredientModal} /> </Modal>}
         </>
     )
 
-};
+});
 
 Category.propTypes = {
     title: PropTypes.string.isRequired,

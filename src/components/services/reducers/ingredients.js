@@ -85,3 +85,5 @@ export const ingredientsSlice = createSlice({
 });
 
 export default ingredientsSlice.reducer;
+
+export const { plusCount, minusCount } = ingredientsSlice.actions;

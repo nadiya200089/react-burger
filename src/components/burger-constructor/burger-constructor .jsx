@@ -9,6 +9,9 @@ import { ingredientsPropTypes } from '../utils/prop-types';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { deleteIngredient, addConstructor, moveItem  } from '../services/reducers/constructor';
+import {plusCount} from '../services/reducers/ingredients';
+
+
 import DropContainer from './components/DropContainer';
 import { DragAndDropContainer } from './components/dnd/DragAndDropContainer';
 
@@ -37,6 +40,12 @@ export const BurgerConstructor = () => {
 
     const onDropBanHandler = (objBun) => {
         dispatch(addConstructor(objBun));
+    };
+
+    const onDropCustom = (objBun) => {
+        dispatch(plusCount({id: objBun.id, type: objBun.type}))
+        dispatch(addConstructor(objBun));
+        
     };
 
     const countPrice = useMemo(() => {
@@ -68,8 +77,7 @@ export const BurgerConstructor = () => {
                     />
                 </div>
             </DropContainer>
-            <DropContainer onDropHandler={onDropBanHandler}>
-
+            <DropContainer onDropHandler={onDropCustom}>
                         <div className={classNames(style.main_ingredients, 'custom-scroll')}>
                             {
                                  ingredients.map((data, index) => (

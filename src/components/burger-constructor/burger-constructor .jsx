@@ -8,35 +8,36 @@ import { Modal } from '../modal/modal';
 import { ingredientsPropTypes } from '../utils/prop-types';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
-import { deleteIngredient, addConstructor, moveItem  } from '../services/reducers/constructor';
-import ingredients, {plusCount} from '../services/reducers/ingredients';
-
-
-import DropContainer from './components/DropContainer';
-import { DragAndDropContainer } from './components/dnd/DragAndDropContainer';
-
-
-// function getResponseData(res) {
-//     if (!res.ok) {
-//         return Promise.reject(`Ошибка`); 
-//     }
-//     return res.json();
-//   }
-//  function getOrderNumber(_id) {
-//     return fetch(`https://norma.nomoreparties.space/api/orders`, {
-//       method: 'POST',
-//       body: JSON.stringify({
-//         ingredients: _id,
-     
-//       })
-//     })
-//     .then(getResponseData)
-//   }
-//   console.log(getOrderNumber());
-
+import { deleteIngredient, addConstructor, moveItem, updateOrder  } from '../services/reducers/constructor';
+import DropContainer from '../dnd/DropContainer';
+import { DragAndDropContainer } from '../dnd/DragAndDropContainer';
+import { GetOrder } from '../utils/api';
 export const BurgerConstructor = () => {
-    const { bun, ingredients } = useSelector(state => state.constructorStore);
+    const { bun, ingredients, lastOrder } = useSelector(state => state.constructorStore);
     const dispatch = useDispatch()
+    const ids = ingredients.map(ingredient => [ingredient._id]);
+
+    const getOrder = () => {
+        return fetch(`https://norma.nomoreparties.space/api/orders`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                'ingredients': ids,
+            })
+        })
+        .then(result => {
+            return result.ok ? result.json() : Promise.reject(result.status);
+        })
+        .then((data) => {
+            dispatch(updateOrder({name: data.name, order: data.order.number}))
+            // setOrderModal(true);
+        })
+        .catch(error => {
+            console.log('error', error);
+        })
+    }
 
     const [orderModal, setOrderModal] = useState(false);
 
@@ -46,28 +47,17 @@ export const BurgerConstructor = () => {
         return () => document.removeEventListener('keydown', closeByEsc)
     }, [])
     const closeOrderModal = () => { setOrderModal(false) }
+ 
+    useEffect(() => { 
+        if (lastOrder && String(lastOrder.order).length) {
+            setOrderModal(true)
+        }
+    },[lastOrder])
 
-    //API
-    const handleSaveOrder = () => {
-        const ids = ingredients.map(ingredient => ingredient._id);
-        return fetch(`https://norma.nomoreparties.space/api/orders`, {
-            method: 'POST',
-            header: {
-                'Content-Type': 'application/json;charset=uft-8'
-            },
-            body: JSON.stringify({
-                'ingredients': ["609646e4dc916e00276b286e", "60d3b41abdacab0026a733cb"],
-            
-            })
-        })
-        .then(result  => {
-            console.log(result);
-        })
-        .catch(error => {
-            console.log('error', error);
-        })
-    }
-
+const handleSaveOrder = () => {
+    getOrder()
+}
+    
     const handleDeleteIngredient = (id) => {
         dispatch(deleteIngredient(id));
     };
@@ -78,12 +68,6 @@ export const BurgerConstructor = () => {
 
     const onDropBanHandler = (objBun) => {
         dispatch(addConstructor(objBun));
-    };
-
-    const onDropCustom = (objBun) => {
-        dispatch(plusCount({id: objBun.id, type: objBun.type}))
-        dispatch(addConstructor(objBun));
-        
     };
 
     const countPrice = useMemo(() => {
@@ -115,11 +99,13 @@ export const BurgerConstructor = () => {
                     />
                 </div>
             </DropContainer>
-            <DropContainer onDropHandler={onDropCustom}>
-                        <div className={classNames(style.main_ingredients, 'custom-scroll')}>
-                            {
-                                 ingredients.map((data, index) => (
+            <div className={classNames(style.main_ingredients_wrap, 'custom-scroll')}>
+
+            <DropContainer onDropHandler={onDropIngridientHandler}>
+                        <div className={classNames(style.main_ingredients)}>
+                            {ingredients.map((data, index) => (
                                     <DragAndDropContainer 
+                                        className={classNames(style.main_ingredients_wrap, 'custom-scroll')}
                                         index={index}
                                         id={data.uuid}
                                         moveCard={handleMoveCard}
@@ -140,32 +126,10 @@ export const BurgerConstructor = () => {
                                 )
                             }
                         </div>
-               </DropContainer>         
-            {/* <DropContainer onDropHandler={onDropIngridientHandler}>
-                <div className={classNames(style.main_ingredients, 'custom-scroll')}>
-                    {
-                        ingredients.map((data, index) => (
+               </DropContainer>       
 
-                            <div key={data.uuid} className={classNames(style.main, "mr-4")}>
-                                <DragIcon type="primary" />
-                                <ConstructorElement
-                                    className="ml-2 mr-2 mb-2 mt-2"
-                                    key={data.uuid}
-                                    text={data.name}
-                                    thumbnail={data.image}
-                                    {...data}
-                                    handleClose={() => handleDeleteIngredient(data.uuid)}
-                                />
-                            </div>
-
-                        )
-                        )
-                    }
-                </div>
-            </DropContainer> */}
-           
-
-
+            </div>  
+            
             <div className={classNames(style.bun, 'ml-5')}>
                 <ConstructorElement
                     thumbnail={bun?.image}
@@ -184,7 +148,4 @@ export const BurgerConstructor = () => {
             {orderModal && <Modal onClose={closeOrderModal}> <OrderDetails data={orderModal} /> </Modal>}
         </div>
     )
-}
-BurgerConstructor.propTypes = {
-    constructorIngredients: PropTypes.arrayOf(ingredientsPropTypes.isRequired).isRequired
 }

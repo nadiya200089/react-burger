@@ -14,6 +14,7 @@ export const fetchIngredients = createAsyncThunk(
     if (!response) {
       return rejectWithValue('Ошибка')
     }
+
     return fulfillWithValue(response.data)
   }
 
@@ -22,46 +23,7 @@ export const fetchIngredients = createAsyncThunk(
 export const ingredientsSlice = createSlice({
   name: 'ingredients',
   initialState,
-  reducers: {
-    plusCount: (state, action) => {
-      const currentIngredientId = action.payload.id;
-      const currentIngredientType = action.payload.type;
-
-      state.data = state.data.map(ingredient => {
-        let count;
-        if (ingredient.type === 'bun' && currentIngredientType === 'bun') {
-          ingredient.count = 0;
-        }
-        if (ingredient._id === currentIngredientId) {
-          if (ingredient.type === 'bun') {
-            count = 2;
-          } else {
-            count = ingredient.count ? ++ingredient.count : 1
-          }
-        }
-        return ingredient._id === currentIngredientId ? {
-          ...ingredient,
-          count: count
-        } : ingredient
-      })
-    },
-    minusCount: (state, action) => {
-      return  {
-        ...state,
-        data: state.data.map((item) => {
-          const {count, _id} = item;
-          if (_id !==action.payload) {
-            return item
-          }
-          return {
-            ...item,
-            count: count > 1 ? count - 1 : null
-          }
-        })
-      }
-    }
-  },
-  extraReducers: (builder) => {
+   extraReducers: (builder) => {
     builder
       .addCase(fetchIngredients.pending, (state) => {
         state.isLoading = true;
@@ -80,5 +42,3 @@ export const ingredientsSlice = createSlice({
 });
 
 export default ingredientsSlice.reducer;
-
-export const { plusCount, minusCount } = ingredientsSlice.actions;

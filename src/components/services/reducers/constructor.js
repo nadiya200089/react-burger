@@ -5,6 +5,10 @@ import ingredients from './ingredients';
 const initialState = {
   bun: [],
   ingredients: [],
+  lastOrder: {
+    name: '',
+    order: ''
+  },
   sum: 0
 }
 
@@ -20,11 +24,9 @@ export const constructorSlice = createSlice({
       state.ingredients.push({ ...action.payload, uuid: uuidv4() });
     },
     moveItem: (state, action) => {
-        const { di, hi } = action.payload;
-        const ingrds = state.ingredients;
-        console.log(ingrds)
-        ingrds.splice(di, 0, ingrds.splice(hi, 1)[0]);
-        console.log(ingrds)
+      const { di, hi } = action.payload;
+      const ingrds = state.ingredients;
+      ingrds.splice(di, 0, ingrds.splice(hi, 1)[0]);
     },
     deleteIngredient: (state, action) => {
       const id = action.payload;
@@ -36,9 +38,13 @@ export const constructorSlice = createSlice({
       else {
         console.log('error');
       }
+    },
+    updateOrder:  (state, action) => {
+      const { name, order } = action.payload;
+      state.lastOrder = { name, order };
     }
   }
 });
 
-export const { deleteIngredient, addConstructor, moveItem } = constructorSlice.actions;
+export const { deleteIngredient, addConstructor, moveItem, updateOrder } = constructorSlice.actions;
 export default constructorSlice.reducer;

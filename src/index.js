@@ -4,6 +4,11 @@ import { Provider } from 'react-redux';
 import {App} from './components/app/app';
 import store from './components/services/store';
 import './index.css';
+// import { compose, configureStore } from 'redux';
+// const enhancer = composeEnhancers();
+
+// const store = configureStore(reducer, enhancer); 
+
 
 
 const root = ReactDOM.createRoot(

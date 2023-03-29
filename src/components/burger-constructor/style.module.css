@@ -4,13 +4,19 @@
     gap: 16px;
 }
 
+.main_ingredients_wrap {
+    display: flex;
+    overflow-y: scroll;
+    flex-direction: column;
+
+}
 
 .main_ingredients {
     display: flex;
     flex-direction: column;
     gap: 16px;
-    overflow-y: scroll;
-    min-height: 50px;
+    /* overflow-y: scroll; */
+    min-height: 130px;
     cursor: pointer;
 }
 

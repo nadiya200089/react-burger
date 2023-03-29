@@ -14,7 +14,6 @@ export const BurgerIngredients = () => {
     const [current, setCurrent] = useState('buns');
     const dispatch = useDispatch();
 
-
     const ingredients = useSelector(state => state.ingredientsStore.data);
 
     const buns = ingredients.filter(item => item.type === 'bun');
@@ -84,8 +83,4 @@ export const BurgerIngredients = () => {
         </div>
 
     )
-}
-
-BurgerIngredients.propTypes = {
-    ingredients: PropTypes.arrayOf(ingredientsPropTypes.isRequired).isRequired
 }

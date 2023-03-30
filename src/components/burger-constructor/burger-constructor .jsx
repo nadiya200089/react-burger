@@ -8,7 +8,7 @@ import { Modal } from '../modal/modal';
 import { ingredientsPropTypes } from '../utils/prop-types';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
-import { deleteIngredient, addConstructor, moveItem, updateOrder  } from '../services/reducers/constructor';
+import { deleteIngredient, addConstructor, moveItem, updateOrder } from '../services/reducers/constructor';
 import DropContainer from '../dnd/DropContainer';
 import { DragAndDropContainer } from '../dnd/DragAndDropContainer';
 
@@ -21,23 +21,21 @@ export const BurgerConstructor = () => {
 
     const [orderModal, setOrderModal] = useState(false);
 
-    useEffect(() => {
-        const closeByEsc = (target) => { if (target.key === 'Escape') { setOrderModal(null) } }
-        document.addEventListener('keydown', closeByEsc)
-        return () => document.removeEventListener('keydown', closeByEsc)
-    }, [])
-    const closeOrderModal = () => { setOrderModal(false) }
- 
+
+    const closeOrderModal = () => {
+        setOrderModal(false);
+    }
+
     useEffect(() => {
         if (order > 0) setOrderModal(true)
-    },[order])
+    }, [order])
 
     const handleSaveOrder = () => {
 
         const ids = ingredients.map(ingredient => [ingredient._id]);
         dispatch(fetchOrder(ids));
     }
-    
+
     const handleDeleteIngredient = (id) => {
         dispatch(deleteIngredient(id));
     };
@@ -56,15 +54,15 @@ export const BurgerConstructor = () => {
             totalPrice = 0;
         }
         else {
-            totalPrice +=bun?.price * 2
+            totalPrice += bun?.price * 2
         }
-        ingredients?.map(ingredient => {totalPrice += ingredient.price});
+        ingredients?.map(ingredient => { totalPrice += ingredient.price });
         return totalPrice;
     })
 
 
     const handleMoveCard = (di, hi) => {
-       dispatch(moveItem({di, hi}));
+        dispatch(moveItem({ di, hi }));
     }
     return (
         <div className={style.constructor} >
@@ -81,35 +79,35 @@ export const BurgerConstructor = () => {
             </DropContainer>
             <div className={classNames(style.main_ingredients_wrap, 'custom-scroll')}>
 
-            <DropContainer onDropHandler={onDropIngridientHandler}>
-                        <div className={classNames(style.main_ingredients)}>
-                            {ingredients.map((data, index) => (
-                                    <DragAndDropContainer 
-                                        className={classNames(style.main_ingredients_wrap, 'custom-scroll')}
-                                        index={index}
-                                        id={data.uuid}
-                                        moveCard={handleMoveCard}
-                                    >
-                                        <div key={data.uuid} className={classNames(style.main, "mr-4")}>
-                                            <DragIcon type="primary" /> 
-                                            <ConstructorElement 
-                                                className="ml-2 mr-2 mb-2 mt-2"
-                                                key={data.uuid}
-                                                text={data.name}
-                                                thumbnail={data.image}
-                                                {...data}
-                                                handleClose={() => handleDeleteIngredient(data.uuid)}
-                                            />
-                                        </div>
-                                    </DragAndDropContainer>
-                                    )
-                                )
-                            }
-                        </div>
-               </DropContainer>       
+                <DropContainer onDropHandler={onDropIngridientHandler}>
+                    <div className={classNames(style.main_ingredients)}>
+                        {ingredients.map((data, index) => (
+                            <DragAndDropContainer
+                                className={classNames(style.main_ingredients_wrap, 'custom-scroll')}
+                                index={index}
+                                id={data.uuid}
+                                moveCard={handleMoveCard}
+                            >
+                                <div key={data.uuid} className={classNames(style.main, "mr-4")}>
+                                    <DragIcon type="primary" />
+                                    <ConstructorElement
+                                        className="ml-2 mr-2 mb-2 mt-2"
+                                        key={data.uuid}
+                                        text={data.name}
+                                        thumbnail={data.image}
+                                        {...data}
+                                        handleClose={() => handleDeleteIngredient(data.uuid)}
+                                    />
+                                </div>
+                            </DragAndDropContainer>
+                        )
+                        )
+                        }
+                    </div>
+                </DropContainer>
 
-            </div>  
-            
+            </div>
+
             <div className={classNames(style.bun, 'ml-5')}>
                 <ConstructorElement
                     thumbnail={bun?.image}
@@ -125,7 +123,10 @@ export const BurgerConstructor = () => {
                 <Button extraClass="ml-10" htmlType="button" type="primary" size="large" onClick={handleSaveOrder}>
                     Оформить заказ </Button>
             </div>
-            {orderModal && <Modal onClose={closeOrderModal}> <OrderDetails data={orderModal} /> </Modal>}
+            {orderModal &&
+                <Modal onClose={closeOrderModal}>
+                    <OrderDetails data={orderModal} />
+                </Modal>}
         </div>
     )
 }

@@ -23,7 +23,7 @@ export const fetchIngredients = createAsyncThunk(
 export const ingredientsSlice = createSlice({
   name: 'ingredients',
   initialState,
-   extraReducers: (builder) => {
+  extraReducers: (builder) => {
     builder
       .addCase(fetchIngredients.pending, (state) => {
         state.isLoading = true;

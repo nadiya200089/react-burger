@@ -1,8 +1,8 @@
 import React from 'react';
 import { useDrop } from "react-dnd";
 
-const DropContainer = ({children, onDropHandler, typeAccept = "ingredient" }) => {
-    const [{isHover}, dropTarget] = useDrop({
+const DropContainer = ({ children, onDropHandler, typeAccept = "ingredient" }) => {
+    const [{ isHover }, dropTarget] = useDrop({
         accept: typeAccept,
         drop(itemId) {
             onDropHandler(itemId);
@@ -14,13 +14,13 @@ const DropContainer = ({children, onDropHandler, typeAccept = "ingredient" }) =>
 
     const borderColor = isHover ? 'red' : 'pink';
     return (
-            <div
-                className='drop-provider'
-                ref={dropTarget}
-                style={{borderColor}}
-            >
-                {children}
-            </div>
+        <div
+            className='drop-provider'
+            ref={dropTarget}
+            style={{ borderColor }}
+        >
+            {children}
+        </div>
     );
 };
 

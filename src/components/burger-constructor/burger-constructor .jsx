@@ -11,33 +11,13 @@ import { useDispatch } from 'react-redux';
 import { deleteIngredient, addConstructor, moveItem, updateOrder  } from '../services/reducers/constructor';
 import DropContainer from '../dnd/DropContainer';
 import { DragAndDropContainer } from '../dnd/DragAndDropContainer';
-import { GetOrder } from '../utils/api';
-export const BurgerConstructor = () => {
-    const { bun, ingredients, lastOrder } = useSelector(state => state.constructorStore);
-    const dispatch = useDispatch()
-    const ids = ingredients.map(ingredient => [ingredient._id]);
 
-    const getOrder = () => {
-        return fetch(`https://norma.nomoreparties.space/api/orders`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                'ingredients': ids,
-            })
-        })
-        .then(result => {
-            return result.ok ? result.json() : Promise.reject(result.status);
-        })
-        .then((data) => {
-            dispatch(updateOrder({name: data.name, order: data.order.number}))
-            // setOrderModal(true);
-        })
-        .catch(error => {
-            console.log('error', error);
-        })
-    }
+import { fetchOrder } from '../services/reducers/order';
+export const BurgerConstructor = () => {
+    const { bun, ingredients } = useSelector(state => state.constructorStore);
+    const { order } = useSelector(state => state.orderStore.data);
+
+    const dispatch = useDispatch()
 
     const [orderModal, setOrderModal] = useState(false);
 
@@ -48,15 +28,15 @@ export const BurgerConstructor = () => {
     }, [])
     const closeOrderModal = () => { setOrderModal(false) }
  
-    useEffect(() => { 
-        if (lastOrder && String(lastOrder.order).length) {
-            setOrderModal(true)
-        }
-    },[lastOrder])
+    useEffect(() => {
+        if (order > 0) setOrderModal(true)
+    },[order])
 
-const handleSaveOrder = () => {
-    getOrder()
-}
+    const handleSaveOrder = () => {
+
+        const ids = ingredients.map(ingredient => [ingredient._id]);
+        dispatch(fetchOrder(ids));
+    }
     
     const handleDeleteIngredient = (id) => {
         dispatch(deleteIngredient(id));

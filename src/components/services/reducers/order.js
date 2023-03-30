@@ -1,23 +1,24 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { GetOrder } from '../../utils/api';
+import { getOrder } from '../../utils/api';
 
 const initialState = {
-  data: {},
+  data: {
+    order: 0
+  },
   isLoading: false,
   error: null
 }
 
 export const fetchOrder = createAsyncThunk(
   'order/fetchOrder',
-  async (_, { rejectWithValue, fulfillWithValue }) => {
-    const response = await GetOrder()
+  async (data, { rejectWithValue, fulfillWithValue }) => {
+    const response = await getOrder(data)
     if (!response) {
       return rejectWithValue('Ошибка')
     }
 
-    return fulfillWithValue(response.data)
+    return fulfillWithValue(response)
   }
-
 )
 
 
@@ -31,7 +32,7 @@ export const orderSlice = createSlice({
           state.error = null
         })
         .addCase(fetchOrder.fulfilled, (state, action) => {
-          state.data = action.payload;
+          state.data.order = action.payload?.order?.number;
           state.isLoading = false
         })
         .addCase(fetchOrder.rejected, (state, action) => {

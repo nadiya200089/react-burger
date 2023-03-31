@@ -5,9 +5,9 @@
 }
 
 .details {
-display: flex;
-flex-direction: row;
-gap: 55px;
+    display: flex;
+    flex-direction: row;
+    gap: 55px;
 }
 
 .title {

@@ -6,7 +6,7 @@ import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-c
 
 
 export const BurgerIngredient = (props) => {
-    const { 
+    const {
         image,
         id,
         price,
@@ -23,17 +23,28 @@ export const BurgerIngredient = (props) => {
             key={id}
             className={styles.ingredient}
         >
-            { count > 0 && <Counter count={Number(count)} />}
+            {count > 0 && <Counter count={Number(count)} />}
             <img src={image} alt={name} />
-            <div className={classNames(style.burger_ingredient_cost, 'mt-2', "mb-2")}>
+            <div className={classNames(styles.burger_ingredient_cost, 'mt-2', "mb-2")}>
                 <p className="text text_type_digits-default mr-2">
                     {price}
                 </p>
                 <CurrencyIcon type="primary" />
             </div>
-    
-            <p className={classNames(style.burger_ingredient_text, "text", "text_type_main-default")}>{name}</p>
+
+            <p className={classNames(styles.burger_ingredient_text, "text", "text_type_main-default")}>{name}</p>
         </div>
     );
 
 };
+
+
+BurgerIngredient.propTypes = {
+    title: PropTypes.string,
+    id: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    price: PropTypes.number.isRequired,
+    image: PropTypes.string.isRequired,
+    onClick: PropTypes.func.isRequired,
+    count: PropTypes.number
+}

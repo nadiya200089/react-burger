@@ -1,6 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { v4 as uuidv4 } from 'uuid'
-import ingredients from './ingredients';
 
 const initialState = {
   bun: {},
@@ -39,7 +38,7 @@ export const constructorSlice = createSlice({
         console.log('error');
       }
     },
-    updateOrder:  (state, action) => {
+    updateOrder: (state, action) => {
       const { name, order } = action.payload;
       state.lastOrder = { name, order };
     }

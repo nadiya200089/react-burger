@@ -19,5 +19,7 @@ code {
 
 .constructor-element__custom .constructor-element__row .constructor-element__text {
    justify-content: center;
+   margin-top: 10px;
+   margin-left: 10px;
 }
 

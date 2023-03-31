@@ -46,7 +46,7 @@ export const BurgerConstructor = () => {
         if (!bun.name) {
             return totalPrice;
         }
-       
+
         totalPrice += bun?.price * 2;
         ingredients?.map(ingredient => { totalPrice += ingredient.price });
         return totalPrice;
@@ -65,7 +65,7 @@ export const BurgerConstructor = () => {
                         text={bun.name ? `${bun?.name} (низ)` : 'Перетащите, пожалуйста, булку'}
                         {...bun}
                         isLocked={true}
-                        extraClass={bun.name ? ""  : "constructor-element__custom"} 
+                        extraClass={bun.name ? "" : "constructor-element__custom"}
                         type="top"
                     />
                 </div>
@@ -108,7 +108,7 @@ export const BurgerConstructor = () => {
                     text={bun.name ? `${bun?.name} (низ)` : 'Перетащите, пожалуйста, булку'}
                     {...bun}
                     isLocked={true}
-                    extraClass={bun.name ? ""  : "constructor-element__custom"} 
+                    extraClass={bun.name ? "" : "constructor-element__custom"}
                     type="bottom"
                 />
             </div>

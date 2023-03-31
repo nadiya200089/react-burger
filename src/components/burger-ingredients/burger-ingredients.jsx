@@ -16,10 +16,6 @@ export const BurgerIngredients = () => {
 
     const buns = ingredients.filter(item => item.type === 'bun');
 
-    // if (buns && buns.length) {
-    //     dispatch(addConstructor(buns[0]));
-    // }
-
     const main = ingredients.filter(item => item.type === 'main');
     const sauce = ingredients.filter(item => item.type === 'sauce');
 

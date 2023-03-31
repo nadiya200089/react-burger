@@ -4,10 +4,13 @@
     position: relative;
 }
 
-.burger-ingredient-cost {
+.burger_ingredient_cost {
     display: flex;
+    flex-direction: row;
+    justify-content: center;
 }
 
-.burger-ingredient-text {
-
+.burger_ingredient_text {
+    display: flex;
+    justify-content: center;
 }

@@ -1,8 +1,6 @@
 import classNames from 'classnames';
 import style from './style.module.css';
 import PropTypes from 'prop-types';
-import { ingredientsPropTypes } from '../../utils/prop-types';
-
 
 export const IngredientDetails = ({ data }) => {
     return (
@@ -40,5 +38,5 @@ export const IngredientDetails = ({ data }) => {
 }
 
 IngredientDetails.propTypes = {
-    data: PropTypes.objectOf.isRequired
+    data: PropTypes.object.isRequired
 }

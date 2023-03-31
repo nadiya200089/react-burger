@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import style from './style.module.css';
 import PropTypes from 'prop-types';
-import { ingredientsPropTypes } from '../utils/prop-types';
+import { ingredientsPropTypes } from '../../utils/prop-types';
 
 
 export const IngredientDetails = ({ data }) => {
@@ -9,7 +9,7 @@ export const IngredientDetails = ({ data }) => {
         <div className={style.ingredient_details}>
             <div className={classNames(style.title, 'text', 'text_type_main-large')}>Детали ингредиента</div>
             <div>
-                <img className={style.image_large} src={data.image_large}></img>
+                <img className={style.image_large} src={data.image_large} alt={data.name}></img>
             </div>
             <div className="text text_type_main-medium mb-8">
                 {data.name}
@@ -40,5 +40,5 @@ export const IngredientDetails = ({ data }) => {
 }
 
 IngredientDetails.propTypes = {
-    ingredients: PropTypes.arrayOf(ingredientsPropTypes.isRequired).isRequired
+    data: PropTypes.objectOf.isRequired
 }

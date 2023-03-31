@@ -3,7 +3,7 @@ import { v4 as uuidv4 } from 'uuid'
 import ingredients from './ingredients';
 
 const initialState = {
-  bun: [],
+  bun: {},
   ingredients: [],
   lastOrder: {
     name: '',

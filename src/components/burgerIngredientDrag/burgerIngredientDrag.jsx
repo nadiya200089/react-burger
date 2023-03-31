@@ -1,13 +1,9 @@
-import { BurgerIngredient } from "@ya.praktikum/react-developer-burger-ui-components";
+import { BurgerIngredient as Test } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useDrag } from "react-dnd";
 import style from './style.module.css';
+import { BurgerIngredient } from "../burger-ingredient/burger-ingredient";
 
-import { useDispatch } from "react-redux";
-import { addConstructor } from "../services/reducers/constructor";
-
-
-export function BurgerIngredientDrag({data, count, onClick}) {
-       // const dispatch = useDispatch()
+export function BurgerIngredientDrag({ data, count, onClick }) {
 
     const [{ isDrag }, dragRef] = useDrag({
         type: 'ingredient',
@@ -19,14 +15,15 @@ export function BurgerIngredientDrag({data, count, onClick}) {
     const opacity = isDrag ? 0.4 : 1
 
     return (
-        <div ref={dragRef} calssName={style.dragIngredient}>
+        <div ref={dragRef} className={style.dragIngredient}>
             <BurgerIngredient
-                key={data._id}
+                id={data._id}
+                className={count > 0 && 'custom'}
                 {...data}
                 count={count}
-                style={{opacity}}
-                onClick= {onClick}
-                 />
+                style={{ opacity }}
+                onClick={onClick}
+            />
         </div>
 
     )

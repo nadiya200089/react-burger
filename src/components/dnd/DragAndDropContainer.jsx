@@ -1,13 +1,13 @@
 import { useRef } from 'react'
 import { useDrag, useDrop } from 'react-dnd'
 
-const style = {
-  border: '1px dashed gray',
-  padding: '0.5rem 1rem',
-  marginBottom: '.5rem',
-  backgroundColor: 'white',
-  cursor: 'move',
-}
+// const style = {
+//   border: '1px dashed gray',
+//   padding: '0.5rem 1rem',
+//   marginBottom: '.5rem',
+//   backgroundColor: 'white',
+//   cursor: 'move',
+// }
 export const DragAndDropContainer = ({ children, id, index, moveCard }) => {
   const ref = useRef(null);
 

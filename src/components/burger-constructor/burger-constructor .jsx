@@ -1,26 +1,20 @@
 import style from './style.module.css';
 import classNames from 'classnames';
-import PropTypes from 'prop-types';
 import { ConstructorElement, DragIcon, Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { OrderDetails } from '../order-details/order-details';
 import { useEffect, useMemo, useState } from 'react';
 import { Modal } from '../modal/modal';
-import { ingredientsPropTypes } from '../utils/prop-types';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
-import { deleteIngredient, addConstructor, moveItem, updateOrder } from '../services/reducers/constructor';
+import { deleteIngredient, addConstructor, moveItem } from '../services/reducers/constructor';
 import DropContainer from '../dnd/DropContainer';
 import { DragAndDropContainer } from '../dnd/DragAndDropContainer';
-
-import { fetchOrder } from '../services/reducers/order';
+import { fetchOrder } from '../services/actions/order';
 export const BurgerConstructor = () => {
     const { bun, ingredients } = useSelector(state => state.constructorStore);
     const { order } = useSelector(state => state.orderStore.data);
-
     const dispatch = useDispatch()
-
     const [orderModal, setOrderModal] = useState(false);
-
 
     const closeOrderModal = () => {
         setOrderModal(false);
@@ -31,7 +25,6 @@ export const BurgerConstructor = () => {
     }, [order])
 
     const handleSaveOrder = () => {
-
         const ids = ingredients.map(ingredient => [ingredient._id]);
         dispatch(fetchOrder(ids));
     }
@@ -50,35 +43,35 @@ export const BurgerConstructor = () => {
 
     const countPrice = useMemo(() => {
         let totalPrice = 0;
-        if (bun === null || undefined) {
-            totalPrice = 0;
+        if (!bun.name) {
+            return totalPrice;
         }
-        else {
-            totalPrice += bun?.price * 2
-        }
+       
+        totalPrice += bun?.price * 2;
         ingredients?.map(ingredient => { totalPrice += ingredient.price });
         return totalPrice;
     })
 
-
     const handleMoveCard = (di, hi) => {
         dispatch(moveItem({ di, hi }));
     }
+
     return (
         <div className={style.constructor} >
             <DropContainer onDropHandler={onDropBanHandler}>
                 <div className={classNames(style.bun, 'ml-5')}>
                     <ConstructorElement
                         thumbnail={bun?.image}
-                        text={`${bun?.name} (верх)`}
+                        text={bun.name ? `${bun?.name} (низ)` : 'Перетащите, пожалуйста, булку'}
                         {...bun}
                         isLocked={true}
+                        extraClass={bun.name ? ""  : "constructor-element__custom"} 
                         type="top"
                     />
                 </div>
             </DropContainer>
-            <div className={classNames(style.main_ingredients_wrap, 'custom-scroll')}>
 
+            <div className={classNames(style.main_ingredients_wrap, 'custom-scroll')}>
                 <DropContainer onDropHandler={onDropIngridientHandler}>
                     <div className={classNames(style.main_ingredients)}>
                         {ingredients.map((data, index) => (
@@ -86,6 +79,7 @@ export const BurgerConstructor = () => {
                                 className={classNames(style.main_ingredients_wrap, 'custom-scroll')}
                                 index={index}
                                 id={data.uuid}
+                                key={`${index}-${data._id}`}
                                 moveCard={handleMoveCard}
                             >
                                 <div key={data.uuid} className={classNames(style.main, "mr-4")}>
@@ -111,9 +105,10 @@ export const BurgerConstructor = () => {
             <div className={classNames(style.bun, 'ml-5')}>
                 <ConstructorElement
                     thumbnail={bun?.image}
-                    text={`${bun?.name} (низ)`}
+                    text={bun.name ? `${bun?.name} (низ)` : 'Перетащите, пожалуйста, булку'}
                     {...bun}
                     isLocked={true}
+                    extraClass={bun.name ? ""  : "constructor-element__custom"} 
                     type="bottom"
                 />
             </div>

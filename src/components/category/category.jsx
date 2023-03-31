@@ -6,7 +6,7 @@ import { Modal } from '../modal/modal';
 import { useEffect, useState } from 'react';
 import { IngredientDetails } from '../ingridient-details/ingredient-details';
 import PropTypes from 'prop-types';
-import { ingredientsPropTypes } from '../utils/prop-types';
+import { ingredientsPropTypes } from '../../utils/prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { addConstructor } from '../services/reducers/constructor';
 import BurgerIngredientDrag from '../burgerIngredientDrag/burgerIngredientDrag';
@@ -38,18 +38,19 @@ export const Category = React.forwardRef
                             data={data}
                             key={data._id}
                             {...data}
-                            count={Boolean(count) ? count : null}
-                            // count={}
-                            onClick={() => {
-                                // dispatch(addConstructor(data));
-                                setIngredientModal(data)
-                            }}
+                            count={count}
+                            onClick={() => setIngredientModal(data)}
                         />
                     }
 
                     )}
                 </div>
-                {ingredientModal && <Modal onClose={closeModalIngredient} > <IngredientDetails data={ingredientModal} /> </Modal>}
+                {ingredientModal && 
+                <Modal 
+                    onClose={closeModalIngredient}
+                > 
+                    <IngredientDetails data={ingredientModal} /> 
+                </Modal>}
             </>
         )
 

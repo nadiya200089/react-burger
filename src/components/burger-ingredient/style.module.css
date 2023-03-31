@@ -1,0 +1,13 @@
+.ingredient {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.burger-ingredient-cost {
+    display: flex;
+}
+
+.burger-ingredient-text {
+
+}

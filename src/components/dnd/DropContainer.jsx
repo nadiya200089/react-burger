@@ -12,12 +12,10 @@ const DropContainer = ({ children, onDropHandler, typeAccept = "ingredient" }) =
         })
     });
 
-    const borderColor = isHover ? 'red' : 'pink';
     return (
         <div
             className='drop-provider'
             ref={dropTarget}
-            style={{ borderColor }}
         >
             {children}
         </div>

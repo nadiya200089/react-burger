@@ -2,9 +2,7 @@ import style from './style.module.css';
 import classNames from 'classnames';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components/dist/ui/tab';
 import { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
 import { Category } from '../category/category';
-import { ingredientsPropTypes } from '../utils/prop-types';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { addConstructor } from '../services/reducers/constructor';
@@ -18,9 +16,9 @@ export const BurgerIngredients = () => {
 
     const buns = ingredients.filter(item => item.type === 'bun');
 
-    if (buns && buns.length) {
-        dispatch(addConstructor(buns[0]));
-    }
+    // if (buns && buns.length) {
+    //     dispatch(addConstructor(buns[0]));
+    // }
 
     const main = ingredients.filter(item => item.type === 'main');
     const sauce = ingredients.filter(item => item.type === 'sauce');

@@ -6,10 +6,10 @@ import { useEffect, useMemo, useState } from 'react';
 import { Modal } from '../modal/modal';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
-import { deleteIngredient, addConstructor, moveItem } from '../services/reducers/constructor';
+import { deleteIngredient, addConstructor, moveItem } from '../../services/reducers/constructor';
 import DropContainer from '../dnd/DropContainer';
 import { DragAndDropContainer } from '../dnd/DragAndDropContainer';
-import { fetchOrder } from '../services/actions/order';
+import { fetchOrder } from '../../services/actions/order';
 export const BurgerConstructor = () => {
     const { bun, ingredients } = useSelector(state => state.constructorStore);
     const { order } = useSelector(state => state.orderStore.data);

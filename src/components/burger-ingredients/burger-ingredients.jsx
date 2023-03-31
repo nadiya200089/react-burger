@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 import { Category } from '../category/category';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
-import { addConstructor } from '../services/reducers/constructor';
+import { addConstructor } from '../../services/reducers/constructor';
 import { useInView } from 'react-intersection-observer';
 
 export const BurgerIngredients = () => {

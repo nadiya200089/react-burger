@@ -98,11 +98,10 @@ export const BurgerConstructor = () => {
                 key={data.uuid}
                 moveCard={handleMoveCard}
               >
-                <div key={data.uuid} className={classNames(style.main, "mr-4")}>
+                <div className={classNames(style.main, "mr-4")}>
                   <DragIcon type="primary" />
                   <ConstructorElement
                     className="ml-2 mr-2 mb-2 mt-2"
-                    key={data.uuid}
                     text={data.name}
                     thumbnail={data.image}
                     {...data}

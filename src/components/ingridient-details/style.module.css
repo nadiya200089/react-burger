@@ -1,21 +1,21 @@
 .ingredient_details {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .details {
-    display: flex;
-    flex-direction: row;
-    gap: 55px;
+  display: flex;
+  flex-direction: row;
+  gap: 55px;
 }
 
 .title {
-    align-self: flex-start;
+  align-self: flex-start;
 }
 
 .element {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }

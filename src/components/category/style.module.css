@@ -1,6 +1,5 @@
 .list {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 56px 24px
-
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 56px 24px;
 }

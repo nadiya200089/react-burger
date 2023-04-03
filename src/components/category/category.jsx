@@ -9,7 +9,6 @@ import { ingredientsPropTypes } from '../../utils/prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import BurgerIngredientDrag from '../burgerIngredientDrag/burgerIngredientDrag';
 
-
 export const Category = React.forwardRef
     (({ title, id, ingredients }, ref) => {
         const { bun, ingredients: constructorIngredients } = useSelector(state => state.constructorStore);
@@ -17,8 +16,7 @@ export const Category = React.forwardRef
         const [ingredientModal, setIngredientModal] = useState(null);
         const dispatch = useDispatch()
         const closeModalIngredient = () => {
-            setIngredientModal(null)
-                ;
+            setIngredientModal(null);
         }
 
         return (

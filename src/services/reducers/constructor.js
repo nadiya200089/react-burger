@@ -1,22 +1,22 @@
-import { createSlice } from '@reduxjs/toolkit';
-import { v4 as uuidv4 } from 'uuid'
+import { createSlice } from "@reduxjs/toolkit";
+import { v4 as uuidv4 } from "uuid";
 
 const initialState = {
   bun: {},
   ingredients: [],
   lastOrder: {
-    name: '',
-    order: ''
+    name: "",
+    order: "",
   },
-  sum: 0
-}
+  sum: 0,
+};
 
 export const constructorSlice = createSlice({
-  name: 'constructor',
+  name: "constructor",
   initialState,
   reducers: {
     addConstructor: (state, action) => {
-      if (action.payload.type === 'bun') {
+      if (action.payload.type === "bun") {
         state.bun = { ...action.payload, uuid: uuidv4() };
         return;
       }
@@ -29,21 +29,20 @@ export const constructorSlice = createSlice({
     },
     deleteIngredient: (state, action) => {
       const id = action.payload;
-      const index = state.ingredients.findIndex(item => item.uuid === id);
+      const index = state.ingredients.findIndex((item) => item.uuid === id);
       if (index !== -1) {
-        state.ingredients.splice(index, 1)
-
-      }
-      else {
-        console.log('error');
+        state.ingredients.splice(index, 1);
+      } else {
+        console.log("error");
       }
     },
     updateOrder: (state, action) => {
       const { name, order } = action.payload;
       state.lastOrder = { name, order };
-    }
-  }
+    },
+  },
 });
 
-export const { deleteIngredient, addConstructor, moveItem, updateOrder } = constructorSlice.actions;
+export const { deleteIngredient, addConstructor, moveItem, updateOrder } =
+  constructorSlice.actions;
 export default constructorSlice.reducer;

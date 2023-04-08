@@ -1,5 +1,5 @@
 .wrapper {
-   
+
     width: 550px;
     z-index: 3;
     position: fixed;
@@ -12,17 +12,19 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-  
 }
 
 .input {
-background-color: #2F2F37;
-border-radius: 40px;
-height: 70px;
-width: 100%;
+    background-color: #2F2F37;
+    border-radius: 40px;
+    height: 70px;
+    width: 100%;
 }
 
 .paragraph {
-display: flex;
+    display: flex;
+}
 
+.button {
+    cursor: pointer;
 }

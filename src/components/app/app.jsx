@@ -11,25 +11,22 @@ import { HTML5Backend } from "react-dnd-html5-backend";
 import { Routes, Route } from "react-router-dom";
 import { Enter } from "../../pages/enter/enter";
 import { Register } from "../../pages/register/register";
-import { Context} from '../../context/context';
-import { Modal } from '../modal/modal';
+import { IngredientDetails } from "../ingridient-details/ingredient-details";
 
 export const App = () => {
   const dispatch = useDispatch();
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const changeModeModal = (isOpen) => {
-    setIsModalOpen(isOpen);
-  }
+
+  const [ingredientModal, setIngredientModal] = useState(null);
+  const closeModalIngredient = () => {
+    setIngredientModal(null);
+  };
 
   useEffect(() => {
     dispatch(fetchIngredients());
   }, [dispatch]);
 
   return (
-    <Context.Provider value={{
-      isModalOpen,
-      changeModeModal
-    }}>
+    <>
       <AppHeader />
       <Routes>
         <Route path='/' element={<DndProvider backend={HTML5Backend}>
@@ -49,6 +46,10 @@ export const App = () => {
           </div>
         </DndProvider>}
         />
+        {/* <Route path='ingredientDetails' element={
+          <IngredientDetails data={data} />
+        }
+        /> */}
         <Route path='enter' element={
           <Enter />
         }
@@ -58,13 +59,7 @@ export const App = () => {
         }
         />
       </Routes>
-      {
-        isModalOpen && (
-          <Modal onClose={() => {}}>
-            <>Test</>
-          </Modal>
-        )
-      }
-    </Context.Provider>
+    
+    </>
   );
 };

@@ -25,7 +25,7 @@ export const Register = () => {
             </Button>
             <div className={classNames(styles.paragraph, 'mt-20')}>
                 <p  className="text text_color_inactive text_type_main-default"> Уже зарегистрированы?</p>
-                <a onClick={handleNavigateToRegister} className="text text_color_accent text_type_main-default ml-3">Войти</a>
+                <a onClick={handleNavigateToRegister} className={classNames(styles.button, "text text_color_accent text_type_main-default ml-3")}>Войти</a>
             </div>
         </div >
     );

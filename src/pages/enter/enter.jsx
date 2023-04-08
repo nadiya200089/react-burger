@@ -24,11 +24,11 @@ export const Enter = () => {
             </Button>
             <div className={classNames(styles.paragraph, 'mt-20')}>
                 <p  className="text text_color_inactive text_type_main-default"> Вы - новый пользователь?</p>
-                <a onClick={handleNavigateToRegister} className="text text_color_accent text_type_main-default ml-3">Зарегистрироваться</a>
+                <a onClick={handleNavigateToRegister} className={classNames(styles.button,"text text_color_accent text_type_main-default ml-3")}>Зарегистрироваться</a>
             </div>
             <div className={classNames(styles.paragraph, 'mt-4')}>
                 <p  className="text text_color_inactive text_type_main-default">Забыли пароль?</p>
-                <p className="text text_color_accent text_type_main-default ml-3">Восстановить пароль</p>
+                <p className={classNames(styles.button, "text text_color_accent text_type_main-default ml-3")}>Восстановить пароль</p>
 
             </div>
 

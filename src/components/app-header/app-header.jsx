@@ -13,6 +13,8 @@ export const AppHeader = () => {
 
   const handleNavigateToEnter = () => {
       navigate('/enter');
+  };
+
   return (
     <header className={classNames(style.header, "pt-4", "pb-4")}>
       <nav className={style.nav}>
@@ -39,15 +41,15 @@ export const AppHeader = () => {
             style.header__column_right
           )}
         >
-          <a href="#" className={classNames(style.link, style.link_active)}>
+          <a onClick={handleNavigateToEnter} href="#" className={classNames(style.link, style.link_active)}>
             <ProfileIcon type="secondary" />
-            <a onClick={handleNavigateToEnter} className="text text_color_inactive text_type_main-default ml-2">
+            <span className="text text_color_inactive text_type_main-default ml-2">
               Личный кабинет
-            </a>
+            </span>
           </a>
         </div>
       </nav>
     </header>
   );
 }
-};
+

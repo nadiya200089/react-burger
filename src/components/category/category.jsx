@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React from "react";
 import style from "./style.module.css";
 import classNames from "classnames";
 import { Modal } from "../modal/modal";
@@ -8,10 +8,8 @@ import PropTypes from "prop-types";
 import { ingredientsPropTypes } from "../../utils/prop-types";
 import { useDispatch, useSelector } from "react-redux";
 import BurgerIngredientDrag from "../burgerIngredientDrag/burgerIngredientDrag";
-import { Context } from '../../context/context';
 
 export const Category = React.forwardRef(({ title, id, ingredients }, ref) => {
-  const { changeModeModal } = useContext(Context);
   const { bun, ingredients: constructorIngredients } = useSelector(
     (state) => state.constructorStore
   );
@@ -41,8 +39,7 @@ export const Category = React.forwardRef(({ title, id, ingredients }, ref) => {
               key={data._id}
               {...data}
               count={count}
-              // onClick={() => setIngredientModal(data)}
-              onClick={() => changeModeModal(true)}
+              onClick={() => setIngredientModal(data)}
             />
           );
         })}

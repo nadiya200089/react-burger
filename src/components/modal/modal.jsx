@@ -8,6 +8,7 @@ import { ModalOverlay } from "../modal-overlay/modal-overlay";
 const modalRoot = document.querySelector("#modals");
 
 export const Modal = ({ onClose, children }) => {
+  
   useEffect(() => {
     const closeByEsc = (target) => {
       if (target.key === "Escape") {

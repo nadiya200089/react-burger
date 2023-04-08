@@ -1,6 +1,7 @@
 import { Logo } from "@ya.praktikum/react-developer-burger-ui-components";
 import style from "./style.module.css";
 import classNames from "classnames";
+import { useNavigate } from 'react-router-dom';
 import {
   BurgerIcon,
   ListIcon,
@@ -8,6 +9,10 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/icons";
 
 export const AppHeader = () => {
+  const navigate = useNavigate();
+
+  const handleNavigateToEnter = () => {
+      navigate('/enter');
   return (
     <header className={classNames(style.header, "pt-4", "pb-4")}>
       <nav className={style.nav}>
@@ -36,12 +41,13 @@ export const AppHeader = () => {
         >
           <a href="#" className={classNames(style.link, style.link_active)}>
             <ProfileIcon type="secondary" />
-            <span className="text text_color_inactive text_type_main-default ml-2">
+            <a onClick={handleNavigateToEnter} className="text text_color_inactive text_type_main-default ml-2">
               Личный кабинет
-            </span>
+            </a>
           </a>
         </div>
       </nav>
     </header>
   );
+}
 };

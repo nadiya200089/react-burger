@@ -8,18 +8,40 @@ import { useDispatch } from "react-redux";
 import fetchIngredients from "../../services/actions/ingredients";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
 import { Enter } from "../../pages/enter/enter";
 import { Register } from "../../pages/register/register";
 import { IngredientDetails } from "../ingridient-details/ingredient-details";
+import { ForgotPassword } from "../../pages/forgot-password/forgot-password";
+import { registerUser, setUser } from "../../utils/api";
+import { Modal } from "../modal/modal";
+import ingredients from "../../services/reducers/ingredients";
 
-export const App = () => {
+export const App = (data) => {
   const dispatch = useDispatch();
+  // const [ingredientModal, setIngredientModal] = useState(null);
+  // const closeModalIngredient = () => {
+  //   setIngredientModal(null);
+  // };
+  const location = useLocation();
+  const background = location.state?.background;
+  const navigate = useNavigate();
+  const onModalClose = () => {
+    navigate(background.pathname || "/", { replace: true })
+  }
 
-  const [ingredientModal, setIngredientModal] = useState(null);
-  const closeModalIngredient = () => {
-    setIngredientModal(null);
-  };
+  // const cbLogin = () => {
+  //   setUser({name: 'Vasilyi'});
+  // }
+
+  // const onLogout = () => {
+  //   setUser(null);
+  // }
+
+  // const cbRegister = () => {
+  //   registerUser()
+  //   setUser({name: 'Vasilyi'});
+  // }
 
   useEffect(() => {
     dispatch(fetchIngredients());
@@ -28,7 +50,7 @@ export const App = () => {
   return (
     <>
       <AppHeader />
-      <Routes>
+      <Routes location={background || location}>
         <Route path='/' element={<DndProvider backend={HTML5Backend}>
           <div className={style.app}>
             <h1
@@ -46,10 +68,10 @@ export const App = () => {
           </div>
         </DndProvider>}
         />
-        {/* <Route path='ingredientDetails' element={
+        <Route path='ingredientDetails/:id' element={
           <IngredientDetails data={data} />
         }
-        /> */}
+        />
         <Route path='enter' element={
           <Enter />
         }
@@ -58,8 +80,23 @@ export const App = () => {
           <Register />
         }
         />
+        <Route path='forgot-password' element={
+          <ForgotPassword />
+        }
+        />
       </Routes>
-    
+      {
+        background &&
+        <Routes>
+          <Route path='ingredientDetails/:id' element={
+            <Modal onClose={onModalClose}>
+              <IngredientDetails data={data} />
+            </Modal>
+
+          }
+          />
+        </Routes>
+      }
     </>
   );
 };

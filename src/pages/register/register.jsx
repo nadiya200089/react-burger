@@ -3,10 +3,32 @@ import classNames from "classnames";
 import styles from "./style.module.css";
 import PropTypes from "prop-types";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
+import { useState } from 'react';
 
-export const Register = () => {
+export const Register = ({onRegister}) => {
+
+    const [userData, setUserData] = useState({
+        email: '',
+        password: '',
+        name: '',
+      });
+    
+      const handleChange = (e) => {
+        const { name, value } = e.target;
+        setUserData({
+          ...userData,
+          [name]: value
+        });
+      }
+    
+      const [message, setMessage] = useState('');
+    
+      const handleSubmit = (e) => {
+        e.preventDefault();
+        onRegister(userData)
+      }
+    
     const navigate = useNavigate();
-
     const handleNavigateToRegister = () => {
         navigate('/enter');
     };
@@ -17,9 +39,9 @@ export const Register = () => {
             <h2 className="text text_type_main-large">
               Регистрация
             </h2>
-            <input type='name' placeholder="Имя" className={classNames(styles.input, 'mt-6')}></input>
-            <input type='email' placeholder="email" className={classNames(styles.input, 'mt-6')}></input>
-            <input type='password' placeholder="Пароль" className={classNames(styles.input, 'mt-6', 'mb-6')}></input>
+            <input type='text' placeholder="логин" value={userData.name} onChange={handleChange} className={classNames(styles.input, 'mt-6')}></input>
+            <input type='email' placeholder="email" value={userData.email} onChange={handleChange} className={classNames(styles.input, 'mt-6')}></input>
+            <input type='password' placeholder="Пароль" value={userData.password} onChange={handleChange} className={classNames(styles.input, 'mt-6', 'mb-6')}></input>
             <Button>
                 Зарегистрироваться
             </Button>

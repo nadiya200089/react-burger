@@ -1,15 +1,27 @@
 import classNames from "classnames";
 import style from "./style.module.css";
 import PropTypes from "prop-types";
+import { Link, useLocation, useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
 
-export const IngredientDetails = ({ data }) => {
+export const IngredientDetails = () => {
+  const { id } = useParams();
+
+  // const ingredientDetails = useEffect()
+   const { data: ingredient } = useSelector((state) => state.ingredientsStore);
+   const location = useLocation();   
+   const data = ingredient.find(item => item._id === id);
+   if (!data) {
+    return <div>404</div>
+   }
+
   return (
     <div className={style.ingredient_details}>
       <div className={classNames(style.title, "text", "text_type_main-large")}>
         Детали ингредиента
       </div>
       <div>
-        <img
+        <img 
           className={style.image_large}
           src={data.image_large}
           alt={data.name}

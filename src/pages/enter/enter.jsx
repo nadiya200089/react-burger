@@ -11,6 +11,11 @@ export const Enter = () => {
         navigate('/register');
     };
 
+    const handleNavigateToForgotPassword = () => {
+        navigate('/forgot-password');
+    };
+
+
     return (
         <div 
         className={styles.wrapper}>
@@ -28,7 +33,7 @@ export const Enter = () => {
             </div>
             <div className={classNames(styles.paragraph, 'mt-4')}>
                 <p  className="text text_color_inactive text_type_main-default">Забыли пароль?</p>
-                <p className={classNames(styles.button, "text text_color_accent text_type_main-default ml-3")}>Восстановить пароль</p>
+                <a onClick={handleNavigateToForgotPassword} className={classNames(styles.button, "text text_color_accent text_type_main-default ml-3")}>Восстановить пароль</a>
 
             </div>
 

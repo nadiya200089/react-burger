@@ -1,3 +1,5 @@
+import { getCookie, setCookie } from "./cookie";
+
 const burgerProjectUrl = "https://norma.nomoreparties.space/api";
 
 function getResponseData(res) {
@@ -19,3 +21,41 @@ export const getOrder = (ids) => {
     }),
   }).then(getResponseData);
 };
+
+export const registerUser =(res) => {
+  return fetch(`${burgerProjectUrl}auth/register`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(res),
+}).then(getResponseData)
+.then(res => {
+  if (res?.success) return res;
+  return Promise.reject(res);
+})
+}
+
+
+export const getUser =() => {
+  return fetch(`${burgerProjectUrl}auth/user`, {
+    method: "POST",
+    headers: {
+     authorization: getCookie('accessToken')
+    }
+})
+}
+
+export const loginUser =(res) => {
+  return fetch(`${burgerProjectUrl}auth/login`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(res),
+}).then(getResponseData)
+.then(res => {
+  if (res?.success) return res;
+  return Promise.reject(res);
+})
+}

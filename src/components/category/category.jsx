@@ -44,11 +44,11 @@ export const Category = React.forwardRef(({ title, id, ingredients }, ref) => {
           );
         })}
       </div>
-      {ingredientModal && (
+      {/* {ingredientModal && (
         <Modal onClose={closeModalIngredient}>
           <IngredientDetails data={ingredientModal} />
         </Modal>
-      )}
+      )} */}
     </>
   );
 });

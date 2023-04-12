@@ -1,6 +1,7 @@
 import classNames from "classnames";
 import styles from "./style.module.css";
 import PropTypes from "prop-types";
+import { useLocation, Link } from "react-router-dom";
 import { ingredientsPropTypes } from "../../utils/prop-types";
 import {
   Counter,
@@ -9,33 +10,33 @@ import {
 
 export const BurgerIngredient = (props) => {
   const { image, id, price, name, count, style, onClick } = props;
-  return (
-    <div
-      onClick={() => {
-        onClick();
-      }}
-      key={id}
-      className={styles.ingredient}
-    >
-      {count > 0 && <Counter count={Number(count)} />}
-      <img src={image} alt={name} />
-      <div
-        className={classNames(styles.burger_ingredient_cost, "mt-2", "mb-2")}
-      >
-        <p className="text text_type_digits-default mr-2">{price}</p>
-        <CurrencyIcon type="primary" />
-      </div>
+  const location = useLocation(); console.log('location', location)
 
-      <p
-        className={classNames(
-          styles.burger_ingredient_text,
-          "text",
-          "text_type_main-default"
-        )}
+  return (
+    <Link to={{ pathname: `/ingredientDetails/${id}` }} state={{ background: location, test: 'lol' }} replace >
+      <div
+        key={id}
+        className={styles.ingredient}
       >
-        {name}
-      </p>
-    </div>
+        {count > 0 && <Counter count={Number(count)} />}
+        <img src={image} alt={name} />
+        <div
+          className={classNames(styles.burger_ingredient_cost, "mt-2", "mb-2")}
+        >
+          <p className="text text_type_digits-default mr-2">{price}</p>
+          <CurrencyIcon type="primary" />
+        </div>
+        <p
+          className={classNames(
+            styles.burger_ingredient_text,
+            "text",
+            "text_type_main-default"
+          )}
+        >
+          {name}
+        </p>
+      </div>
+    </Link>
   );
 };
 

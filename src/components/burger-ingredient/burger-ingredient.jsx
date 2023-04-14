@@ -13,11 +13,9 @@ export const BurgerIngredient = (props) => {
   const location = useLocation(); console.log('location', location)
 
   return (
-    <Link to={{ pathname: `/ingredientDetails/${id}` }} state={{ background: location, test: 'lol' }} replace >
-      <div
-        key={id}
-        className={styles.ingredient}
-      >
+    <Link style={{textDecoration:'none'}} to={{ pathname: `/ingredientDetails/${id}` }}  state={{ background: location, test: 'lol' }} replace key={id}
+    className={styles.ingredient} >
+     
         {count > 0 && <Counter count={Number(count)} />}
         <img src={image} alt={name} />
         <div
@@ -35,7 +33,6 @@ export const BurgerIngredient = (props) => {
         >
           {name}
         </p>
-      </div>
     </Link>
   );
 };

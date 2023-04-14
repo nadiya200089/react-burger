@@ -13,4 +13,9 @@
 .burger_ingredient_text {
   display: flex;
   justify-content: center;
+  
+}
+
+.active {
+  color: green;
 }

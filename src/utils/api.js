@@ -23,7 +23,7 @@ export const getOrder = (ids) => {
 };
 
 export const registerUser =(res) => {
-  return fetch(`${burgerProjectUrl}auth/register`, {
+  return fetch(`${burgerProjectUrl}/auth/register`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

@@ -38,7 +38,7 @@ export const registerUser =(res) => {
 
 
 export const getUser =() => {
-  return fetch(`${burgerProjectUrl}auth/user`, {
+  return fetch(`${burgerProjectUrl}/auth/user`, {
     method: "POST",
     headers: {
      authorization: getCookie('accessToken')
@@ -47,8 +47,62 @@ export const getUser =() => {
 }
 
 export const loginUser =(res) => {
-  return fetch(`${burgerProjectUrl}auth/login`, {
+  return fetch(`${burgerProjectUrl}/auth/login`, {
     method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(res),
+}).then(getResponseData)
+.then(res => {
+  if (res?.success) return res;
+  return Promise.reject(res);
+})
+}
+
+export const logoutUser =(res) => {
+  return fetch(`${burgerProjectUrl}/auth/logout`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(res),
+}).then(getResponseData)
+.then(res => {
+  if (res?.success) return res;
+  return Promise.reject(res);
+})
+}
+
+export const updateToken   =(res) => {
+  return fetch(`${burgerProjectUrl}/auth/token`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(res),
+}).then(getResponseData)
+.then(res => {
+  if (res?.success) return res;
+  return Promise.reject(res);
+})
+}
+export const updateInfoUser =(res) => {
+  return fetch(`${burgerProjectUrl}/auth/user`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(res),
+}).then(getResponseData)
+.then(res => {
+  if (res?.success) return res;
+  return Promise.reject(res);
+})
+}
+export const getInfoUser =(res) => {
+  return fetch(`${burgerProjectUrl}/auth/user`, {
+    method: "GET",
     headers: {
       "Content-Type": "application/json",
     },

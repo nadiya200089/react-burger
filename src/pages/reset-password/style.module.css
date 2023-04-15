@@ -1,0 +1,35 @@
+.wrapper {
+
+    width: 550px;
+    z-index: 3;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin: auto;
+    border-radius: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.input {
+    background-color: #2F2F37;
+    border-radius: 40px;
+    height: 70px;
+    width: 100%;
+    color: var(--text-inactive-color);
+    font-family: 'Jet Brains Mono';
+    font-size: 16px;
+    line-height: 1.5;
+    font-weight: normal;
+}
+
+.paragraph {
+    display: flex;
+}
+
+.button {
+    cursor: pointer;
+}

@@ -40,8 +40,9 @@ export const Register = () => {
   };
 
   const onRegister = () => {
-    console.log(userData);
     dispatch(registerUser(userData));
+    navigate('/enter');
+
   };
 
   return (
@@ -55,15 +56,15 @@ export const Register = () => {
         placeholder="логин"
         value={userData.name}
         onChange={handleChange}
-        className={classNames(styles.input, 'mt-6')}
+        className={classNames(styles.input, 'text text_type_main-small pl-6 mt-6')}
       />
-      <input
+      <input 
         name='email'
         type='email'
         placeholder="email"
         value={userData.email}
         onChange={handleChange}
-        className={classNames(styles.input, 'mt-6')}
+        className={classNames(styles.input, 'text text_type_main-small pl-6 mt-6')}
       />
       <input
         name='password'
@@ -71,7 +72,7 @@ export const Register = () => {
         placeholder="Пароль"
         value={userData.password}
         onChange={handleChange}
-        className={classNames(styles.input, 'mt-6', 'mb-6')}
+        className={classNames(styles.input, 'text text_type_main-small mt-6 pl-6', 'mb-6')}
       />
       <Button onClick={handleSubmit}>
         Зарегистрироваться

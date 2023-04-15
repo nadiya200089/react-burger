@@ -9,18 +9,6 @@ const initialState = {
   error: null,
 };
 
-// export const fetchOrder = createAsyncThunk(
-//     'order/fetchOrder',
-//     async (data, { rejectWithValue, fulfillWithValue }) => {
-//         const response = await getOrder(data)
-//         if (!response) {
-//             return rejectWithValue('Ошибка')
-//         }
-
-//         return fulfillWithValue(response)
-//     }
-// )
-
 export const orderSlice = createSlice({
   name: "order",
   initialState,

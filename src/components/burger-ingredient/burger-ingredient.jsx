@@ -8,12 +8,17 @@ import {
   CurrencyIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 
+
 export const BurgerIngredient = (props) => {
   const { image, id, price, name, count, style, onClick } = props;
   const location = useLocation(); console.log('location', location)
 
   return (
-    <Link style={{textDecoration:'none'}} to={{ pathname: `/ingredientDetails/${id}` }}  state={{ background: location, test: 'lol' }} replace key={id}
+    <Link 
+    to={{ pathname: `/ingredientDetails/${id}` }} 
+    state={{ background: location, test: 'lol' }} 
+    replace
+    key={id}
     className={styles.ingredient} >
      
         {count > 0 && <Counter count={Number(count)} />}

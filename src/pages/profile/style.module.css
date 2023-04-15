@@ -1,17 +1,35 @@
+.profile {
+    margin: 0 auto;
+    max-width: 1280px;
+    width: 100%;
+    display: flex;
+    margin-top: 120px;
+}
 .wrapper {
-
     width: 550px;
-    z-index: 3;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
     margin: auto;
     border-radius: 40px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+
+.wrap {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
+    max-width: 320px;
+
+}
+
+.span {
+    opacity: 0.4;
+}
+
+.text {
+    cursor: pointer;
 }
 
 .input {
@@ -24,12 +42,9 @@
     font-size: 16px;
     line-height: 1.5;
     font-weight: normal;
+    background: url(../../images/Vector.png) no-repeat right;
 }
 
 .paragraph {
     display: flex;
-}
-
-.button {
-    cursor: pointer;
 }

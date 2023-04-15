@@ -4,7 +4,7 @@ import classNames from "classnames";
 import { AppHeader } from "../app-header/app-header";
 import { BurgerIngredients } from "../burger-ingredients/burger-ingredients";
 import { BurgerConstructor } from "../burger-constructor/burger-constructor ";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import fetchIngredients from "../../services/actions/ingredients";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
@@ -16,13 +16,15 @@ import { ForgotPassword } from "../../pages/forgot-password/forgot-password";
 import { registerUser, setUser } from "../../utils/api";
 import { Modal } from "../modal/modal";
 import ingredients from "../../services/reducers/ingredients";
+import { Profile } from "../../pages/profile/profile";
+import { Error } from "./error/error";
+import { ProtectedRoute } from "../protected-route/protected-route";
+import { ResetPassword } from "../../pages/reset-password/reset-password";
 
 export const App = (data) => {
   const dispatch = useDispatch();
-  // const [ingredientModal, setIngredientModal] = useState(null);
-  // const closeModalIngredient = () => {
-  //   setIngredientModal(null);
-  // };
+  const { user } = useSelector((state) => state.auth);
+
   const location = useLocation();
   const background = location.state?.background;
   const navigate = useNavigate();
@@ -30,18 +32,6 @@ export const App = (data) => {
     navigate(background.pathname || "/", { replace: true })
   }
 
-  // const cbLogin = () => {
-  //   setUser({name: 'Vasilyi'});
-  // }
-
-  // const onLogout = () => {
-  //   setUser(null);
-  // }
-
-  // const cbRegister = () => {
-  //   registerUser()
-  //   setUser({name: 'Vasilyi'});
-  // }
 
   useEffect(() => {
     dispatch(fetchIngredients());
@@ -82,6 +72,20 @@ export const App = (data) => {
         />
         <Route path='forgot-password' element={
           <ForgotPassword />
+        }
+        />
+         <Route path='reset-password' element={
+          <ResetPassword />
+        }
+        />
+        <Route path='profile' element={
+          <ProtectedRoute user={user}>
+            <Profile />
+          </ProtectedRoute>
+        }
+        />
+        <Route path='*' element={
+          <Error />
         }
         />
       </Routes>

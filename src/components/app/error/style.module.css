@@ -1,0 +1,14 @@
+.error {
+    font-size: 100px;
+    margin-top: 70px;
+}
+
+.wrap {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    max-width: 12800px;
+    width: 100%;
+}

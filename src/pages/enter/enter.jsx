@@ -1,10 +1,28 @@
-import classNames from "classnames";
+import { useState } from 'react';
+import { useDispatch } from "react-redux";
 import { useNavigate } from 'react-router-dom';
+
+import classNames from "classnames";
 import styles from "./style.module.css";
 import PropTypes from "prop-types";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
 
+import { loginUser } from "../../services/actions/auth";
+
 export const Enter = () => {
+    const dispatch = useDispatch();
+    const [userData, setUserData] = useState({
+        email: '',
+        password: '',
+        name: '',
+      });
+      const handleChange = (e) => {
+        const { name, value } = e.target;
+        setUserData({
+          ...userData,
+          [name]: value
+        });
+      }
     const navigate = useNavigate();
 
     const handleNavigateToRegister = () => {
@@ -15,6 +33,16 @@ export const Enter = () => {
         navigate('/forgot-password');
     };
 
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        onLogin(userData)
+      }
+
+
+      const onLogin = () => {
+        dispatch(loginUser(userData));
+        navigate('/');
+      };
 
     return (
         <div 
@@ -22,9 +50,23 @@ export const Enter = () => {
             <h2 className="text text_type_main-large">
                 Вход
             </h2>
-            <input type='email' placeholder="email" className={classNames(styles.input, 'mt-6')}></input>
-            <input type='password' placeholder="Пароль" className={classNames(styles.input, 'mt-6', 'mb-6')}></input>
-            <Button>
+            <input
+                name='email'
+                type='email'
+                value={userData.email}
+                onChange={handleChange}
+                placeholder="email"
+                className={classNames(styles.input, 'pl-5 mt-6')}
+            />
+            <input
+                name='password'
+                type='password'
+                placeholder="Пароль"
+                value={userData.password}
+                onChange={handleChange}
+                className={classNames(styles.input, 'pl-5 mt-6', 'mb-6')}
+            />
+            <Button onClick={onLogin}>
                 Войти
             </Button>
             <div className={classNames(styles.paragraph, 'mt-20')}>

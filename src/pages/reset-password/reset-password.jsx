@@ -17,8 +17,8 @@ export const ResetPassword = () => {
             <h2 className="text text_type_main-large">
                 Восстановление пароля
             </h2>
-            <input type='password' placeholder="Введите новый пароль" className={classNames(styles.input, 'mt-6')}></input>
-            <input type='email' placeholder="Введите код из письма" className={classNames(styles.input, 'mt-6 mb-6')}></input>
+            <input type='password' placeholder="Введите новый пароль" className={classNames(styles.input, 'pl-5 mt-6')}></input>
+            <input type='email' placeholder="Введите код из письма" className={classNames(styles.input, 'pl-5 mt-6 mb-6')}></input>
             <Button>
                 Сохранить
             </Button>

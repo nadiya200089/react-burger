@@ -5,7 +5,10 @@ import { AppHeader } from "../app-header/app-header";
 import { BurgerIngredients } from "../burger-ingredients/burger-ingredients";
 import { BurgerConstructor } from "../burger-constructor/burger-constructor ";
 import { useDispatch, useSelector } from "react-redux";
+
 import fetchIngredients from "../../services/actions/ingredients";
+import { getInfoUser, updateToken } from "../../services/actions/auth";
+
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
@@ -17,14 +20,16 @@ import { registerUser, setUser } from "../../utils/api";
 import { Modal } from "../modal/modal";
 import ingredients from "../../services/reducers/ingredients";
 import { Profile } from "../../pages/profile/profile";
-import { Error } from "./error/error";
+import { Error } from "../error/error";
 import { ProtectedRoute } from "../protected-route/protected-route";
 import { ResetPassword } from "../../pages/reset-password/reset-password";
+import { getCookie } from '../../utils/cookie';
 
 export const App = (data) => {
   const dispatch = useDispatch();
-  const { user } = useSelector((state) => state.auth);
-
+  
+  const {user, isOldToken }  = useSelector((state) => state.auth);
+  console.log('user', user);
   const location = useLocation();
   const background = location.state?.background;
   const navigate = useNavigate();
@@ -34,8 +39,35 @@ export const App = (data) => {
 
 
   useEffect(() => {
-    dispatch(fetchIngredients());
+    try {
+      const token = getCookie("token");
+      dispatch(getInfoUser(token));
+    } finally {
+      dispatch(fetchIngredients());
+    }
   }, [dispatch]);
+
+  useEffect(() => {
+    if (isOldToken) {
+      const refreshToken = window.localStorage.getItem('refreshToken');
+      // if token became old 
+      dispatch(updateToken({
+        token: refreshToken
+      }))
+    } else {
+      // was refresh 
+      // get user info
+      const token = getCookie("token");
+      dispatch(getInfoUser(token))
+    }
+  }, [isOldToken]);
+
+
+  // useEffect(() => {
+  //   if (user && user.name) {
+  //     navigate()
+  //   }
+  // }, [user])
 
   return (
     <>
@@ -63,23 +95,31 @@ export const App = (data) => {
         }
         />
         <Route path='enter' element={
-          <Enter />
+         <ProtectedRoute onlyUnAuth user={user}>
+            <Enter />
+         </ProtectedRoute>
         }
         />
         <Route path='register' element={
-          <Register />
+          <ProtectedRoute onlyUnAuth user={user}>
+            <Register />
+          </ProtectedRoute>
         }
         />
         <Route path='forgot-password' element={
-          <ForgotPassword />
+          <ProtectedRoute user={user}>
+            <ForgotPassword />
+          </ProtectedRoute>
         }
         />
-         <Route path='reset-password' element={
-          <ResetPassword />
+        <Route path='reset-password' element={
+          <ProtectedRoute user={user}>
+            <ResetPassword />
+          </ProtectedRoute>
         }
         />
         <Route path='profile' element={
-          <ProtectedRoute user={user}>
+          <ProtectedRoute user={user} >
             <Profile />
           </ProtectedRoute>
         }
@@ -96,7 +136,6 @@ export const App = (data) => {
             <Modal onClose={onModalClose}>
               <IngredientDetails data={data} />
             </Modal>
-
           }
           />
         </Routes>

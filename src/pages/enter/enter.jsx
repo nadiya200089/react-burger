@@ -7,7 +7,7 @@ import styles from "./style.module.css";
 import PropTypes from "prop-types";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
 
-import { loginUser } from "../../services/actions/auth";
+import { loginUser, getInfoUser } from "../../services/actions/auth";
 
 export const Enter = () => {
     const dispatch = useDispatch();
@@ -41,7 +41,7 @@ export const Enter = () => {
 
       const onLogin = () => {
         dispatch(loginUser(userData));
-        navigate('/');
+       // navigate('/');
       };
 
     return (

@@ -48,7 +48,7 @@ export const logoutUser = createAsyncThunk(
 );
 
 export const updateToken = createAsyncThunk(
-    'auth/logout',
+    'auth/updateToken',
     async (data, { rejectWithValue, fulfillWithValue }) => {
         const res = await tokenAsync(data);
 
@@ -76,6 +76,7 @@ export const updateInfoUser = createAsyncThunk(
 export const getInfoUser = createAsyncThunk(
     'auth/getUser',
     async (data, { rejectWithValue, fulfillWithValue }) => {
+        console.log('render');
         const res = await getUser(data);
 
         if (!res?.success) {

@@ -105,11 +105,11 @@ export const getInfoUser =(res) => {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
-    },
-    body: JSON.stringify(res),
+      Authorization: `Bearer ${res}`,
+    }
 }).then(getResponseData)
 .then(res => {
   if (res?.success) return res;
   return Promise.reject(res);
-})
+});
 }

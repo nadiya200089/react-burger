@@ -12,16 +12,20 @@ export const AppHeader = () => {
   const navigate = useNavigate();
 
   const handleNavigateToEnter = () => {
-      navigate('/enter');
+      navigate('/enter') || navigate("/profile")
+  };
+
+  const handleNavigateToMain = () => {
+      navigate('/');
   };
 
   return (
     <header className={classNames(style.header, "pt-4", "pb-4")}>
       <nav className={style.nav}>
         <div className={classNames(style.header__column, style.link__wrapper)}>
-          <a href="#" className={classNames(style.link, style.link_active)}>
+          <a href="#" onClick={handleNavigateToMain} className={classNames(style.link, style.link_active)}>
             <BurgerIcon type="primary" />
-            <span className="text  text_type_main-default ml-2">
+            <span className="text  text_type_main-default ml-2"> 
               Конструктор
             </span>
           </a>

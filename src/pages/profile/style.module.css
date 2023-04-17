@@ -42,7 +42,7 @@
     font-size: 16px;
     line-height: 1.5;
     font-weight: normal;
-    background: url(../../images/Vector.png) no-repeat right;
+    /* background: url(../../images/Vector.png) no-repeat right; */
 }
 
 .paragraph {

@@ -41,7 +41,7 @@ export const Register = () => {
 
   const onRegister = () => {
     dispatch(registerUser(userData));
-    navigate('/enter');
+   // navigate('/enter');
 
   };
 

@@ -1,4 +1,4 @@
-import { getCookie, setCookie } from "./cookie";
+import { getCookie } from "./cookie";
 
 const burgerProjectUrl = "https://norma.nomoreparties.space/api";
 
@@ -61,7 +61,7 @@ export const loginUser =(res) => {
 }
 
 export const logoutUser =(res) => {
-  return fetch(`${burgerProjectUrl}/auth/logout`, {
+  const t = fetch(`${burgerProjectUrl}/auth/logout`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -72,6 +72,8 @@ export const logoutUser =(res) => {
   if (res?.success) return res;
   return Promise.reject(res);
 })
+console.log('t', t);
+return t;
 }
 
 export const updateToken   =(res) => {
@@ -88,10 +90,12 @@ export const updateToken   =(res) => {
 })
 }
 export const updateInfoUser =(res) => {
+  const token = getCookie('token');
   return fetch(`${burgerProjectUrl}/auth/user`, {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
     },
     body: JSON.stringify(res),
 }).then(getResponseData)
@@ -113,3 +117,32 @@ export const getInfoUser =(res) => {
   return Promise.reject(res);
 });
 }
+
+export const forgotPsw   =(res) => {
+  return fetch(`${burgerProjectUrl}/password-reset`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(res),
+}).then(getResponseData)
+.then(res => {
+  if (res?.success) return res;
+  return Promise.reject(res);
+})
+}
+
+export const resetPsw   =(res) => {
+  return fetch(`${burgerProjectUrl}/password-reset/reset`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(res),
+}).then(getResponseData)
+.then(res => {
+  if (res?.success) return res;
+  return Promise.reject(res);
+})
+}
+

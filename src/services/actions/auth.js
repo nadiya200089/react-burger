@@ -5,7 +5,9 @@ import {
     logoutUser as logoutAsync,
     updateToken as tokenAsync,
     updateInfoUser as updateUser,
-    getInfoUser as getUser
+    getInfoUser as getUser,
+    forgotPsw, 
+    resetPsw
 } from "../../utils/api";
 
 export const registerUser = createAsyncThunk(
@@ -76,8 +78,33 @@ export const updateInfoUser = createAsyncThunk(
 export const getInfoUser = createAsyncThunk(
     'auth/getUser',
     async (data, { rejectWithValue, fulfillWithValue }) => {
-        console.log('render');
         const res = await getUser(data);
+
+        if (!res?.success) {
+            return rejectWithValue(data)
+        }
+
+        return fulfillWithValue(res);
+    }
+);
+
+export const forgotPassword = createAsyncThunk(
+    'auth/forgotPassword',
+    async (data, { rejectWithValue, fulfillWithValue }) => {
+        const res = await forgotPsw(data);
+
+        if (!res?.success) {
+            return rejectWithValue(data)
+        }
+
+        return fulfillWithValue(res);
+    }
+);
+
+export const resetPassword = createAsyncThunk(
+    'auth/resetPassword',
+    async (data, { rejectWithValue, fulfillWithValue }) => {
+        const res = await resetPsw(data);
 
         if (!res?.success) {
             return rejectWithValue(data)

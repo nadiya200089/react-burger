@@ -37,11 +37,13 @@ export const App = (data) => {
     navigate(background.pathname || "/", { replace: true })
   }
 
-
   useEffect(() => {
     try {
       const token = getCookie("token");
-      dispatch(getInfoUser(token));
+      if (token && token.length > 0) {
+        dispatch(getInfoUser(token));
+      }
+      
     } finally {
       dispatch(fetchIngredients());
     }
@@ -58,16 +60,19 @@ export const App = (data) => {
       // was refresh 
       // get user info
       const token = getCookie("token");
-      dispatch(getInfoUser(token))
+      if (token && token.length > 0) {
+        dispatch(getInfoUser(token));
+      }
     }
   }, [isOldToken]);
 
 
-  // useEffect(() => {
-  //   if (user && user.name) {
-  //     navigate()
-  //   }
-  // }, [user])
+  useEffect(() => {
+    if (user && user.name) {
+      console.log('navigate to home');
+      navigate('/')
+    }
+  }, [user])
 
   return (
     <>
@@ -95,9 +100,9 @@ export const App = (data) => {
         }
         />
         <Route path='enter' element={
-         <ProtectedRoute onlyUnAuth user={user}>
+        // <ProtectedRoute onlyUnAuth user={user}>
             <Enter />
-         </ProtectedRoute>
+        //</ProtectedRoute>
         }
         />
         <Route path='register' element={
@@ -107,13 +112,13 @@ export const App = (data) => {
         }
         />
         <Route path='forgot-password' element={
-          <ProtectedRoute user={user}>
+          <ProtectedRoute onlyUnAuth user={user}>
             <ForgotPassword />
           </ProtectedRoute>
         }
         />
         <Route path='reset-password' element={
-          <ProtectedRoute user={user}>
+          <ProtectedRoute onlyUnAuth user={user}>
             <ResetPassword />
           </ProtectedRoute>
         }

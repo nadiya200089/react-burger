@@ -6,23 +6,32 @@ import classNames from "classnames";
 import styles from "./style.module.css";
 import PropTypes from "prop-types";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
-
 import { loginUser, getInfoUser } from "../../services/actions/auth";
+import eye from '../../images/Eye.png';
+// import eyeOff from '../../images/EyeOff.png';
+
+
+
+// const EyeOff = () => <img src={eyeOff} alt="eye-off" onClick={onClick} />;
+const Eye = () => <img classname={styles.eye} src={eye} alt="eye" onClick />;
 
 export const Enter = () => {
     const dispatch = useDispatch();
+
+    const [isVisible, setVisible] = useState(false);
+
     const [userData, setUserData] = useState({
         email: '',
         password: '',
         name: '',
-      });
-      const handleChange = (e) => {
+    });
+    const handleChange = (e) => {
         const { name, value } = e.target;
         setUserData({
-          ...userData,
-          [name]: value
+            ...userData,
+            [name]: value
         });
-      }
+    }
     const navigate = useNavigate();
 
     const handleNavigateToRegister = () => {
@@ -33,20 +42,14 @@ export const Enter = () => {
         navigate('/forgot-password');
     };
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        onLogin(userData)
-      }
 
-
-      const onLogin = () => {
+    const onLogin = () => {
         dispatch(loginUser(userData));
-       // navigate('/');
-      };
+    };
 
     return (
-        <div 
-        className={styles.wrapper}>
+        <div
+            className={styles.wrapper}>
             <h2 className="text text_type_main-large">
                 Вход
             </h2>
@@ -58,23 +61,30 @@ export const Enter = () => {
                 placeholder="email"
                 className={classNames(styles.input, 'pl-5 mt-6')}
             />
-            <input
-                name='password'
-                type='password'
-                placeholder="Пароль"
-                value={userData.password}
-                onChange={handleChange}
-                className={classNames(styles.input, 'pl-5 mt-6', 'mb-6')}
-            />
+            <div className={styles.password}>
+                <input
+                    name='password'
+                    placeholder="Пароль"
+                    value={userData.password}
+                    onChange={handleChange}
+                    className={classNames(styles.input, 'pl-5 mt-6', 'mb-6')}
+                    //type="password"
+                    type={isVisible ? 'text' : 'password'}
+                    // icon={isVisible ?  Eye : Eye}
+                    onClick={() => setVisible(!isVisible)}
+                    
+                /> 
+                <Eye />
+            </div>
             <Button onClick={onLogin}>
                 Войти
             </Button>
             <div className={classNames(styles.paragraph, 'mt-20')}>
-                <p  className="text text_color_inactive text_type_main-default"> Вы - новый пользователь?</p>
-                <a onClick={handleNavigateToRegister} className={classNames(styles.button,"text text_color_accent text_type_main-default ml-3")}>Зарегистрироваться</a>
+                <p className="text text_color_inactive text_type_main-default"> Вы - новый пользователь?</p>
+                <a onClick={handleNavigateToRegister} className={classNames(styles.button, "text text_color_accent text_type_main-default ml-3")}>Зарегистрироваться</a>
             </div>
             <div className={classNames(styles.paragraph, 'mt-4')}>
-                <p  className="text text_color_inactive text_type_main-default">Забыли пароль?</p>
+                <p className="text text_color_inactive text_type_main-default">Забыли пароль?</p>
                 <a onClick={handleNavigateToForgotPassword} className={classNames(styles.button, "text text_color_accent text_type_main-default ml-3")}>Восстановить пароль</a>
 
             </div>

@@ -61,19 +61,17 @@ export const loginUser =(res) => {
 }
 
 export const logoutUser =(res) => {
-  const t = fetch(`${burgerProjectUrl}/auth/logout`, {
+  return fetch(`${burgerProjectUrl}/auth/logout`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(res),
-}).then(getResponseData)
-.then(res => {
-  if (res?.success) return res;
-  return Promise.reject(res);
-})
-console.log('t', t);
-return t;
+  }).then(getResponseData)
+  .then(res => {
+    if (res?.success) return res;
+    return Promise.reject(res);
+  })
 }
 
 export const updateToken   =(res) => {

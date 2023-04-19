@@ -2,7 +2,7 @@ import classNames from "classnames";
 import styles from "./style.module.css";
 import PropTypes from "prop-types";
 import { useLocation, Link } from "react-router-dom";
-import { ingredientsPropTypes } from "../../utils/prop-types";
+
 import {
   Counter,
   CurrencyIcon,
@@ -10,8 +10,8 @@ import {
 
 
 export const BurgerIngredient = (props) => {
-  const { image, id, price, name, count, style, onClick } = props;
-  const location = useLocation(); console.log('location', location)
+  const { image, id, price, name, count } = props;
+  const location = useLocation();
 
   return (
     <Link 

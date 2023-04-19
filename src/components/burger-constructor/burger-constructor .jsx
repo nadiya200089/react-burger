@@ -9,8 +9,9 @@ import {
 import { OrderDetails } from "../order-details/order-details";
 import { useEffect, useMemo, useState } from "react";
 import { Modal } from "../modal/modal";
-import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from 'react-router-dom';
+
 import {
   deleteIngredient,
   addConstructor,
@@ -21,8 +22,11 @@ import { DragAndDropContainer } from "../dnd/DragAndDropContainer";
 import { fetchOrder } from "../../services/actions/order";
 
 export const BurgerConstructor = () => {
+  const navigate = useNavigate();
   const { bun, ingredients } = useSelector((state) => state.constructorStore);
   const { order } = useSelector((state) => state.orderStore.data);
+  const { user } = useSelector((state) => state.auth);
+
   const dispatch = useDispatch();
   const [orderModal, setOrderModal] = useState(false);
 
@@ -30,13 +34,19 @@ export const BurgerConstructor = () => {
     setOrderModal(false);
   };
 
+
+  
   useEffect(() => {
     if (order > 0) setOrderModal(true);
   }, [order]);
 
   const handleSaveOrder = () => {
-    const ids = ingredients.map((ingredient) => [ingredient._id]);
-    dispatch(fetchOrder(ids));
+    if (user === null) {
+      navigate('/enter');
+    } else {
+      const ids = ingredients.map((ingredient) => [ingredient._id]);
+      dispatch(fetchOrder(ids));
+    }
   };
 
   const handleDeleteIngredient = (id) => {

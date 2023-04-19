@@ -1,18 +1,26 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useDispatch } from "react-redux";
-
-import classNames from "classnames";
-import styles from "./style.module.css";
-import PropTypes from "prop-types";
-
-import { registerUser } from "../../services/actions/auth";
-
+import { useDispatch, useSelector } from "react-redux";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
 
+import eye from '../../images/Eye.png';
+import classNames from "classnames";
+import styles from "./style.module.css";
+import { registerUser } from "../../services/actions/auth";
 
 export const Register = () => {
   const dispatch = useDispatch();
+  const {isSuccessRegister}  = useSelector((state) => state.auth);
+
+  const Eye = () => <img classname={styles.eye} src={eye} alt="eye" onClick={() => setVisible(!isVisible)} />;
+  const [isVisible, setVisible] = useState(false);
+
+  useEffect(() => {
+    if (isSuccessRegister) {
+        navigate('/enter');
+    }
+}, [isSuccessRegister])
+
   const [userData, setUserData] = useState({
     email: '',
     password: '',
@@ -27,8 +35,6 @@ export const Register = () => {
     });
   }
 
-  const [message, setMessage] = useState('');
-
   const handleSubmit = (e) => {
     e.preventDefault();
     onRegister(userData)
@@ -41,8 +47,6 @@ export const Register = () => {
 
   const onRegister = () => {
     dispatch(registerUser(userData));
-   // navigate('/enter');
-
   };
 
   return (
@@ -58,7 +62,7 @@ export const Register = () => {
         onChange={handleChange}
         className={classNames(styles.input, 'text text_type_main-small pl-6 mt-6')}
       />
-      <input 
+      <input
         name='email'
         type='email'
         placeholder="email"
@@ -66,14 +70,17 @@ export const Register = () => {
         onChange={handleChange}
         className={classNames(styles.input, 'text text_type_main-small pl-6 mt-6')}
       />
-      <input
-        name='password'
-        type='password'
-        placeholder="Пароль"
-        value={userData.password}
-        onChange={handleChange}
-        className={classNames(styles.input, 'text text_type_main-small mt-6 pl-6', 'mb-6')}
-      />
+      <div className={styles.password}>
+        <input
+          name='password'
+          placeholder="Пароль"
+          value={userData.password}
+          onChange={handleChange}
+          className={styles.inputPassword}
+          type={isVisible ? 'text' : 'password'}
+        />
+        <Eye />
+      </div>
       <Button onClick={handleSubmit}>
         Зарегистрироваться
       </Button>

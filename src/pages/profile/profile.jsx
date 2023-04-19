@@ -9,13 +9,15 @@ import styles from "./style.module.css";
 import PropTypes from "prop-types";
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { updateInfoUser } from '../../utils/api';
+import pencil from '../../images/Vector.png';
+
 
 
 
 
 export const Profile = () => {
     const dispatch = useDispatch();
-    const {user }  = useSelector((state) => state.auth);
+    const { user } = useSelector((state) => state.auth);
     const [userData, setUserData] = useState(user);
 
     const handleChange = (e) => {
@@ -26,9 +28,9 @@ export const Profile = () => {
         });
     }
     const updateUser = () => {
-        dispatch(updateInfoUser({...userData}))
+        dispatch(updateInfoUser({ ...userData }))
     }
-    //const [message, setMessage] = useState('');
+    const Pencil = () => <img src={pencil} alt="pencil" onClick />;
 
     const onLogout = () => {
         const refreshToken = window.localStorage.getItem('refreshToken');
@@ -46,7 +48,7 @@ export const Profile = () => {
                     onClick={onLogout}
                     className={
                         classNames(
-                            styles.text, 
+                            styles.text,
                             "text text_type_main-medium mb-7 text_color_inactive "
                         )
                     }
@@ -54,30 +56,42 @@ export const Profile = () => {
                 <span className={classNames(styles.span, 'text text_type_main-small text_color_inactive mt-20')}>В этом рвзделе вы можете изменить свои пресональные данные</span>
             </div>
             <div className={styles.wrapper}>
-                <input
-                    type='text'
-                    name='name'
-                    placeholder="логин"
-                    value={userData.name}
-                    onChange={handleChange}
-                    className={classNames(styles.input, 'text text_type_main-small pl-6 mt-6')}>                    
-                </input>
-                <input
-                    name='email'
-                    type='email'
-                    placeholder="email"
-                    value={userData.email}
-                    onChange={handleChange}
-                    className={classNames(styles.input, 'text text_type_main-small pl-6 mt-6')}
-                />
-                <input
-                    name='password'
-                    type='password'
-                    placeholder="Пароль"
-                    value={userData.password}
-                    onChange={handleChange}
-                    className={classNames(styles.input, 'text text_type_main-small pl-6 mt-6', 'mb-6')}
-                />
+                <div className={styles.password}>
+                    <input
+                        type='text'
+                        name='name'
+                        placeholder="логин"
+                        value={userData.name}
+                        onChange={handleChange}
+                        className={styles.inputPassword}
+                    />
+                    <Pencil />
+                </div>
+                <div className={styles.password}>
+
+                    <input
+                        name='email'
+                        type='email'
+                        placeholder="email"
+                        value={userData.email}
+                        onChange={handleChange}
+                        className={styles.inputPassword}
+
+                    />
+                    <Pencil />
+                </div>
+                <div className={styles.password}>
+
+                    <input
+                        name='password'
+                        type='password'
+                        placeholder="Пароль"
+                        value={userData.password}
+                        onChange={handleChange}
+                        className={styles.inputPassword}
+                    />
+                    <Pencil />
+                </div>
                 <Button onClick={updateUser}>Сохранить</Button>
             </div >
         </div>

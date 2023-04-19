@@ -18,7 +18,8 @@ const initialState = {
     isOldToken: false,
     isResetPassword: false,
     isSuccessPassword: false,
-    user: null
+    user: null, 
+    isSuccessRegister: false
 }
 
 export const authSlice = createSlice({
@@ -55,7 +56,7 @@ export const authSlice = createSlice({
           const refreshToken = action.payload.refreshToken;
           setCookie('token', accessToken);
           window.localStorage.setItem('refreshToken', refreshToken);
-
+          state.isSuccessRegister = true;
           state.accessToken = accessToken;
           state.isLoading = false;
         })
@@ -153,6 +154,7 @@ export const authSlice = createSlice({
         .addCase(resetPassword.fulfilled, (state, action) => {
           state.isResetPassword = false;
           state.isLoading = false;
+          state.isSuccessPassword = true;
         })
         .addCase(resetPassword.rejected, (state, action) => {
           state.error = action.payload;

@@ -33,7 +33,7 @@ export const constructorSlice = createSlice({
       if (index !== -1) {
         state.ingredients.splice(index, 1);
       } else {
-        console.log("error");
+        console.log("Error: after delete an ingridients");
       }
     },
     updateOrder: (state, action) => {

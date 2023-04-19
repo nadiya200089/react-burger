@@ -8,16 +8,10 @@ import PropTypes from "prop-types";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import { loginUser, getInfoUser } from "../../services/actions/auth";
 import eye from '../../images/Eye.png';
-// import eyeOff from '../../images/EyeOff.png';
-
-
-
-// const EyeOff = () => <img src={eyeOff} alt="eye-off" onClick={onClick} />;
-const Eye = () => <img classname={styles.eye} src={eye} alt="eye" onClick />;
 
 export const Enter = () => {
     const dispatch = useDispatch();
-
+    const Eye = () => <img classname={styles.eye} src={eye} alt="eye" onClick={() => setVisible(!isVisible)} />;
     const [isVisible, setVisible] = useState(false);
 
     const [userData, setUserData] = useState({
@@ -67,12 +61,9 @@ export const Enter = () => {
                     placeholder="Пароль"
                     value={userData.password}
                     onChange={handleChange}
-                    className={classNames(styles.input, 'pl-5 mt-6', 'mb-6')}
-                    //type="password"
+                    className={styles.inputPassword}
                     type={isVisible ? 'text' : 'password'}
                     // icon={isVisible ?  Eye : Eye}
-                    onClick={() => setVisible(!isVisible)}
-                    
                 /> 
                 <Eye />
             </div>

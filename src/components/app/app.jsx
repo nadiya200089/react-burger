@@ -27,12 +27,11 @@ import { getCookie } from '../../utils/cookie';
 
 export const App = (data) => {
   const dispatch = useDispatch();
-  
   const {user, isOldToken }  = useSelector((state) => state.auth);
-  console.log('user', user);
   const location = useLocation();
   const background = location.state?.background;
   const navigate = useNavigate();
+
   const onModalClose = () => {
     navigate(background.pathname || "/", { replace: true })
   }
@@ -69,7 +68,6 @@ export const App = (data) => {
 
   useEffect(() => {
     if (user && user.name) {
-      console.log('navigate to home');
       navigate('/')
     }
   }, [user])

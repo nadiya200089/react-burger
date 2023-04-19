@@ -26,7 +26,6 @@ export const orderSlice = createSlice({
         state.error = action.payload;
         state.isLoading = false;
       });
-    //console.log(data);
   },
 });
 

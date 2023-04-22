@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 import { logoutUser } from "../../services/actions/auth";
 
@@ -10,27 +10,31 @@ import PropTypes from "prop-types";
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { updateInfoUser } from '../../utils/api';
 import pencil from '../../images/Vector.png';
-
-
-
-
+import { RootStore } from '../../services/store';
+import { IRegisterData } from '../../types';
+import { useDispatch } from '../../services/hooks';
 
 export const Profile = () => {
     const dispatch = useDispatch();
-    const { user } = useSelector((state) => state.auth);
-    const [userData, setUserData] = useState(user);
+    const { user } = useSelector((state: RootStore) => state.auth);
+    const [userData, setUserData] = useState<IRegisterData | null>(user);
 
-    const handleChange = (e) => {
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
-        setUserData({
-            ...userData,
-            [name]: value
-        });
+        if (userData) {
+            setUserData({
+                ...userData,
+                [name]: value
+            });
+        }
     }
     const updateUser = () => {
-        dispatch(updateInfoUser({ ...userData }))
+        if (userData) {
+            dispatch(updateInfoUser(userData))
+        }
+       
     }
-    const Pencil = () => <img src={pencil} alt="pencil" onClick />;
+    const Pencil = () => <img src={pencil} alt="pencil" onClick={() => {}} />;
 
     const onLogout = () => {
         const refreshToken = window.localStorage.getItem('refreshToken');
@@ -61,7 +65,7 @@ export const Profile = () => {
                         type='text'
                         name='name'
                         placeholder="логин"
-                        value={userData.name}
+                        value={String(userData?.name)}
                         onChange={handleChange}
                         className={styles.inputPassword}
                     />
@@ -73,7 +77,7 @@ export const Profile = () => {
                         name='email'
                         type='email'
                         placeholder="email"
-                        value={userData.email}
+                        value={String(userData?.email)}
                         onChange={handleChange}
                         className={styles.inputPassword}
 
@@ -86,13 +90,15 @@ export const Profile = () => {
                         name='password'
                         type='password'
                         placeholder="Пароль"
-                        value={userData.password}
+                        value={String(userData?.password)}
                         onChange={handleChange}
                         className={styles.inputPassword}
                     />
                     <Pencil />
                 </div>
-                <Button onClick={updateUser}>Сохранить</Button>
+                <Button htmlType="button" onClick={updateUser}>
+                    Сохранить
+                </Button>
             </div >
         </div>
 

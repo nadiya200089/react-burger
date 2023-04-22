@@ -1,3 +1,4 @@
+//import { FC } from 'react';
 import style from "./style.module.css";
 import classNames from "classnames";
 import {
@@ -12,7 +13,7 @@ import { Modal } from "../modal/modal";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from 'react-router-dom';
 
-import {
+import constructor, {
   deleteIngredient,
   addConstructor,
   moveItem,
@@ -20,6 +21,13 @@ import {
 import DropContainer from "../dnd/DropContainer";
 import { DragAndDropContainer } from "../dnd/DragAndDropContainer";
 import { fetchOrder } from "../../services/actions/order";
+//import { StateProps  } from '../../types';
+
+
+
+// interface IIngridients {
+
+// }
 
 export const BurgerConstructor = () => {
   const navigate = useNavigate();
@@ -45,7 +53,7 @@ export const BurgerConstructor = () => {
       navigate('/enter');
     } else {
       const ids = ingredients.map((ingredient) => [ingredient._id]);
-      dispatch(fetchOrder(ids));
+       dispatch(fetchOrder(ids));
     }
   };
 

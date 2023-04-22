@@ -11,6 +11,15 @@ import {
  } from "../actions/auth"
 import { setCookie } from "../../utils/cookie";
 
+// interface IUserState {
+//   isAuthChecked: boolean;
+//     accessToken: null,
+//     isOldToken: boolean;
+//     isResetPassword: boolean;
+//     isSuccessPassword: boolean;
+//     user: null;
+//     isSuccessRegister: boolean
+// }
 
 const initialState = {
     isAuthChecked: false,

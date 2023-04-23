@@ -1,7 +1,14 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { getOrder } from "../../utils/api";
+import { AppDispatch } from "../store";
 
-export const fetchOrder = createAsyncThunk(
+type TGetOrderThunk = {
+  dispatch: AppDispatch;
+  extra: typeof getOrder;
+}
+
+
+export const fetchOrder = createAsyncThunk<any, number[], TGetOrderThunk>(
   "order/fetchOrder",
   async (data, { rejectWithValue, fulfillWithValue }) => {
     const response = await getOrder(data);

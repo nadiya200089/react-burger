@@ -7,19 +7,25 @@ import { logoutUser } from "../../services/actions/auth";
 import classNames from "classnames";
 import styles from "./style.module.css";
 import PropTypes from "prop-types";
-import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
+import { Button, EmailInput, Input, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
 import { updateInfoUser } from '../../utils/api';
 import pencil from '../../images/Vector.png';
 import { RootStore } from '../../services/store';
-import { IRegisterData } from '../../types';
+// import { IRegisterData } from '../../types';
 import { useDispatch } from '../../services/hooks';
 
 export const Profile = () => {
     const dispatch = useDispatch();
-    const { user } = useSelector((state: RootStore) => state.auth);
-    const [userData, setUserData] = useState<IRegisterData | null>(user);
+    const { user } = useSelector((state
+        // : RootStore
+        ) => state.auth);
+    const [userData, setUserData] = useState
+    // <IRegisterData | null>
+    (user);
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleChange = (e
+        // : React.ChangeEvent<HTMLInputElement>
+        ) => {
         const { name, value } = e.target;
         if (userData) {
             setUserData({
@@ -61,38 +67,38 @@ export const Profile = () => {
             </div>
             <div className={styles.wrapper}>
                 <div className={styles.password}>
-                    <input
+                    <Input
                         type='text'
                         name='name'
                         placeholder="логин"
                         value={String(userData?.name)}
                         onChange={handleChange}
-                        className={styles.inputPassword}
+                        //className={styles.inputPassword}
                     />
                     <Pencil />
                 </div>
                 <div className={styles.password}>
 
-                    <input
+                    <EmailInput
                         name='email'
                         type='email'
                         placeholder="email"
                         value={String(userData?.email)}
                         onChange={handleChange}
-                        className={styles.inputPassword}
+                        //className={styles.inputPassword}
 
                     />
                     <Pencil />
                 </div>
                 <div className={styles.password}>
 
-                    <input
+                    <PasswordInput
                         name='password'
                         type='password'
                         placeholder="Пароль"
                         value={String(userData?.password)}
                         onChange={handleChange}
-                        className={styles.inputPassword}
+                        //className={styles.inputPassword}
                     />
                     <Pencil />
                 </div>

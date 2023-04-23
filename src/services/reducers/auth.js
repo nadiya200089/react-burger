@@ -1,4 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
+// import { IUserData, ILogout } from '../../types';
+
 import {
   registerUser, 
   loginUser,
@@ -13,11 +15,11 @@ import { setCookie } from "../../utils/cookie";
 
 // interface IUserState {
 //   isAuthChecked: boolean;
-//     accessToken: null,
+//     accessToken: ILogout | null,
 //     isOldToken: boolean;
 //     isResetPassword: boolean;
 //     isSuccessPassword: boolean;
-//     user: null;
+//     user: IUserData | null;
 //     isSuccessRegister: boolean
 // }
 

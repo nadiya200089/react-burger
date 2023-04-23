@@ -11,21 +11,18 @@ import { Button, EmailInput, Input, PasswordInput } from '@ya.praktikum/react-de
 import { updateInfoUser } from '../../utils/api';
 import pencil from '../../images/Vector.png';
 import { RootStore } from '../../services/store';
-// import { IRegisterData } from '../../types';
+import { IRegisterData, IUserData } from '../../types';
 import { useDispatch } from '../../services/hooks';
 
 export const Profile = () => {
+    const uri_img = `${process.env.PUBLIC_URL}/images/Vector.png`
     const dispatch = useDispatch();
-    const { user } = useSelector((state
-        // : RootStore
+    const { user } = useSelector((state: RootStore
         ) => state.auth);
-    const [userData, setUserData] = useState
-    // <IRegisterData | null>
+    const [userData, setUserData] = useState<IRegisterData | null>
     (user);
 
-    const handleChange = (e
-        // : React.ChangeEvent<HTMLInputElement>
-        ) => {
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
         if (userData) {
             setUserData({
@@ -36,7 +33,9 @@ export const Profile = () => {
     }
     const updateUser = () => {
         if (userData) {
-            dispatch(updateInfoUser(userData))
+            //TODO: change any to real type
+            const t:  any = updateInfoUser(userData);
+            dispatch(t)
         }
        
     }
@@ -44,9 +43,13 @@ export const Profile = () => {
 
     const onLogout = () => {
         const refreshToken = window.localStorage.getItem('refreshToken');
-        dispatch(logoutUser({
-            token: refreshToken
-        }));
+        if (refreshToken) {
+              //TODO: change any to real type
+            const tok:any = logoutUser({
+                token: refreshToken
+            })
+            dispatch(tok);  
+        }
     };
 
     return (
@@ -73,7 +76,7 @@ export const Profile = () => {
                         placeholder="логин"
                         value={String(userData?.name)}
                         onChange={handleChange}
-                        //className={styles.inputPassword}
+                
                     />
                     <Pencil />
                 </div>
@@ -81,12 +84,9 @@ export const Profile = () => {
 
                     <EmailInput
                         name='email'
-                        type='email'
                         placeholder="email"
                         value={String(userData?.email)}
                         onChange={handleChange}
-                        //className={styles.inputPassword}
-
                     />
                     <Pencil />
                 </div>
@@ -94,11 +94,10 @@ export const Profile = () => {
 
                     <PasswordInput
                         name='password'
-                        type='password'
                         placeholder="Пароль"
                         value={String(userData?.password)}
                         onChange={handleChange}
-                        //className={styles.inputPassword}
+                        //onIconClick={}
                     />
                     <Pencil />
                 </div>

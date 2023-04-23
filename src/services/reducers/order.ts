@@ -1,9 +1,18 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk, ActionReducerMapBuilder } from "@reduxjs/toolkit";
 import { fetchOrder } from "../actions/order";
 
-const initialState = {
+interface IData {
+  order: number[];
+}
+interface IInitState { 
+  data: IData,
+  isLoading: boolean;
+  error: boolean | null;
+}
+
+const initialState: IInitState = {
   data: {
-    order: 0,
+    order: [0],
   },
   isLoading: false,
   error: null,
@@ -12,9 +21,10 @@ const initialState = {
 export const orderSlice = createSlice({
   name: "order",
   initialState,
+  reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(fetchOrder.pending, (state) => {
+      .addCase(fetchOrder.pending, (state: any) => {
         state.isLoading = true;
         state.error = null;
       })
@@ -23,7 +33,7 @@ export const orderSlice = createSlice({
         state.isLoading = false;
       })
       .addCase(fetchOrder.rejected, (state, action) => {
-        state.error = action.payload;
+        state.error = true;
         state.isLoading = false;
       });
   }

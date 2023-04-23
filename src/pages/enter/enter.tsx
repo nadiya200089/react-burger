@@ -1,18 +1,21 @@
 import { useState } from 'react';
-import { useDispatch } from "react-redux";
+import { useDispatch } from "../../services/hooks";
 import { useNavigate } from 'react-router-dom';
 
 import classNames from "classnames";
 import styles from "./style.module.css";
-import PropTypes from "prop-types";
-import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
-import { loginUser, getInfoUser } from "../../services/actions/auth";
-import eye from '../../images/Eye.png';
+import { Button, EmailInput, PasswordInput } from "@ya.praktikum/react-developer-burger-ui-components";
+import { loginUser } from "../../services/actions/auth";
 
 export const Enter = () => {
     const dispatch = useDispatch();
-    const Eye = () => <img classname={styles.eye} src={eye} alt="eye" onClick={() => setVisible(!isVisible)} />;
+
     const [isVisible, setVisible] = useState(false);
+
+    const ChangeVisible = () => {
+        debugger;
+        setVisible(!isVisible)
+    }
 
     const [userData, setUserData] = useState({
         email: '',
@@ -47,26 +50,21 @@ export const Enter = () => {
             <h2 className="text text_type_main-large">
                 Вход
             </h2>
-            <input
+            <EmailInput
                 name='email'
                 type='email'
                 value={userData.email}
                 onChange={handleChange}
                 placeholder="email"
-                className={classNames(styles.input, 'pl-5 mt-6')}
             />
-            <div className={styles.password}>
-                <input
-                    name='password'
-                    placeholder="Пароль"
-                    value={userData.password}
-                    onChange={handleChange}
-                    className={styles.inputPassword}
-                    type={isVisible ? 'text' : 'password'}
-                    // icon={isVisible ?  Eye : Eye}
-                /> 
-                <Eye />
-            </div>
+            <PasswordInput
+                name='password'
+                value={userData.password}
+                onChange={handleChange}
+                type={isVisible ? 'text' : 'password'}
+                onIconClick={ChangeVisible}
+            />
+
             <Button onClick={onLogin}>
                 Войти
             </Button>

@@ -48,20 +48,20 @@ type TRsetPswThunk = {
 
 
 
-export const registerUser = createAsyncThunk<any, IRegisterData, TRegisterThunk>(
+export const registerUser = createAsyncThunk<IUserData, IRegisterData, TRegisterThunk>(
     '/auth/register',
-    async (IRegisterData, { rejectWithValue, fulfillWithValue }) => {
-        const res = await regAsync(IRegisterData);
+    async (userdata, { rejectWithValue, fulfillWithValue }) => {
+        const res = await regAsync(userdata);
 
         if (!res?.success) {
-            return rejectWithValue(IRegisterData)
+            return rejectWithValue(userdata)
         }
 
         return fulfillWithValue(res);
     }
 );
 
-export const loginUser = createAsyncThunk<any, IUserData, TLoginThunk>(
+export const loginUser = createAsyncThunk<IUserData, IUserData, TLoginThunk>(
     'auth/login',
     async (IUserData, { rejectWithValue, fulfillWithValue }) => {
         const res = await loginAsync(IUserData);
@@ -74,7 +74,7 @@ export const loginUser = createAsyncThunk<any, IUserData, TLoginThunk>(
     }
 );
 
-export const logoutUser = createAsyncThunk<any, ILogout, TLogoutThunk>(
+export const logoutUser = createAsyncThunk<IUserData, ILogout, TLogoutThunk>(
     'auth/logout',
     async (ILogout, { rejectWithValue, fulfillWithValue }) => {
         const res = await logoutAsync(ILogout);

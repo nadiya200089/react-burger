@@ -8,21 +8,23 @@ import { Button, EmailInput, PasswordInput } from "@ya.praktikum/react-developer
 import { loginUser } from "../../services/actions/auth";
 
 export const Enter = () => {
+    console.log('render');
+
     const dispatch = useDispatch();
 
-    const [isVisible, setVisible] = useState(false);
+    // const [isVisible, setVisible] = useState(false);
 
-    const ChangeVisible = () => {
-        debugger;
-        setVisible(!isVisible)
-    }
+    // const ChangeVisible = () => {
+    //     debugger;
+    //     setVisible(!isVisible)
+    // }
 
     const [userData, setUserData] = useState({
         email: '',
         password: '',
         name: '',
     });
-    const handleChange = (e) => {
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
         setUserData({
             ...userData,
@@ -41,7 +43,11 @@ export const Enter = () => {
 
 
     const onLogin = () => {
-        dispatch(loginUser(userData));
+        if (userData) {
+            //ToDo fix type
+            const user: any = loginUser(userData)
+            dispatch(user);
+        }
     };
 
     return (
@@ -52,7 +58,6 @@ export const Enter = () => {
             </h2>
             <EmailInput
                 name='email'
-                type='email'
                 value={userData.email}
                 onChange={handleChange}
                 placeholder="email"
@@ -60,12 +65,12 @@ export const Enter = () => {
             <PasswordInput
                 name='password'
                 value={userData.password}
-                onChange={handleChange}
-                type={isVisible ? 'text' : 'password'}
-                onIconClick={ChangeVisible}
+                onChange={handleChange}    
             />
 
-            <Button onClick={onLogin}>
+            <Button
+              htmlType = 'button'
+              onClick={onLogin}>
                 Войти
             </Button>
             <div className={classNames(styles.paragraph, 'mt-20')}>

@@ -7,8 +7,14 @@ type TGetOrderThunk = {
   extra: typeof getOrder;
 }
 
+interface INumber {
+  number?: any
+}
+interface IPayload {
+  order: INumber
+}
 
-export const fetchOrder = createAsyncThunk<any, number[], TGetOrderThunk>(
+export const fetchOrder = createAsyncThunk<IPayload, string[], TGetOrderThunk>(
   "order/fetchOrder",
   async (data, { rejectWithValue, fulfillWithValue }) => {
     const response = await getOrder(data);

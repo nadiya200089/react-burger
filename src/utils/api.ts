@@ -10,7 +10,7 @@ export function getIngredients() {
   return fetch(`${burgerProjectUrl}/ingredients`).then(getResponseData);
 }
 
-export const getOrder = (ids: number[]) => {
+export const getOrder = (ids: string[]) => {
   return fetch(`${burgerProjectUrl}/orders`, {
     method: "POST",
     headers: {

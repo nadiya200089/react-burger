@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk, ActionReducerMapBuilder } from "@reduxjs
 import { fetchOrder } from "../actions/order";
 
 interface IData {
-  order: number[];
+  order: string[];
 }
 interface IInitState { 
   data: IData,
@@ -12,7 +12,7 @@ interface IInitState {
 
 const initialState: IInitState = {
   data: {
-    order: [0],
+    order: ['0'],
   },
   isLoading: false,
   error: null,

@@ -8,8 +8,10 @@ import { ThunkAction } from 'redux-thunk';
 import { AppDispatch, RootStore } from './store';
 
 // const AUTH = 'updateInfoUser'
-// interface tr { readonly type: typeof AUTH }
-// type AppThunk<ReturnType = void> = ActionCreator <ThunkAction <ReturnType, Action, RootStore, tr>>;
+type tr = {
+    type: 'fetchOrder'
+};
+type AppThunk<ReturnType = void> = ActionCreator <ThunkAction <ReturnType, Action, RootStore, tr>>;
 
 export const useDispatch = () => useDispatchRedux<AppDispatch 
 // | AppThunk

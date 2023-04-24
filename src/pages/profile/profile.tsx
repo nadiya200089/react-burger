@@ -6,16 +6,15 @@ import { logoutUser } from "../../services/actions/auth";
 
 import classNames from "classnames";
 import styles from "./style.module.css";
-import PropTypes from "prop-types";
 import { Button, EmailInput, Input, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
 import { updateInfoUser } from '../../utils/api';
-import pencil from '../../images/Vector.png';
+
 import { RootStore } from '../../services/store';
 import { IRegisterData, IUserData } from '../../types';
 import { useDispatch } from '../../services/hooks';
 
+const URI_IMG = `${process.env.PUBLIC_URI}/Vector.png`;
 export const Profile = () => {
-    const uri_img = `${process.env.PUBLIC_URL}/images/Vector.png`
     const dispatch = useDispatch();
     const { user } = useSelector((state: RootStore
         ) => state.auth);
@@ -34,12 +33,12 @@ export const Profile = () => {
     const updateUser = () => {
         if (userData) {
             //TODO: change any to real type
-            const t:  any = updateInfoUser(userData);
+            const t: any = updateInfoUser(userData);
             dispatch(t)
         }
        
     }
-    const Pencil = () => <img src={pencil} alt="pencil" onClick={() => {}} />;
+    const Pencil = () => <img src={URI_IMG} alt="pencil" onClick={() => {}} />;
 
     const onLogout = () => {
         const refreshToken = window.localStorage.getItem('refreshToken');

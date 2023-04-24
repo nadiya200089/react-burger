@@ -20,6 +20,7 @@ export interface IIngredientsData {
     name: string;
     _id: string;
     type: string;
+    uuid: string;
     __v: number;
 }
 

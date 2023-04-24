@@ -1,4 +1,4 @@
-//import { FC } from 'react';
+import { FC } from 'react';
 import style from "./style.module.css";
 import classNames from "classnames";
 import {
@@ -10,8 +10,9 @@ import {
 import { OrderDetails } from "../order-details/order-details";
 import { useEffect, useMemo, useState } from "react";
 import { Modal } from "../modal/modal";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from '../../services/hooks';
 
 import constructor, {
   deleteIngredient,
@@ -21,19 +22,18 @@ import constructor, {
 import DropContainer from "../dnd/DropContainer";
 import { DragAndDropContainer } from "../dnd/DragAndDropContainer";
 import { fetchOrder } from "../../services/actions/order";
-//import { StateProps  } from '../../types';
-
-
+import { RootStore } from '../../services/store';
+import { IIngredientsData } from '../../types';
 
 // interface IIngridients {
 
 // }
 
-export const BurgerConstructor = () => {
+export const BurgerConstructor: FC = () => {
   const navigate = useNavigate();
-  const { bun, ingredients } = useSelector((state) => state.constructorStore);
-  const { order } = useSelector((state) => state.orderStore.data);
-  const { user } = useSelector((state) => state.auth);
+  const { bun, ingredients } = useSelector((state: RootStore ) => state.constructorStore);
+  const { order } = useSelector((state: RootStore) => state.orderStore.data);
+  const { user } = useSelector((state: RootStore) => state.auth);
 
   const dispatch = useDispatch();
   const [orderModal, setOrderModal] = useState(false);
@@ -45,49 +45,52 @@ export const BurgerConstructor = () => {
 
   
   useEffect(() => {
-    if (order > 0) setOrderModal(true);
+    if (order.length > 0) setOrderModal(true);
   }, [order]);
 
   const handleSaveOrder = () => {
     if (user === null) {
       navigate('/enter');
     } else {
-      const ids = ingredients.map((ingredient) => [ingredient._id]);
-       dispatch(fetchOrder(ids));
+      const ids: string[] = ingredients.map((ingredient: IIngredientsData) => ingredient._id);
+      if (ids && ids.length > 0) {
+        const t: any = fetchOrder(ids)
+        dispatch(t);
+      }
     }
   };
 
-  const handleDeleteIngredient = (id) => {
+  const handleDeleteIngredient = (id: string) => {
     dispatch(deleteIngredient(id));
   };
 
-  const onDropIngridientHandler = (objIngridient) => {
+  const onDropIngridientHandler = (objIngridient: any) => {
     dispatch(addConstructor(objIngridient));
   };
 
-  const onDropBanHandler = (objBun) => {
+  const onDropBanHandler = (objBun: any) => {
     dispatch(addConstructor(objBun));
   };
 
-  const countPrice = useMemo(() => {
-    let totalPrice = 0;
-    if (!bun.name) {
+  const countPrice: number = useMemo(() => {
+    let totalPrice: number = 0;
+    if (bun && !bun?.name) {
       return totalPrice;
     }
 
     totalPrice += bun?.price * 2;
-    ingredients?.map((ingredient) => {
+    ingredients?.map((ingredient: any) => {
       totalPrice += ingredient.price;
     });
     return totalPrice;
-  });
+  }, []);
 
-  const handleMoveCard = (di, hi) => {
+  const handleMoveCard = (di: number, hi:number) => {
     dispatch(moveItem({ di, hi }));
   };
 
   return (
-    <div className={style.constructor}>
+    <div className={String(style.constructor)}>
       <DropContainer onDropHandler={onDropBanHandler}>
         <div className={classNames(style.bun, "ml-5")}>
           <ConstructorElement
@@ -106,12 +109,13 @@ export const BurgerConstructor = () => {
       <div className={classNames(style.main_ingredients_wrap, "custom-scroll")}>
         <DropContainer onDropHandler={onDropIngridientHandler}>
           <div className={classNames(style.main_ingredients)}>
-            {ingredients.map((data, index) => (
-              <DragAndDropContainer
-                className={classNames(
-                  style.main_ingredients_wrap,
-                  "custom-scroll"
-                )}
+            {ingredients.map((data: IIngredientsData, index: number) => {
+              const tData = {};
+              return (<DragAndDropContainer
+                // className={classNames(
+                //   style.main_ingredients_wrap,
+                //   "custom-scroll"
+                // )}
                 index={index}
                 id={data.uuid}
                 key={data.uuid}
@@ -120,15 +124,15 @@ export const BurgerConstructor = () => {
                 <div className={classNames(style.main, "mr-4")}>
                   <DragIcon type="primary" />
                   <ConstructorElement
-                    className="ml-2 mr-2 mb-2 mt-2"
+                    // className="ml-2 mr-2 mb-2 mt-2"
                     text={data.name}
                     thumbnail={data.image}
-                    {...data}
+                    price={data.price}
                     handleClose={() => handleDeleteIngredient(data.uuid)}
                   />
                 </div>
-              </DragAndDropContainer>
-            ))}
+              </DragAndDropContainer>)
+})}
           </div>
         </DropContainer>
       </div>
@@ -160,7 +164,7 @@ export const BurgerConstructor = () => {
       </div>
       {orderModal && (
         <Modal onClose={closeOrderModal}>
-          <OrderDetails data={orderModal} />
+          <OrderDetails />
         </Modal>
       )}
     </div>

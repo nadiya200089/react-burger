@@ -1,20 +1,26 @@
 import React from "react";
 import style from "./style.module.css";
 import classNames from "classnames";
-import { Modal } from "../modal/modal";
 import { useState } from "react";
-import { IngredientDetails } from "../ingridient-details/ingredient-details";
-import PropTypes from "prop-types";
-import { ingredientsPropTypes } from "../../utils/prop-types";
 import { useDispatch, useSelector } from "react-redux";
 import BurgerIngredientDrag from "../burgerIngredientDrag/burgerIngredientDrag";
+import { IIngredientsDto, IIngredientsData } from "../../types";
+import { RootStore } from "../../services/store";
 
-export const Category = React.forwardRef(({ title, id, ingredients }, ref) => {
+interface ICategory {
+  title: string;
+  id: string;
+  ingredients: IIngredientsData[];
+}
+
+type Ref = HTMLDivElement;
+
+export const Category: React.FC<ICategory>  = React.forwardRef<Ref, ICategory>(({ title, id, ingredients}, ref) => {
   const { bun, ingredients: constructorIngredients } = useSelector(
-    (state) => state.constructorStore
+    (state: RootStore) => state.constructorStore
   );
 
-  const [ingredientModal, setIngredientModal] = useState(null);
+  const [ingredientModal, setIngredientModal] = useState<IIngredientsData | null>(null);
   const dispatch = useDispatch();
   const closeModalIngredient = () => {
     setIngredientModal(null);
@@ -26,10 +32,15 @@ export const Category = React.forwardRef(({ title, id, ingredients }, ref) => {
         {title}
       </h2>
       <div className={classNames(style.list, "mb-16")} ref={ref}>
-        {ingredients?.map((data) => {
+        {ingredients && ingredients?.map((data: IIngredientsData) => {
           const isBun = data.type === "bun";
-          const counter = [...[bun], ...constructorIngredients].filter(
-            (ingredient) => ingredient._id === data._id
+          if (bun?.type){
+
+          }
+          const allData: IIngredientsDto[] = [...[bun], ...constructorIngredients];
+
+          const counter = allData.filter(
+            (ingredient: IIngredientsDto) => ingredient._id === data._id
           ).length;
           const counterBun = counter > 0 ? counter + 1 : 0;
           const count = isBun ? counterBun : counter;
@@ -44,17 +55,6 @@ export const Category = React.forwardRef(({ title, id, ingredients }, ref) => {
           );
         })}
       </div>
-      {/* {ingredientModal && (
-        <Modal onClose={closeModalIngredient}>
-          <IngredientDetails data={ingredientModal} />
-        </Modal>
-      )} */}
     </>
   );
 });
-
-Category.propTypes = {
-  title: PropTypes.string.isRequired,
-  id: PropTypes.string.isRequired,
-  ingredients: PropTypes.arrayOf(ingredientsPropTypes.isRequired).isRequired,
-};

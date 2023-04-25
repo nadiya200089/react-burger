@@ -32,6 +32,7 @@ import { IIngredientsData } from '../../types';
 export const BurgerConstructor: FC = () => {
   const navigate = useNavigate();
   const { bun, ingredients } = useSelector((state: RootStore ) => state.constructorStore);
+  
   const { order } = useSelector((state: RootStore) => state.orderStore.data);
   const { user } = useSelector((state: RootStore) => state.auth);
 
@@ -64,11 +65,11 @@ export const BurgerConstructor: FC = () => {
     dispatch(deleteIngredient(id));
   };
 
-  const onDropIngridientHandler = (objIngridient: any) => {
+  const onDropIngridientHandler = (objIngridient: IIngredientsData) => {
     dispatch(addConstructor(objIngridient));
   };
 
-  const onDropBanHandler = (objBun: any) => {
+  const onDropBanHandler = (objBun: IIngredientsData) => {
     dispatch(addConstructor(objBun));
   };
 
@@ -79,7 +80,7 @@ export const BurgerConstructor: FC = () => {
     }
 
     totalPrice += bun?.price * 2;
-    ingredients?.map((ingredient: any) => {
+    ingredients?.map((ingredient: IIngredientsData) => {
       totalPrice += ingredient.price;
     });
     return totalPrice;

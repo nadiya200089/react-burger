@@ -24,6 +24,24 @@ export interface IIngredientsData {
     __v: number;
 }
 
+
+
+export interface IIngredientsDto {
+    calories: number;
+    carbohydrates: number;
+    fat: number;
+    proteins: number;
+    image: string;
+    price: number;
+    image_large: string;
+    image_mobile: string;
+    name: string;
+    _id: string;
+    type: string;
+    __v: number;
+    uuid?: string;
+}
+
 export interface ILogout {
     token: string;
 }

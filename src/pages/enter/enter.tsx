@@ -6,18 +6,19 @@ import classNames from "classnames";
 import styles from "./style.module.css";
 import { Button, EmailInput, PasswordInput } from "@ya.praktikum/react-developer-burger-ui-components";
 import { loginUser } from "../../services/actions/auth";
+import { useSelector } from 'react-redux';
+import { RootStore } from '../../services/store';
 
 export const Enter = () => {
-    console.log('render');
+    //const { user } = useSelector((state: RootStore ) => state.auth);
 
     const dispatch = useDispatch();
 
-    // const [isVisible, setVisible] = useState(false);
+    const [isVisible, setVisible] = useState(false);
 
-    // const ChangeVisible = () => {
-    //     debugger;
-    //     setVisible(!isVisible)
-    // }
+    const ChangeVisible = () => {
+        setVisible(!isVisible)
+    }
 
     const [userData, setUserData] = useState({
         email: '',
@@ -65,7 +66,9 @@ export const Enter = () => {
             <PasswordInput
                 name='password'
                 value={userData.password}
-                onChange={handleChange}    
+                onChange={handleChange}  
+                placeholder='password'
+                //icon= 'HideIcon'
             />
 
             <Button

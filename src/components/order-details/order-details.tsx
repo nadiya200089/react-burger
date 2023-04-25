@@ -1,10 +1,9 @@
 import style from "./style.module.css";
-import classNames from "classnames";
-import { CheckMarkIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useSelector } from "react-redux";
+import { RootStore } from "../../services/store";
 
 export const OrderDetails = () => {
-  const { order } = useSelector((state) => state.orderStore.data);
+  const { order } = useSelector((state: RootStore) => state.orderStore.data);
 
   return (
     <div className={style.order_details}>

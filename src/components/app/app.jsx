@@ -98,9 +98,9 @@ export const App = (data) => {
         }
         />
         <Route path='enter' element={
-        // <ProtectedRoute onlyUnAuth user={user}>
+          <ProtectedRoute onlyUnAuth user={user}>
             <Enter />
-        //</ProtectedRoute>
+        </ProtectedRoute>
         }
         />
         <Route path='register' element={

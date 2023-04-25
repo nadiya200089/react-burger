@@ -1,6 +1,5 @@
 import classNames from "classnames";
 import styles from "./style.module.css";
-import PropTypes from "prop-types";
 import { useLocation, Link } from "react-router-dom";
 
 import {
@@ -8,15 +7,26 @@ import {
   CurrencyIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 
+interface IBurgerIngredient {
+  image: string;
+  id: string;
+  price: number;
+  name: string;
+  count: number;
+  onClick: () => void;
+  className?: boolean| string;
+  style: any;
+}
 
-export const BurgerIngredient = (props) => {
-  const { image, id, price, name, count } = props;
+export const BurgerIngredient: React.FC<IBurgerIngredient> = (props) => {
+  const { image, id, price, name, count, onClick, className, style } = props;
   const location = useLocation();
 
   return (
     <Link 
+    onClick={onClick}
     to={{ pathname: `/ingredientDetails/${id}` }} 
-    state={{ background: location, test: 'lol' }} 
+    state={{ background: location }} 
     replace
     key={id}
     className={styles.ingredient} >
@@ -42,12 +52,3 @@ export const BurgerIngredient = (props) => {
   );
 };
 
-BurgerIngredient.propTypes = {
-  title: PropTypes.string,
-  id: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
-  price: PropTypes.number.isRequired,
-  image: PropTypes.string.isRequired,
-  onClick: PropTypes.func.isRequired,
-  count: PropTypes.number,
-};

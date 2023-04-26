@@ -34,16 +34,17 @@ export const Category: React.FC<ICategory>  = React.forwardRef<Ref, ICategory>((
       <div className={classNames(style.list, "mb-16")} ref={ref}>
         {ingredients && ingredients?.map((data: IIngredientsData) => {
           const isBun = data.type === "bun";
-          if (bun?.type){
+          // if (bun?.type){
 
-          }
-          const allData: IIngredientsDto[] = [...[bun], ...constructorIngredients];
-
-          const counter = allData.filter(
-            (ingredient: IIngredientsDto) => ingredient._id === data._id
-          ).length;
-          const counterBun = counter > 0 ? counter + 1 : 0;
-          const count = isBun ? counterBun : counter;
+          // }
+          
+            const allData: IIngredientsDto[] = [...[bun], ...constructorIngredients];
+            const counter = allData.filter(
+              (ingredient: IIngredientsDto) => ingredient._id === data._id
+            ).length;
+            const counterBun = counter > 0 ? counter + 1 : 0;
+            const count = isBun ? counterBun : counter;        
+          
           return (
             <BurgerIngredientDrag
               data={data}

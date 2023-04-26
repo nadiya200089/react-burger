@@ -15,7 +15,7 @@ const fetchIngredients = createAsyncThunk<any, IIngredientsData, TIngredientsThu
     if (!response) {
       return rejectWithValue("Ошибка");
     }
-
+    console.log(response.data)
     return fulfillWithValue(response.data);
   }
 );

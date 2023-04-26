@@ -1,15 +1,15 @@
 import classNames from "classnames";
 import style from "./style.module.css";
-import PropTypes from "prop-types";
 import { Link, useLocation, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { RootStore } from "../../services/store";
 
 export const IngredientDetails = () => {
   const { id } = useParams();
 
   // const ingredientDetails = useEffect()
-   const { data: ingredient } = useSelector((state) => state.ingredientsStore);
-   const location = useLocation();   
+   const { data: ingredient } = useSelector((state: RootStore) => state.ingredientsStore);
+  //  const location = useLocation();   
    const data = ingredient.find(item => item._id === id);
    if (!data) {
     return <div>404</div>
@@ -58,6 +58,3 @@ export const IngredientDetails = () => {
   );
 };
 
-IngredientDetails.propTypes = {
-  data: PropTypes.object.isRequired,
-};

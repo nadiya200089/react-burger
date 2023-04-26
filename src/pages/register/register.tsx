@@ -10,10 +10,6 @@ import { registerUser } from "../../services/actions/auth";
 import { RootStore } from '../../services/store';
 import { IRegisterData } from '../../types';
 
-// type TOnRegister = {
-//   onRegister: (userData: IRegisterData) => void
-// }
-
 export const Register = () => {
   const dispatch = useDispatch();
   const { isSuccessRegister } = useSelector((state: RootStore) => state.auth);
@@ -24,6 +20,11 @@ export const Register = () => {
       navigate('/enter');
     }
   }, [isSuccessRegister])
+
+  const onRegister = () => {
+    // const t: any = registerUser(userData)
+    dispatch(registerUser(userData));
+  };
 
   const [userData, setUserData] = useState({
     email: '',
@@ -47,11 +48,6 @@ export const Register = () => {
   const navigate = useNavigate();
   const handleNavigateToRegister = () => {
     navigate('/enter');
-  };
-
-  const onRegister = () => {
-    const t: any = registerUser(userData)
-    dispatch(t);
   };
 
   return (

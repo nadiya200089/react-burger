@@ -14,7 +14,6 @@ import {
 } from "../../utils/api";
 
 type TRegisterThunk = {
-    dispatch: AppDispatch;
     extra: typeof regAsync;
 }
 type TLoginThunk = {
@@ -56,10 +55,13 @@ export const registerUser = createAsyncThunk<IUserData, IRegisterData, TRegister
         if (!res?.success) {
             return rejectWithValue(userdata)
         }
-
+        console.log(res);
         return fulfillWithValue(res);
+        
     }
+
 );
+
 
 export const loginUser = createAsyncThunk<IUserData, IUserData, TLoginThunk>(
     'auth/login',

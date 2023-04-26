@@ -31,8 +31,8 @@ import { IIngredientsData } from '../../types';
 
 export const BurgerConstructor: FC = () => {
   const navigate = useNavigate();
-  const { bun, ingredients } = useSelector((state: RootStore ) => state.constructorStore);
-  
+  const { bun, ingredients } = useSelector((state: RootStore) => state.constructorStore);
+
   const { order } = useSelector((state: RootStore) => state.orderStore.data);
   const { user } = useSelector((state: RootStore) => state.auth);
 
@@ -44,7 +44,7 @@ export const BurgerConstructor: FC = () => {
   };
 
 
-  
+
   useEffect(() => {
     if (order.length > 0) setOrderModal(true);
   }, [order]);
@@ -52,7 +52,7 @@ export const BurgerConstructor: FC = () => {
   const handleSaveOrder = () => {
     if (user === null) {
       navigate('/enter');
-    } else {
+    } if (ingredients) {
       const ids: string[] = ingredients.map((ingredient: IIngredientsData) => ingredient._id);
       if (ids && ids.length > 0) {
         const t: any = fetchOrder(ids)
@@ -86,7 +86,7 @@ export const BurgerConstructor: FC = () => {
     return totalPrice;
   }, []);
 
-  const handleMoveCard = (di: number, hi:number) => {
+  const handleMoveCard = (di: number, hi: number) => {
     dispatch(moveItem({ di, hi }));
   };
 
@@ -110,30 +110,32 @@ export const BurgerConstructor: FC = () => {
       <div className={classNames(style.main_ingredients_wrap, "custom-scroll")}>
         <DropContainer onDropHandler={onDropIngridientHandler}>
           <div className={classNames(style.main_ingredients)}>
-            {ingredients.map((data: IIngredientsData, index: number) => {
-              const tData = {};
-              return (<DragAndDropContainer
-                // className={classNames(
-                //   style.main_ingredients_wrap,
-                //   "custom-scroll"
-                // )}
-                index={index}
-                id={data.uuid}
-                key={data.uuid}
-                moveCard={handleMoveCard}
-              >
-                <div className={classNames(style.main, "mr-4")}>
-                  <DragIcon type="primary" />
-                  <ConstructorElement
-                    // className="ml-2 mr-2 mb-2 mt-2"
-                    text={data.name}
-                    thumbnail={data.image}
-                    price={data.price}
-                    handleClose={() => handleDeleteIngredient(data.uuid)}
-                  />
-                </div>
-              </DragAndDropContainer>)
-})}
+          {ingredients && ingredients.map((data: IIngredientsData, index: number) => {
+                  const tData = {};
+                  return (<DragAndDropContainer
+                    // className={classNames(
+                    //   style.main_ingredients_wrap,
+                    //   "custom-scroll"
+                    // )}
+                    index={index}
+                    id={data.uuid}
+                    key={data.uuid}
+                    moveCard={handleMoveCard}
+                  >
+                    <div className={classNames(style.main, "mr-4")}>
+                      <DragIcon type="primary" />
+                      <ConstructorElement
+                        // className="ml-2 mr-2 mb-2 mt-2"
+                        text={data.name}
+                        thumbnail={data.image}
+                        price={data.price}
+                        handleClose={() => handleDeleteIngredient(data.uuid)}
+                      />
+                    </div>
+                  </DragAndDropContainer>)
+                })
+              }
+          
           </div>
         </DropContainer>
       </div>

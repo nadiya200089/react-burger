@@ -1,6 +1,6 @@
 import { getCookie } from "./cookie";
 import { IRegisterData, IUserData, ILogout, IUpdateToken, IForgotPassword, IResetPassword } from '../types';
-const burgerProjectUrl = "https://norma.nomoreparties.space/api";
+const burgerProjectUrl:string = "https://norma.nomoreparties.space/api";
 
 function getResponseData(res: Response) {
   return res.ok ? res.json() : res.json().then((err) => Promise.reject(err));

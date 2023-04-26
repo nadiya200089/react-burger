@@ -59,26 +59,29 @@ export const constructorSlice = createSlice({
 
       }
     },
-    // moveItemA: (state, action: PayloadAction<ICoordinat>) => {
-    //   const { di, hi } = action.payload;
-    //   const ingrds = state.ingredients;
-    //   ingrds.splice(di, 0, ingrds.splice(hi, 1)[0]);
-    // },
-    // deleteIngredientA: (state, action: PayloadAction<string>) => {
-    //   const id = action.payload;
-    //   if (state.ingredients) {
-    //     const index = state.ingredients.findIndex((item: IIngredientsData) => item.uuid === id);
-    //     if (index !== -1) {
-    //        state.ingredients.splice(index, 1);    
-    //     } else {
-    //       console.log("Error: after delete an ingridients");
-    //     }
-    //   }
-    // },
-    // updateOrderA: (state, action) => {
-    //   const { name, order } = action.payload;
-    //   state.lastOrder = { name, order };
-    // },
+    moveItemA: (state, action: PayloadAction<ICoordinat>) => {
+      const { di, hi } = action.payload;
+      const ingrds = state.ingredients;
+      if (ingrds) {
+        ingrds.splice(di, 0, ingrds.splice(hi, 1)[0]);
+
+      }
+    },
+    deleteIngredientA: (state, action: PayloadAction<string>) => {
+      const id = action.payload;
+      if (state.ingredients) {
+        const index = state.ingredients.findIndex((item: IIngredientsData) => item.uuid === id);
+        if (index !== -1) {
+           state.ingredients.splice(index, 1);    
+        } else {
+          console.log("Error: after delete an ingridients");
+        }
+      }
+    },
+    updateOrderA: (state, action) => {
+      const { name, order } = action.payload;
+      state.lastOrder = { name, order };
+    },
   },
 });
 

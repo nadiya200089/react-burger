@@ -1,21 +1,23 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { getIngredients } from "../../utils/api";
-import { AppDispatch } from "../store";
+// import { AppDispatch } from "../store";
 import { IIngredientsData } from "../../types";
 
-type TIngredientsThunk = {
-  dispatch: AppDispatch;
-  extra: typeof getIngredients;
-}
+// type TIngredientsThunk = {
+//   dispatch: AppDispatch;
+//   extra: typeof getIngredients;
+// }
 
-const fetchIngredients = createAsyncThunk<any, IIngredientsData, TIngredientsThunk>(
+const fetchIngredients = createAsyncThunk
+//<any, IIngredientsData, TIngredientsThunk>
+(
   "ingredients/fetchIngredients",
   async (_, { rejectWithValue, fulfillWithValue }) => {
     const response = await getIngredients();
     if (!response) {
       return rejectWithValue("Ошибка");
     }
-    console.log(response.data)
+    console.log(response)
     return fulfillWithValue(response.data);
   }
 );

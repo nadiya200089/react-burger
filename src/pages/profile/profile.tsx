@@ -52,7 +52,7 @@ export const Profile = () => {
     };
 
     return (
-        <div className={styles.profile}>
+        <form className={styles.profile} onSubmit={updateUser}>
             <div className={styles.wrap}>
                 <p className={classNames(styles.text, "text text_type_main-medium mt-10 mb-7 ")}>Профиль</p>
                 <p className={classNames(styles.text, "text text_type_main-medium mb-7 text_color_inactive ")}>История заказов</p>
@@ -100,11 +100,11 @@ export const Profile = () => {
                     />
                     <Pencil />
                 </div>
-                <Button htmlType="button" onClick={updateUser}>
+                <Button htmlType="button" >
                     Сохранить
                 </Button>
             </div >
-        </div>
+        </form>
 
     );
 }

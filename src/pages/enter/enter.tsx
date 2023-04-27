@@ -6,11 +6,8 @@ import classNames from "classnames";
 import styles from "./style.module.css";
 import { Button, EmailInput, PasswordInput } from "@ya.praktikum/react-developer-burger-ui-components";
 import { loginUser } from "../../services/actions/auth";
-import { useSelector } from 'react-redux';
-import { RootStore } from '../../services/store';
 
 export const Enter = () => {
-    //const { user } = useSelector((state: RootStore ) => state.auth);
 
     const dispatch = useDispatch();
 
@@ -45,9 +42,7 @@ export const Enter = () => {
 
     const onLogin = () => {
         if (userData) {
-            //ToDo fix type
-            const user: any = loginUser(userData)
-            dispatch(user);
+            dispatch(loginUser(userData));
         }
     };
 

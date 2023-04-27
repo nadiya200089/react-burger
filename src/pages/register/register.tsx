@@ -22,7 +22,6 @@ export const Register = () => {
   }, [isSuccessRegister])
 
   const onRegister = () => {
-    // const t: any = registerUser(userData)
     dispatch(registerUser(userData));
   };
 

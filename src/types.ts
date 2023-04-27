@@ -3,9 +3,10 @@ export interface IUserData {
     name: string;
 }
 
-export interface IRegisterData  extends IForgotPassword {
+export interface IRegisterData {
     name: string;
     password: string;
+    email: string;
 }
 
 export interface IIngredientsData {

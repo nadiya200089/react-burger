@@ -1,5 +1,4 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { AppDispatch } from '../store'
 import { IRegisterData, IUserData, ILogout, IUpdateToken, IForgotPassword, IResetPassword } from '../../types';
 
 import {
@@ -13,43 +12,41 @@ import {
     resetPsw
 } from "../../utils/api";
 
-type TRegisterThunk = {
-    extra: typeof regAsync;
-}
-type TLoginThunk = {
-    dispatch: AppDispatch;
-    extra: typeof loginAsync;
-}
-type TLogoutThunk = {
-    dispatch: AppDispatch;
-    extra: typeof logoutAsync;
-}
-type TUpdateTokenThunk = {
-    dispatch: AppDispatch;
-    extra: typeof tokenAsync;
-}
-type TUpdateInfoUserThunk = {
-    dispatch: AppDispatch;
-    extra: typeof updateUser;
-}
-type TGetInfoUserThunk = {
-    dispatch: AppDispatch;
-    extra: typeof getUser;
-}
-type TforgotPswThunk = {
-    dispatch: AppDispatch;
-    extra: typeof forgotPsw;
-}
-type TRsetPswThunk = {
-    dispatch: AppDispatch;
-    extra: typeof resetPsw;
-}
+// type TRegisterThunk = {
+//     extra: typeof regAsync;
+// }
+// type TLoginThunk = {
+//     dispatch: AppDispatch;
+//     extra: typeof loginAsync;
+// }
+// type TLogoutThunk = {
+//     dispatch: AppDispatch;
+//     extra: typeof logoutAsync;
+// }
+// type TUpdateTokenThunk = {
+//     dispatch: AppDispatch;
+//     extra: typeof tokenAsync;
+// }
+// type TUpdateInfoUserThunk = {
+//     dispatch: AppDispatch;
+//     extra: typeof updateUser;
+// }
+// type TGetInfoUserThunk = {
+//     dispatch: AppDispatch;
+//     extra: typeof getUser;
+// }
+// type TforgotPswThunk = {
+//     dispatch: AppDispatch;
+//     extra: typeof forgotPsw;
+// }
+// type TRsetPswThunk = {
+//     dispatch: AppDispatch;
+//     extra: typeof resetPsw;
+// }
 
-
-
-export const registerUser = createAsyncThunk<IUserData, IRegisterData, TRegisterThunk>(
+export const registerUser = createAsyncThunk(
     '/auth/register',
-    async (userdata, { rejectWithValue, fulfillWithValue }) => {
+    async (userdata: IRegisterData, { rejectWithValue, fulfillWithValue }) => {
         const res = await regAsync(userdata);
 
         if (!res?.success) {
@@ -63,91 +60,91 @@ export const registerUser = createAsyncThunk<IUserData, IRegisterData, TRegister
 );
 
 
-export const loginUser = createAsyncThunk<IUserData, IUserData, TLoginThunk>(
+export const loginUser = createAsyncThunk(
     'auth/login',
-    async (IUserData, { rejectWithValue, fulfillWithValue }) => {
-        const res = await loginAsync(IUserData);
+    async (UserData: IUserData, { rejectWithValue, fulfillWithValue }) => {
+        const res = await loginAsync(UserData);
 
         if (!res?.success) {
-            return rejectWithValue(IUserData)
+            return rejectWithValue(UserData)
         }
 
         return fulfillWithValue(res);
     }
 );
 
-export const logoutUser = createAsyncThunk<IUserData, ILogout, TLogoutThunk>(
+export const logoutUser = createAsyncThunk(
     'auth/logout',
-    async (ILogout, { rejectWithValue, fulfillWithValue }) => {
-        const res = await logoutAsync(ILogout);
+    async (logout:ILogout, { rejectWithValue, fulfillWithValue }) => {
+        const res = await logoutAsync(logout);
 
         if (!res?.success) {
-            return rejectWithValue(ILogout)
+            return rejectWithValue(logout)
         }
 
         return fulfillWithValue(res);
     }
 );
 
-export const updateToken = createAsyncThunk<any, IUpdateToken, TUpdateTokenThunk>(
+export const updateToken = createAsyncThunk(
     'auth/updateToken',
-    async (IUpdateToken, { rejectWithValue, fulfillWithValue }) => {
-        const res = await tokenAsync(IUpdateToken);
+    async (token: IUpdateToken, { rejectWithValue, fulfillWithValue }) => {
+        const res = await tokenAsync(token);
 
         if (!res?.success) {
-            return rejectWithValue(IUpdateToken)
+            return rejectWithValue(token)
         }
 
         return fulfillWithValue(res);
     }
 );
 
-export const updateInfoUser = createAsyncThunk<any, IUserData, TUpdateInfoUserThunk>(
+export const updateInfoUser = createAsyncThunk(
     'auth/updateUser',
-    async (IUserData, { rejectWithValue, fulfillWithValue }) => {
-        const res = await updateUser(IUserData);
+    async (user: IUserData, { rejectWithValue, fulfillWithValue }) => {
+        const res = await updateUser(user);
 
         if (!res?.success) {
-            return rejectWithValue(IUserData)
+            return rejectWithValue(user)
         }
 
         return fulfillWithValue(res);
     }
 );
 
-export const getInfoUser = createAsyncThunk<any, IRegisterData, TGetInfoUserThunk>(
+export const getInfoUser = createAsyncThunk(
     'auth/getUser',
-    async (IRegisterData, { rejectWithValue, fulfillWithValue }) => {
-        const res = await getUser(IRegisterData);
+    async (user: IRegisterData, { rejectWithValue, fulfillWithValue }) => {
+        const res = await getUser(user);
 
         if (!res?.success) {
-            return rejectWithValue(IRegisterData)
+            return rejectWithValue(user)
         }
 
         return fulfillWithValue(res);
     }
 );
 
-export const forgotPassword = createAsyncThunk<any, IRegisterData, TforgotPswThunk>(
+export const forgotPassword = createAsyncThunk(
     'auth/forgotPassword',
-    async (IForgotPassword, { rejectWithValue, fulfillWithValue }) => {
-        const res = await forgotPsw(IForgotPassword);
+    async (psw: IForgotPassword, { rejectWithValue, fulfillWithValue }) => {
+        const res = await forgotPsw(psw);
 
         if (!res?.success) {
-            return rejectWithValue(IForgotPassword)
+            return rejectWithValue(psw)
         }
 
         return fulfillWithValue(res);
     }
 );
 
-export const resetPassword = createAsyncThunk<any, IResetPassword, TRsetPswThunk>(
+export const resetPassword = createAsyncThunk(
     'auth/resetPassword',
-    async (IResetPassword, { rejectWithValue, fulfillWithValue }) => {
-        const res = await resetPsw(IResetPassword);
+    async (psw:IResetPassword, { rejectWithValue, fulfillWithValue }) => {
+        const res = await resetPsw(psw);
 
         if (!res?.success) {
-            return rejectWithValue(IResetPassword)
+            return rejectWithValue(psw)
         }
 
         return fulfillWithValue(res);

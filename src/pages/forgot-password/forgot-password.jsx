@@ -4,8 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
 
 import styles from "./style.module.css";
-import PropTypes from "prop-types";
-import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
+import { Button, EmailInput } from "@ya.praktikum/react-developer-burger-ui-components";
 import { forgotPassword } from "../../services/actions/auth";
 
 export const ForgotPassword = () => {
@@ -35,27 +34,26 @@ export const ForgotPassword = () => {
         }
     }, [isResetPassword])
     return (
-        <div 
-        className={styles.wrapper}>
+        <form onSubmit={handleResetPassword}
+              className={styles.wrapper}>
             <h2 className="text text_type_main-large">
                 Восстановление пароля
             </h2>
-            <input           
+            <EmailInput           
                 onChange={handleChange}
                 value={email}
                 type='email'
                 placeholder="Укажите e-mail"
-                className={classNames(styles.input, 'pl-5 mt-6 mb-6')}
             />
             <Button 
-                disabled={isDisable}
-                onClick={handleResetPassword}>
+                htmlType='submit'
+                disabled={isDisable}>
                 Сохранить
             </Button>
             <div className={classNames(styles.paragraph, 'mt-20')}>
                 <p  className="text text_color_inactive text_type_main-default"> Вспомнили пароль?</p>
                 <a  onClick={handleNavigateToEnter} className={classNames(styles.button,"text text_color_accent text_type_main-default ml-3")}>Войти</a>
             </div>
-        </div >
+        </form>
     );
 }

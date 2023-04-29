@@ -101,7 +101,7 @@ export const updateToken = createAsyncThunk(
 
 export const updateInfoUser = createAsyncThunk(
     'auth/updateUser',
-    async (user: IUserData, { rejectWithValue, fulfillWithValue }) => {
+    async (user: IRegisterData, { rejectWithValue, fulfillWithValue }) => {
         const res = await updateUser(user);
 
         if (!res?.success) {

@@ -5,7 +5,7 @@ import { logoutUser } from "../../services/actions/auth";
 import classNames from "classnames";
 import styles from "./style.module.css";
 import { Button, EmailInput, Input, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
-import { updateInfoUser } from '../../utils/api';
+import { updateInfoUser } from '../../services/actions/auth';
 
 import { RootStore } from '../../services/store';
 import { IRegisterData } from '../../types';
@@ -28,8 +28,8 @@ export const Profile = () => {
     }
     const updateUser = () => {
         if (userData) {
-            const t: any = updateInfoUser(userData)
-            dispatch(t)
+            //const t: any = updateInfoUser(userData)
+            dispatch(updateInfoUser(userData))
         }
        
     }
@@ -80,7 +80,7 @@ export const Profile = () => {
                         value={String(userData?.password)}
                         onChange={handleChange}
                     />
-                <Button htmlType="button" >
+                <Button htmlType="submit" >
                     Сохранить
                 </Button>
             </form >

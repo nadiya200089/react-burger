@@ -88,7 +88,15 @@ export const authSlice = createSlice({
         })
       
         //update info user
+        .addCase(updateInfoUser.fulfilled, (state, action) => {
+          debugger;
+          console.log('3');
+         })
 
+          .addCase(updateInfoUser.rejected, (state, action) => {
+            debugger;
+            console.log('3');
+          })
         // forgot password
 
        

@@ -54,10 +54,10 @@ export const constructorSlice = createSlice({
         state.bun = { ...action.payload, uuid: uuidv4() };
         return;
       }
-      if (state.ingredients) {
-        state.ingredients.push({ ...action.payload, uuid: String(uuidv4()) });
-
+      if (!state.ingredients) {
+        state.ingredients = [];
       }
+      state.ingredients.push({ ...action.payload, uuid: String(uuidv4()) });
     },
     moveItemA: (state, action: PayloadAction<ICoordinat>) => {
       const { di, hi } = action.payload;

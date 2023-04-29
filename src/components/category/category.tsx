@@ -1,4 +1,4 @@
-import React from "react";
+import React, { forwardRef } from "react";
 import style from "./style.module.css";
 import classNames from "classnames";
 import { useState } from "react";
@@ -11,11 +11,13 @@ interface ICategory {
   title: string;
   id: string;
   ingredients: IIngredientsData[];
+  ref: any;
 }
 
 type Ref = HTMLDivElement;
 
-export const Category: React.FC<ICategory> = React.forwardRef<Ref, ICategory>(({ title, id, ingredients }, ref) => {
+export const Category: React.FC<ICategory> = forwardRef<Ref, ICategory>(({ title, id, ingredients , ref}, forwardRef) => {
+
   const { bun, ingredients: constructorIngredients } = useSelector(
     (state: RootStore) => state.constructorStore
   );
@@ -31,10 +33,11 @@ export const Category: React.FC<ICategory> = React.forwardRef<Ref, ICategory>(({
       <h2 className="text text_type_main-large mb-6 mt-10" id={id}>
         {title}
       </h2>
-      <div className={classNames(style.list, "mb-16")} ref={ref}>
-        {ingredients && constructorIngredients && ingredients?.map((data: IIngredientsData) => {
+      <div className={classNames(style.list, "mb-16")} ref={forwardRef}>
+        {ingredients && ingredients?.map((data: IIngredientsData) => {
           const isBun = data.type === "bun";
-          const allData: IIngredientsDto[] = [...[bun], ...constructorIngredients];
+          const constructorIngredientsInit =  !constructorIngredients ? [] : constructorIngredients; 
+          const allData: IIngredientsDto[] = [...[bun], ...constructorIngredientsInit];
           const counter = allData.filter(
             (ingredient: IIngredientsDto) => ingredient._id === data._id
           ).length;

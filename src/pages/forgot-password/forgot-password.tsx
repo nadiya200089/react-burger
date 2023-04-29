@@ -1,15 +1,18 @@
 import { useState, useEffect } from 'react';
 import classNames from "classnames";
 import { useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
+import { useDispatch } from "../../services/hooks";
+
 
 import styles from "./style.module.css";
 import { Button, EmailInput } from "@ya.praktikum/react-developer-burger-ui-components";
 import { forgotPassword } from "../../services/actions/auth";
+import { RootStore } from '../../services/store';
 
 export const ForgotPassword = () => {
     const dispatch = useDispatch();
-    const {isResetPassword}  = useSelector((state) => state.auth);
+    const {isResetPassword}  = useSelector((state: RootStore) => state.auth);
     const [email, setEmail] = useState('');
     const navigate = useNavigate();
 
@@ -21,7 +24,7 @@ export const ForgotPassword = () => {
         dispatch(forgotPassword(req));
     }
 
-    const handleChange = (e) => {
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value;
         setEmail(value);
     }
@@ -42,7 +45,6 @@ export const ForgotPassword = () => {
             <EmailInput           
                 onChange={handleChange}
                 value={email}
-                type='email'
                 placeholder="Укажите e-mail"
             />
             <Button 

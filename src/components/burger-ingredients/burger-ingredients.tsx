@@ -4,21 +4,22 @@ import { Tab } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/
 import { useEffect, useState } from "react";
 import { Category } from "../category/category";
 import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
+import { useDispatch } from '../../services/hooks';
 import { useInView } from "react-intersection-observer";
+import { RootStore } from "../../services/store";
 
 export const BurgerIngredients = () => {
   const [current, setCurrent] = useState("buns");
   const dispatch = useDispatch();
 
-  const ingredients = useSelector((state) => state.ingredientsStore.data);
+  const ingredients = useSelector((state:RootStore) => state.ingredientsStore.data);
 
   const buns = ingredients.filter((item) => item.type === "bun");
 
   const main = ingredients.filter((item) => item.type === "main");
   const sauce = ingredients.filter((item) => item.type === "sauce");
 
-  function handleOnClickTab(tab) {
+  function handleOnClickTab(tab: string) {
     setCurrent(tab);
     const title = document.getElementById(tab);
     if (title) title.scrollIntoView({ behavior: "smooth" });

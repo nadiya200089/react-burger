@@ -37,6 +37,17 @@ export const App = (data) => {
   }
 
   useEffect(() => {
+    if (user && user.name) {
+      debugger;
+      if (window.location.pathname === '/enter') {
+        navigate('/');
+      }
+      // navigate(-1);
+    }
+  }, [user])
+
+
+  useEffect(() => {
     try {
       const token = getCookie("token");
       if (token && token.length > 0) {
@@ -64,13 +75,6 @@ export const App = (data) => {
       }
     }
   }, [isOldToken]);
-
-
-  useEffect(() => {
-    if (user && user.name) {
-      navigate('/')
-    }
-  }, [user])
 
   return (
     <>

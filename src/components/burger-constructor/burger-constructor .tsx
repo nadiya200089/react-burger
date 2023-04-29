@@ -55,8 +55,8 @@ export const BurgerConstructor: FC = () => {
     } if (ingredients) {
       const ids: string[] = ingredients.map((ingredient: IIngredientsData) => ingredient._id);
       if (ids && ids.length > 0) {
-        const t: any = fetchOrder(ids)
-        dispatch(t);
+        //const t: any = fetchOrder(ids)
+        dispatch(fetchOrder(ids));
       }
     }
   };
@@ -84,7 +84,7 @@ export const BurgerConstructor: FC = () => {
       totalPrice += ingredient.price;
     });
     return totalPrice;
-  }, []);
+  }, [bun, ingredients]);
 
   const handleMoveCard = (di: number, hi: number) => {
     dispatch(moveItem({ di, hi }));

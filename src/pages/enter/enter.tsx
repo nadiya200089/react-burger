@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useDispatch } from "../../services/hooks";
 import { useNavigate } from 'react-router-dom';
 
@@ -6,16 +6,22 @@ import classNames from "classnames";
 import styles from "./style.module.css";
 import { Button, EmailInput, PasswordInput } from "@ya.praktikum/react-developer-burger-ui-components";
 import { loginUser } from "../../services/actions/auth";
+import { RootStore } from '../../services/store';
+import { useSelector } from 'react-redux';
 
 export const Enter = () => {
 
+    const {user }  = useSelector((state: RootStore) => state.auth);
+
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
-    const [isVisible, setVisible] = useState(false);
 
-    const ChangeVisible = () => {
-        setVisible(!isVisible)
-    }
+    // const [isVisible, setVisible] = useState(false);
+
+    // const ChangeVisible = () => {
+    //     setVisible(!isVisible)
+    // }
 
     const [userData, setUserData] = useState({
         email: '',
@@ -29,7 +35,6 @@ export const Enter = () => {
             [name]: value
         });
     }
-    const navigate = useNavigate();
 
     const handleNavigateToRegister = () => {
         navigate('/register');
@@ -46,6 +51,7 @@ export const Enter = () => {
         }
     };
 
+    
     return (
         <div
             className={styles.wrapper}>

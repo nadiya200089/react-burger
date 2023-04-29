@@ -1,8 +1,8 @@
-import { createSlice, createAsyncThunk, ActionReducerMapBuilder } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 import { fetchOrder } from "../actions/order";
 
 interface IData {
-  order: string[];
+  order: number;
 }
 interface IInitState { 
   data: IData,
@@ -12,7 +12,7 @@ interface IInitState {
 
 const initialState: IInitState = {
   data: {
-    order: ['0'],
+    order: 0,
   },
   isLoading: false,
   error: null,

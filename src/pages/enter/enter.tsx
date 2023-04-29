@@ -11,7 +11,7 @@ import { useSelector } from 'react-redux';
 
 export const Enter = () => {
 
-    const {user }  = useSelector((state: RootStore) => state.auth);
+    const { user } = useSelector((state: RootStore) => state.auth);
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -51,9 +51,9 @@ export const Enter = () => {
         }
     };
 
-    
+
     return (
-        <div
+        <form onSubmit={onLogin}
             className={styles.wrapper}>
             <h2 className="text text_type_main-large">
                 Вход
@@ -67,14 +67,12 @@ export const Enter = () => {
             <PasswordInput
                 name='password'
                 value={userData.password}
-                onChange={handleChange}  
+                onChange={handleChange}
                 placeholder='password'
-                //icon= 'HideIcon'
             />
 
             <Button
-              htmlType = 'button'
-              onClick={onLogin}>
+                htmlType="submit">
                 Войти
             </Button>
             <div className={classNames(styles.paragraph, 'mt-20')}>
@@ -87,6 +85,6 @@ export const Enter = () => {
 
             </div>
 
-        </div >
+        </form>
     );
 }

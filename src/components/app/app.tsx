@@ -1,10 +1,10 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import style from "./style.module.css";
 import classNames from "classnames";
 import { AppHeader } from "../app-header/app-header";
 import { BurgerIngredients } from "../burger-ingredients/burger-ingredients";
 import { BurgerConstructor } from "../burger-constructor/burger-constructor ";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 import fetchIngredients from "../../services/actions/ingredients";
 import { getInfoUser, updateToken } from "../../services/actions/auth";
@@ -16,18 +16,22 @@ import { Enter } from "../../pages/enter/enter";
 import { Register } from "../../pages/register/register";
 import { IngredientDetails } from "../ingridient-details/ingredient-details";
 import { ForgotPassword } from "../../pages/forgot-password/forgot-password";
-import { registerUser, setUser } from "../../utils/api";
+//import { registerUser, setUser } from "../../utils/api";
 import { Modal } from "../modal/modal";
-import ingredients from "../../services/reducers/ingredients";
+//import ingredients from "../../services/reducers/ingredients";
 import { Profile } from "../../pages/profile/profile";
 import { Error } from "../error/error";
 import { ProtectedRoute } from "../protected-route/protected-route";
 import { ResetPassword } from "../../pages/reset-password/reset-password";
 import { getCookie } from '../../utils/cookie';
+import { useDispatch } from "../../services/hooks";
+import { RootStore } from "../../services/store";
+import { IIngredientsData } from "../../types";
 
-export const App = (data) => {
+
+export const App: React.FC = () => {
   const dispatch = useDispatch();
-  const {user, isOldToken }  = useSelector((state) => state.auth);
+  const {user, isOldToken }  = useSelector((state: RootStore) => state.auth);
   const location = useLocation();
   const background = location.state?.background;
   const navigate = useNavigate();
@@ -62,10 +66,13 @@ export const App = (data) => {
   useEffect(() => {
     if (isOldToken) {
       const refreshToken = window.localStorage.getItem('refreshToken');
-      // if token became old 
-      dispatch(updateToken({
-        token: refreshToken
+      // if token became old
+      if ( refreshToken) {
+        dispatch(updateToken({
+          token: refreshToken
       }))
+      }
+    
     } else {
       // was refresh 
       // get user info
@@ -98,7 +105,7 @@ export const App = (data) => {
         </DndProvider>}
         />
         <Route path='ingredientDetails/:id' element={
-          <IngredientDetails data={data} />
+          <IngredientDetails />
         }
         />
         <Route path='enter' element={
@@ -141,7 +148,7 @@ export const App = (data) => {
         <Routes>
           <Route path='ingredientDetails/:id' element={
             <Modal onClose={onModalClose}>
-              <IngredientDetails data={data} />
+              <IngredientDetails />
             </Modal>
           }
           />

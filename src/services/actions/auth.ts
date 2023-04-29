@@ -114,11 +114,11 @@ export const updateInfoUser = createAsyncThunk(
 
 export const getInfoUser = createAsyncThunk(
     'auth/getUser',
-    async (user: IRegisterData, { rejectWithValue, fulfillWithValue }) => {
-        const res = await getUser(user);
+    async (token: string, { rejectWithValue, fulfillWithValue }) => {
+        const res = await getUser(token);
 
         if (!res?.success) {
-            return rejectWithValue(user)
+            return rejectWithValue(token)
         }
 
         return fulfillWithValue(res);

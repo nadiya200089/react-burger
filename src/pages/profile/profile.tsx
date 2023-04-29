@@ -4,7 +4,7 @@ import { logoutUser } from "../../services/actions/auth";
 
 import classNames from "classnames";
 import styles from "./style.module.css";
-import { Button, EmailInput, Input, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
+import { Button, CheckMarkIcon, EmailInput, Input, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
 import { updateInfoUser } from '../../services/actions/auth';
 
 import { RootStore } from '../../services/store';
@@ -66,7 +66,6 @@ export const Profile = () => {
                         placeholder="логин"
                         value={String(userData?.name)}
                         onChange={handleChange}
-                
                     />
                     <EmailInput
                         name='email'

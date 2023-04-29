@@ -7,12 +7,12 @@ import { AppDispatch } from "../store";
 //   extra: typeof getOrder;
 // }
 
-// interface INumber {
-//   number?: any
-// }
-// interface IPayload {
-//   order: INumber
-// }
+interface INumber {
+  number?: any
+}
+interface IPayload {
+  order: INumber
+}
 
 export const fetchOrder = createAsyncThunk(
   "order/fetchOrder",

@@ -89,7 +89,7 @@ export const updateToken = (res:IUpdateToken) => {
       return Promise.reject(res);
     })
 }
-export const updateInfoUser = (res: IUserData) => {
+export const updateInfoUser = (res: IRegisterData) => {
   const token = getCookie('token');
   const a =  fetch(`${burgerProjectUrl}/auth/user`, {
     method: "PATCH",
@@ -105,7 +105,7 @@ export const updateInfoUser = (res: IUserData) => {
     })
   return a;
 }
-export const getInfoUser = (res: IRegisterData) => {
+export const getInfoUser = (res: string) => {
   return fetch(`${burgerProjectUrl}/auth/user`, {
     method: "GET",
     headers: {

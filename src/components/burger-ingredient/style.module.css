@@ -1,16 +1,23 @@
 .ingredient {
-    display: flex;
-    flex-direction: column;
-    position: relative;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  text-decoration: none;
+  color: white;
 }
 
 .burger_ingredient_cost {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
 }
 
 .burger_ingredient_text {
-    display: flex;
-    justify-content: center;
+  display: flex;
+  justify-content: center;
+  
+}
+
+.active {
+  color: green;
 }

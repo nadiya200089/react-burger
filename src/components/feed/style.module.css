@@ -1,0 +1,30 @@
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    justify-content: start;
+
+}
+
+.main {
+    display: flex;
+    gap: 50px;
+}
+
+.feed {
+    display: flex;
+    flex-direction: column; 
+    gap: 8px;
+    overflow-y: scroll;
+}
+
+.wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 80px;
+}
+
+.status {
+    display: flex;
+    gap: 150px;
+}

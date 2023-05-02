@@ -15,6 +15,10 @@ export const AppHeader = () => {
 
   const navigate = useNavigate();
 
+ const handleNavigateToFeed = () => {
+      navigate('/feed');
+  };
+
   const handleNavigateToEnter = () => {
     if (!user) {
       navigate('/enter')
@@ -37,7 +41,7 @@ export const AppHeader = () => {
               Конструктор
             </span>
           </a>
-          <a href="#" className={classNames(style.link, style.link_active)}>
+          <a onClick={handleNavigateToFeed} href="#" className={classNames(style.link, style.link_active)}>
             <ListIcon type="secondary" />
             <span className="text text_color_inactive text_type_main-default ml-2">
               Лента заказов

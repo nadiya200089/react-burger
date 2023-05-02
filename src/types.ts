@@ -57,3 +57,18 @@ export interface IResetPassword {
     password: string;
     token: string
 }
+
+ export interface orders {
+    createdAt: string;
+    ingredients: orderIngredients[];
+ }
+
+ export interface orderIngredients {
+    name: string;
+    number: number;
+    status: string;
+    updatedAt: string;
+    _id: string;
+
+
+ }

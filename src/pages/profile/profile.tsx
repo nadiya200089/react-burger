@@ -66,18 +66,21 @@ export const Profile = () => {
                         placeholder="логин"
                         value={String(userData?.name)}
                         onChange={handleChange}
+                        icon={'EditIcon'}
                     />
-                    <EmailInput
+                    <Input
                         name='email'
                         placeholder="email"
                         value={String(userData?.email)}
                         onChange={handleChange}
+                        icon={'EditIcon'}
                     />
                     <PasswordInput
                         name='password'
                         placeholder="Пароль"
                         value={String(userData?.password)}
                         onChange={handleChange}
+                        icon={'EditIcon'}
                     />
                 <Button htmlType="submit" >
                     Сохранить

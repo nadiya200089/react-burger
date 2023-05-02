@@ -2,8 +2,9 @@ import { configureStore } from "@reduxjs/toolkit";
 import constructor from "./reducers/constructor";
 import ingredients from "./reducers/ingredients";
 import auth from "./reducers/auth";
-
-import order from "./reducers/order"
+import { apiSocket } from '../utils/apiSocket';
+import order from "./reducers/order";
+import feed from './reducers/feed'
 
 export const store = configureStore({
     devTools: true,
@@ -11,8 +12,12 @@ export const store = configureStore({
         ingredientsStore: ingredients,
         constructorStore: constructor,
         auth: auth,
-        orderStore: order
-    }
+        orderStore: order,
+        feedStore: feed,
+    },
+    middleware: (getDefaultMiddleware) => {
+        return getDefaultMiddleware().concat([apiSocket])
+    },
 },
 
 );

@@ -27,6 +27,7 @@ import { getCookie } from '../../utils/cookie';
 import { useDispatch } from "../../services/hooks";
 import { RootStore } from "../../services/store";
 import { IIngredientsData } from "../../types";
+import { Feed } from "../feed/feed";
 
 
 export const App: React.FC = () => {
@@ -106,6 +107,10 @@ export const App: React.FC = () => {
         />
         <Route path='ingredientDetails/:id' element={
           <IngredientDetails />
+        }
+        />
+         <Route path='feed' element={
+          <Feed />
         }
         />
         <Route path='enter' element={

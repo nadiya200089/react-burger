@@ -3,7 +3,6 @@ import { IRegisterData, IUserData, ILogout, IUpdateToken, IForgotPassword, IRese
 const burgerProjectUrl:string = "https://norma.nomoreparties.space/api";
 
 function getResponseData(res: Response) {
-  debugger;
   return res.ok ? res.json() : res.json().then((err) => Promise.reject(err));
 }
 

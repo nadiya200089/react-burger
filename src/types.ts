@@ -72,3 +72,28 @@ export interface IResetPassword {
 
 
  }
+
+ export interface IWebsocketOrders {
+    _id: string;
+    ingredients: string[];
+    status: 'done' | 'pending' | 'created';
+    name: 'string';
+    number: number;
+    createdAt?: string;
+    updateAt?: string;
+}
+
+export interface IFeedOrders extends IWebsocketOrders {
+    arrImgsUri: string[];
+    totalPrice: number;
+}
+
+export interface IFeedCard {
+    // _id: string;
+    name: 'string';
+    number: number;
+    createdAt?: string;
+    updateAt?: string;
+    arrImgsUri: string[];
+    totalPrice: number;
+}

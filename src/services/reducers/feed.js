@@ -5,7 +5,7 @@ import { wsClose, wsConnecting, wsError, wsMessage, wsOpen } from '../actions/fe
 const initialState = {
   connectionError: '',
   total: 0,
-  totalDay: 0,
+  totalToday: 0,
   orders: [],
   status: WebsocketStatus.OFFLINE
 };
@@ -34,9 +34,9 @@ export const feedSlice = createSlice({
         state.connectionError = action.payload;
     })
     .addCase(wsMessage, (state, action) => {
-        const { total, totalDay, orders  } = action.payload;
+        const { total, totalToday, orders  } = action.payload;
         state.total = total;
-        state.totalDay = totalDay;
+        state.totalDay = totalToday;
         state.orders= orders;
     })
  }

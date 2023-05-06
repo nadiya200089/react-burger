@@ -1,24 +1,34 @@
-import type { Middleware } from "redux";
-import { useDispatch } from "../services/hooks";
-import { wsMessage } from "../services/actions/feed";
-import { RootStore } from "../services/store";
+import type { Middleware, MiddlewareAPI  } from "redux";
+import { wsMessage,wsOpen, wsClose } from "../services/actions/feed";
+import { AppDispatch, RootStore } from "../services/store";
+import { IIngredientsData, IWebsocketOrders } from "../types";
+import { current } from "@reduxjs/toolkit";
+import { useSelector } from "react-redux";
 
 
-export const apiSocket: Middleware = (store:any) => (next:any) => (action:any) => { 
-   const dispatch = useDispatch();
+
+ export const apiSocket: Middleware = (store: MiddlewareAPI<AppDispatch, RootStore>) => (next:any) => (action:any) => { 
     const socket: any = new WebSocket('wss://norma.nomoreparties.space/orders/all');
     if (socket) {
 
         socket.onmessage = (event: any) => {
 
             const jsonData = JSON.parse(event.data);
-            //orders 
+
             store.dispatch(wsMessage(jsonData));
-            console.log('ws-event', event);
         }
 
         socket.onopen = (event: WebSocketEventMap) => {
-                console.log('ws-event', event);
+            store.dispatch(wsOpen)
+        }
+
+        socket.onerror = (event: any) => {
+            store.dispatch(wsClose)
+
+        }
+        socket.onclose = (event: any) => {
+            console.log( 'WS close')
+
         }
 
     }

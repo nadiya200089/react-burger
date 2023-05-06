@@ -28,6 +28,7 @@ import { useDispatch } from "../../services/hooks";
 import { RootStore } from "../../services/store";
 import { IIngredientsData } from "../../types";
 import { Feed } from "../feed/feed";
+import { FeedCard } from "../feedCard/feedCard";
 
 
 export const App: React.FC = () => {

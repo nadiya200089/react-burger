@@ -1,0 +1,28 @@
+.wrapper {
+    width: 600px;
+    margin: auto;
+    padding: 20px;
+    border-radius: 40px;
+    background-color: #1c1c21;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.wrap {
+    display: flex;
+    justify-content: space-between;
+
+}
+
+.images {
+    display: flex;
+    gap: -5px;
+
+}
+
+.img {
+    border: none;
+    border-radius: 50%;
+ 
+}

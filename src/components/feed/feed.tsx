@@ -10,48 +10,30 @@ import { wsOpen, wsClose } from "../../services/actions/feed";
 import { useEffect } from "react";
 import { useDispatch } from "../../services/hooks";
 import ingredients from "../../services/reducers/ingredients";
-import { IIngredientsData, IWebsocketOrders } from '../../types';
 import { FeedCard } from "../feedCard/feedCard";
-// type TOrderCard = {
-//     ingredients: string[];
-//     totalPrice: number;
-//     date: Date;
-//     orderNumber: number;
-//     name: string;
-//     status: string;
-// }
+import { useNavigate } from 'react-router-dom';
+import { parseOrdersToClient } from '../../utils/utils'
 
-const parseOrdersToClient = (orders: IWebsocketOrders[], ingredients: IIngredientsData[]) => {
-    
-    return orders.map((order: IWebsocketOrders) => {
-        const arrIdsIngredients = order.ingredients;
-        const usedIngredients = ingredients.filter((ingredient: IIngredientsData) => arrIdsIngredients.includes(ingredient._id));
-
-
-        const total = usedIngredients.reduce((sumPrice: number, currentItem: IIngredientsData) => {
-            return sumPrice + currentItem.price;        
-        }, 0);
-
-        const arrImgsUri = usedIngredients.map((ingredients: IIngredientsData) => ingredients.image_mobile);
-
-        return Object.assign({}, order, {total: total, arrImgsUri: arrImgsUri });
-    })
-}
 
 export const Feed = () => {
     const { data: ingredients } = useSelector((state: RootStore) => state.ingredientsStore)
     const { connectionError, orders, total, totalToday, status } = useSelector((state: RootStore) => state.feedStore);
     const [parseOrders, setParseOrders] = useState<any[]>([])
     const dispatch = useDispatch();
-    console.log(orders);
+    const navigate = useNavigate();
+    console.log(orders)
+
+    const handleNavigateToFeedId = (id: string) => {
+        navigate(`/feed/${id}`);
+    };
 
     useEffect(() => {
         dispatch(wsOpen());
         return () => {
+
             dispatch(wsClose());
         };
     }, [dispatch]);
-
 
     useEffect(() => {
         if (orders && orders.length) {
@@ -71,27 +53,28 @@ export const Feed = () => {
                 Лента Заказов
             </h2>
             <div className={style.main}>
-                <div className={classNames(style.feed, "custom-scroll")}>
-                    <div className={style.orders}>
-                        {parseOrders.length? 
-                            parseOrders.map((item: any) => (
-                                <FeedCard
-                                    totalPrice={item.total}
-                                    createdAt={item.createdAt}
-                                    name={item.name}
-                                    number={item.number}
-                                    arrImgsUri={item.arrImgsUri}  
-                                />
-                            )
-                            ): ''}
-                    </div>
+                <div className={classNames(style.orders, "custom-scroll")}>
+                    {parseOrders.length ?
+                        parseOrders.map((item: any) => (
+                            <FeedCard
+                                _id={item._id}
+                                totalPrice={item.total}
+                                createdAt={item.createdAt}
+                                name={item.name}
+                                number={item.number}
+                                arrImgsUri={item.arrImgsUri}
+                                onClick={() => handleNavigateToFeedId(item._id)}
+                                ingredientName={item.ingredientName}
+                            />
+                        )
+                        ) : ''}
                 </div>
                 <div className={style.wrap}>
                     <div className={style.status}>
 
                         <div>
                             <div className="text text_type_main-medium">Готовы:</div>
-                            <div className="text text_type_digits-small">
+                            <div className={classNames(style.done, "text text_type_digits-default")}>
                                 {getStatus(orders, 'done').length ? (
                                     getStatus(orders, 'done').map((item) => (
                                         <div key={item} >
@@ -105,7 +88,7 @@ export const Feed = () => {
                         </div>
                         <div>
                             <div className="text text_type_main-medium">В работе:</div>
-                            <div className="text text_type_digits-small">
+                            <div className="text text_type_digits-default">
                                 {getStatus(orders, 'pending').length ? (
                                     getStatus(orders, 'pending').map((item) => (
                                         <div key={item} >

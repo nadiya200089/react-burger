@@ -1,0 +1,43 @@
+.wrapper {
+    margin: 0 auto;
+    margin-top: 130px;
+    max-width: 1280px;
+    width: 40%;
+    max-height: 70%;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    justify-content: center;
+    align-items: start;
+}
+
+.number {
+    margin: 0 auto;
+}
+
+.status {
+    color: #00cccc;
+}
+
+.wrap {
+    display: grid;
+    grid-template-columns: 1fr 10fr 2fr;
+    overflow-y: scroll;
+}
+
+.ingredientPrice {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    align-items: center ;
+}
+
+.names {
+    display: grid;
+    align-items: center;
+}
+
+.price {
+    display: grid;
+    align-items: center;
+}

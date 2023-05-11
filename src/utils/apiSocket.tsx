@@ -16,6 +16,7 @@ import { useSelector } from "react-redux";
             const jsonData = JSON.parse(event.data);
 
             store.dispatch(wsMessage(jsonData));
+            socket.close()
         }
 
         socket.onopen = (event: WebSocketEventMap) => {

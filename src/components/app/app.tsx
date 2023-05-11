@@ -29,6 +29,7 @@ import { RootStore } from "../../services/store";
 import { IIngredientsData } from "../../types";
 import { Feed } from "../feed/feed";
 import { FeedCard } from "../feedCard/feedCard";
+import { FeedCardDetails } from "../feedCardDetails/feedCardDetails";
 
 
 export const App: React.FC = () => {
@@ -108,6 +109,10 @@ export const App: React.FC = () => {
         />
         <Route path='ingredientDetails/:id' element={
           <IngredientDetails />
+        }
+        />
+        <Route path='feed/:id' element={
+          <FeedCardDetails />
         }
         />
          <Route path='feed' element={

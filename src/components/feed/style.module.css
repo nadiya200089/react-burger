@@ -2,6 +2,7 @@
     margin: 0 auto;
     max-width: 1280px;
     width: 100%;
+    height: 100vh;
     display: flex;
     flex-direction: column;
     gap: 15px;
@@ -14,17 +15,12 @@
     gap: 50px;
 }
 
-.feed {
-    display: flex;
-    flex-direction: column; 
-    gap: 8px;
-    overflow-y: scroll;
-}
-
 .wrap {
     display: flex;
     flex-direction: column;
     gap: 80px;
+
+
 }
 
 .status {
@@ -32,8 +28,14 @@
     gap: 150px;
 }
 
+.done {
+    color: #00cccc;
+
+}
+
 .orders {
     display: flex;
     flex-direction: column;
-    gap: 20px
+    gap: 20px;
+    overflow-y: scroll;
 }

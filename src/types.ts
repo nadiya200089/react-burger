@@ -89,11 +89,13 @@ export interface IFeedOrders extends IWebsocketOrders {
 }
 
 export interface IFeedCard {
-    // _id: string;
+    _id: string;
     name: 'string';
     number: number;
     createdAt?: string;
     updateAt?: string;
     arrImgsUri: string[];
     totalPrice: number;
+    onClick: ()=> void;
+    ingredientName: string;
 }

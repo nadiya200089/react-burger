@@ -2,13 +2,14 @@
     margin: 0 auto;
     margin-top: 130px;
     max-width: 1280px;
-    width: 40%;
+    width: 30%;
     max-height: 70%;
     display: flex;
     flex-direction: column;
     gap: 25px;
     justify-content: center;
     align-items: start;
+
 }
 
 .number {
@@ -20,16 +21,41 @@
 }
 
 .wrap {
-    display: grid;
-    grid-template-columns: 1fr 10fr 2fr;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
     overflow-y: scroll;
+    flex-direction: column;
+    width: 100%;
+
+
 }
 
 .ingredientPrice {
     display: flex;
     justify-content: center;
     gap: 8px;
-    align-items: center ;
+    align-items: center;
+}
+
+.ingredientWrap {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-right: 10px;
+}
+
+.ingredient {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+
+}
+
+.price {
+    display: flex;
+    align-items: center;
+    gap: 5px;
 }
 
 .names {
@@ -38,6 +64,34 @@
 }
 
 .price {
-    display: grid;
+    display: flex;
     align-items: center;
+}
+
+.img {
+    display: block;
+    /* max-height: 100%;
+    max-width: 100%; */
+    margin-top: 8px;
+    margin-bottom: 8px;
+    border-radius: 50%;
+    height: 70px;
+    object-fit: cover;
+    width: 80px;
+    border: 1px solid #5141e2;
+}
+
+.footer {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+}
+
+.totalPrice {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
 }

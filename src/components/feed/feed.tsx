@@ -21,7 +21,6 @@ export const Feed = () => {
     const [parseOrders, setParseOrders] = useState<any[]>([])
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    console.log(orders)
 
     const handleNavigateToFeedId = (id: string) => {
         navigate(`/feed/${id}`);

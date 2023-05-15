@@ -41,6 +41,7 @@ export const authSlice = createSlice({
       builder
          //login
         .addCase(loginUser.fulfilled, (state, action) => {
+          debugger;
           const accessToken = String(action.payload.accessToken.split('Bearer ')[1]);
           const refreshToken = action.payload.refreshToken;
           setCookie('token', accessToken,  {});

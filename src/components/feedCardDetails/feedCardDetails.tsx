@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import style from "./style.module.css";
 import { RootStore } from "../../services/store";
-import { parseOrderToClient } from "../../utils/utils";
+import { getTimeFromTimestamp, parseOrderToClient } from "../../utils/utils";
 import { IWebsocketOrders } from "../../types";
 import classNames from "classnames";
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
@@ -27,6 +27,11 @@ export const FeedCardDetails: React.FC = () => {
 
     const parseOrder = parseOrderToClient(order, ingredients);
 
+
+    //    const count = {};
+    //    parseOrder.ingredientPrice.forEach((n) => {count(n) = (count(n) || 0) + 1;});
+
+
     let statusElem: string | undefined;
 
     switch (parseOrder.status) {
@@ -43,45 +48,57 @@ export const FeedCardDetails: React.FC = () => {
             statusElem = 'Статус заказа неизвестен...';
     }
 
+    const usedIdIngredients: string[] = [];
     return (
 
         <div className={style.wrapper}>
             <div className={classNames(style.number, "text text_type_digits-default")}>#{parseOrder.number}</div>
             <div className="text text_type_main-medium">{parseOrder.name}</div>
             <div className={classNames(style.status, "text text_type_main-small")}>{statusElem}</div>
+            <h3 className="text text_type_main-medium">Состав:</h3>
             <div className={classNames(style.wrap, "custom-scroll")}>
-                <div className={style.images}>
-                    <div className={style.img}>
-                        {parseOrder.arrImgsUri.length ?
-                            parseOrder.arrImgsUri.map((item) => (
-                                <div className={style.name}>
-                                    <img src={item}></img>
+                {
+                    parseOrder.ingredients.length ?
+                    
+                        parseOrder.ingredients.map((ingredientId) => {
+                            const ingredient = ingredients.find((ing) => ing._id === ingredientId);
+
+                            // const makeUniq = (arr: string[]) => {
+                            //     return arr.filter((elem, _id) => arr.indexOf(elem) === _id)
+                            // }
+                            // makeUniq(parseOrder.ingredients);
+                            // console.log(parseOrder.ingredients)
+
+                            const imgSrc = ingredient?.image_mobile;
+
+                            if (usedIdIngredients.includes(ingredientId) || !ingredient) {
+                                return ('')
+                            }
+
+                            usedIdIngredients.push(ingredient._id);
+                            const counter = parseOrder.ingredients.filter((id) => id === ingredientId).length;
+                            return (
+                                <div className={style.ingredientWrap}>
+                                    <div className={style.ingredient}>
+                                        <img className={style.img} src={imgSrc}></img>
+                                        <div className="text text_type_main-small">{ingredient?.name}</div>
+                                    </div>
+                                    <div className={style.price}>
+                                        <div className="text text_type_digits-default">{`${counter} x ${ingredient?.price}`}</div>
+                                        <CurrencyIcon type='primary'></CurrencyIcon>
+                                    </div>
                                 </div>
-                            )) : ''}
-
-                    </div>
-                </div>
-                <div className={classNames(style.names, "text text_type_main-small")}>
-                    {parseOrder.ingredientName.length ?
-                        parseOrder.ingredientName.map((item) => (
-                            <div>
-                                {item}
-                            </div>
-                        )) : ''}
-                </div>
-                <div className={classNames(style.price, "text text_type_main-small")}>
-                    {parseOrder.ingredientPrice.length ?
-                        parseOrder.ingredientPrice.map((item) => (
-                            <div className={style.ingredientPrice}>
-                                {item}
-                                <CurrencyIcon type='primary'></CurrencyIcon>
-
-                            </div>
-                        )) : ''}
+                            )
+                        }) : ''
+                }
+            </div>
+            <div className={style.footer}>
+                <div className="text text_color_inactive text_type_main-small">{getTimeFromTimestamp(parseOrder.createdAt)}</div>
+                <div className={style.totalPrice}>
+                    <div className="text text_type_digits-default">{parseOrder.total}</div>
+                    <CurrencyIcon type='primary'></CurrencyIcon>
                 </div>
             </div>
-            <div className="text text_color_inactive text_type_main-small">{parseOrder.createdAt}</div>
-            <div className="text text_type_digits-default">{parseOrder.total}</div>
         </div >
     )
 }

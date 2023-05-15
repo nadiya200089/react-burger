@@ -16,5 +16,5 @@
     "noEmit": true,
     "jsx": "react-jsx"
   },
-  "include": ["src", "src/components/error/error.tsx"]
+  "include": ["src", "src/components/error/error.tsx", "src/pages/register"]
 }

@@ -11,10 +11,13 @@ export function getIngredients() {
 }
 
 export const getOrder = (ids: string[]) => {
+  const token = getCookie('token');
+
   return fetch(`${burgerProjectUrl}/orders`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
     },
     body: JSON.stringify({
       ingredients: ids,

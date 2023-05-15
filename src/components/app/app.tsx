@@ -30,6 +30,7 @@ import { IIngredientsData } from "../../types";
 import { Feed } from "../feed/feed";
 import { FeedCard } from "../feedCard/feedCard";
 import { FeedCardDetails } from "../feedCardDetails/feedCardDetails";
+import {UserOrders} from "../../pages/userOrders/userOrders";
 
 
 export const App: React.FC = () => {
@@ -43,15 +44,15 @@ export const App: React.FC = () => {
     navigate(background.pathname || "/", { replace: true })
   }
 
-  useEffect(() => {
-    if (user && user.name) {
-      debugger;
-      if (window.location.pathname === '/enter') {
-        navigate('/');
-      }
-      // navigate(-1);
-    }
-  }, [user])
+  // useEffect(() => {
+  //   if (user && user.name) {
+  //     debugger;
+  //     if (window.location.pathname === '/enter') {
+  //       navigate('/');
+  //     }
+  //     // navigate(-1);
+  //   }
+  // }, [user])
 
 
   useEffect(() => {
@@ -129,7 +130,7 @@ export const App: React.FC = () => {
           <ProtectedRoute onlyUnAuth user={user}>
             <Register />
           </ProtectedRoute>
-        }
+        } 
         />
         <Route path='forgot-password' element={
           <ProtectedRoute onlyUnAuth user={user}>
@@ -146,6 +147,12 @@ export const App: React.FC = () => {
         <Route path='profile' element={
           <ProtectedRoute user={user} >
             <Profile />
+          </ProtectedRoute>
+        }
+        />
+          <Route path='user-orders' element={
+          <ProtectedRoute user={user} >
+            <UserOrders />
           </ProtectedRoute>
         }
         />

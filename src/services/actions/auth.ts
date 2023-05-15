@@ -12,37 +12,6 @@ import {
     resetPsw
 } from "../../utils/api";
 
-// type TRegisterThunk = {
-//     extra: typeof regAsync;
-// }
-// type TLoginThunk = {
-//     dispatch: AppDispatch;
-//     extra: typeof loginAsync;
-// }
-// type TLogoutThunk = {
-//     dispatch: AppDispatch;
-//     extra: typeof logoutAsync;
-// }
-// type TUpdateTokenThunk = {
-//     dispatch: AppDispatch;
-//     extra: typeof tokenAsync;
-// }
-// type TUpdateInfoUserThunk = {
-//     dispatch: AppDispatch;
-//     extra: typeof updateUser;
-// }
-// type TGetInfoUserThunk = {
-//     dispatch: AppDispatch;
-//     extra: typeof getUser;
-// }
-// type TforgotPswThunk = {
-//     dispatch: AppDispatch;
-//     extra: typeof forgotPsw;
-// }
-// type TRsetPswThunk = {
-//     dispatch: AppDispatch;
-//     extra: typeof resetPsw;
-// }
 
 export const registerUser = createAsyncThunk(
     '/auth/register',
@@ -63,6 +32,7 @@ export const registerUser = createAsyncThunk(
 export const loginUser = createAsyncThunk(
     'auth/login',
     async (UserData: IUserData, { rejectWithValue, fulfillWithValue }) => {
+       debugger;
         const res = await loginAsync(UserData);
 
         if (!res?.success) {

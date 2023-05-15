@@ -7,6 +7,7 @@ import 'moment/locale/ru';
 
 
 export const FeedCard: React.FC<IFeedCard> = ({ number, createdAt, name, arrImgsUri, _id, totalPrice, onClick, ingredientName }) => {
+    let deltaMargin = 20;
     return (
         <div onClick={onClick}
             className={style.wrapper}>
@@ -17,7 +18,17 @@ export const FeedCard: React.FC<IFeedCard> = ({ number, createdAt, name, arrImgs
             <div className="text text_type_main-medium">{name}</div>
             <div className={style.wrap}>
                 <div className={style.images}> {arrImgsUri.length ?
-                    arrImgsUri.slice(0, 6).map((item: string, index: number) => (<div key={index} style={{ zIndex: arrImgsUri.length - index }} className={style.img}>
+                    arrImgsUri.slice(0, 6).map((item: string, index: number) => (
+                    <div 
+                        key={index}
+                        // style={{ zIndex: arrImgsUri.length - index }}
+                        className={style.img}
+                        style={{
+                            top: 0,
+                            left: index === 0 ? 0 : `${deltaMargin + 30 }px`,
+                            zIndex: index
+                        }}
+                    >
                         <img className={style.image} src={item} alt={ingredientName}></img>
                     </div>
                     )) : ''}

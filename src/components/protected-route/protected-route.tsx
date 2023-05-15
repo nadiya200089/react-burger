@@ -13,9 +13,9 @@ export const ProtectedRoute: React.FC<TProtectedRoute> = ({ onlyUnAuth, user, ch
     const location = useLocation();
     
     if (onlyUnAuth && user) {
-         const { from } = location.state || { form: {pathname: '/'}}
+         const { from } = location.state || { from: {pathname: '/'}}
         return (
-        <Navigate to={{ pathname: from }} />
+        <Navigate to={{ pathname: from.pathname }} />
         )
     }
 

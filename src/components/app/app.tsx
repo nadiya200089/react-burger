@@ -16,9 +16,7 @@ import { Enter } from "../../pages/enter/enter";
 import { Register } from "../../pages/register/register";
 import { IngredientDetails } from "../ingridient-details/ingredient-details";
 import { ForgotPassword } from "../../pages/forgot-password/forgot-password";
-//import { registerUser, setUser } from "../../utils/api";
 import { Modal } from "../modal/modal";
-//import ingredients from "../../services/reducers/ingredients";
 import { Profile } from "../../pages/profile/profile";
 import { Error } from "../error/error";
 import { ProtectedRoute } from "../protected-route/protected-route";
@@ -30,12 +28,14 @@ import { IIngredientsData } from "../../types";
 import { Feed } from "../feed/feed";
 import { FeedCard } from "../feedCard/feedCard";
 import { FeedCardDetails } from "../feedCardDetails/feedCardDetails";
-import {UserOrders} from "../../pages/userOrders/userOrders";
+import { UserOrders } from "../../pages/userOrders/userOrders";
+import { UserProfile } from "../../pages/userProfile/userProfile";
+import {UserOrderDetails} from '../user-orders-details/userOrderDetails'
 
 
 export const App: React.FC = () => {
   const dispatch = useDispatch();
-  const {user, isOldToken }  = useSelector((state: RootStore) => state.auth);
+  const { user, isOldToken } = useSelector((state: RootStore) => state.auth);
   const location = useLocation();
   const background = location.state?.background;
   const navigate = useNavigate();
@@ -44,16 +44,6 @@ export const App: React.FC = () => {
     navigate(background.pathname || "/", { replace: true })
   }
 
-  // useEffect(() => {
-  //   if (user && user.name) {
-  //     debugger;
-  //     if (window.location.pathname === '/enter') {
-  //       navigate('/');
-  //     }
-  //     // navigate(-1);
-  //   }
-  // }, [user])
-
 
   useEffect(() => {
     try {
@@ -61,7 +51,7 @@ export const App: React.FC = () => {
       if (token && token.length > 0) {
         dispatch(getInfoUser(token));
       }
-      
+
     } finally {
       dispatch(fetchIngredients());
     }
@@ -71,15 +61,13 @@ export const App: React.FC = () => {
     if (isOldToken) {
       const refreshToken = window.localStorage.getItem('refreshToken');
       // if token became old
-      if ( refreshToken) {
+      if (refreshToken) {
         dispatch(updateToken({
           token: refreshToken
-      }))
+        }))
       }
-    
+
     } else {
-      // was refresh 
-      // get user info
       const token = getCookie("token");
       if (token && token.length > 0) {
         dispatch(getInfoUser(token));
@@ -116,21 +104,21 @@ export const App: React.FC = () => {
           <FeedCardDetails />
         }
         />
-         <Route path='feed' element={
+        <Route path='feed' element={
           <Feed />
         }
         />
         <Route path='enter' element={
           <ProtectedRoute onlyUnAuth user={user}>
             <Enter />
-        </ProtectedRoute>
+          </ProtectedRoute>
         }
         />
         <Route path='register' element={
           <ProtectedRoute onlyUnAuth user={user}>
             <Register />
           </ProtectedRoute>
-        } 
+        }
         />
         <Route path='forgot-password' element={
           <ProtectedRoute onlyUnAuth user={user}>
@@ -144,18 +132,35 @@ export const App: React.FC = () => {
           </ProtectedRoute>
         }
         />
-        <Route path='profile' element={
-          <ProtectedRoute user={user} >
-            <Profile />
-          </ProtectedRoute>
-        }
-        />
+        <Route 
+          path='/profile/'
+          element={
+            <ProtectedRoute user={user} >
+              <Profile />
+            </ProtectedRoute>
+          }
+        >
           <Route path='user-orders' element={
-          <ProtectedRoute user={user} >
-            <UserOrders />
-          </ProtectedRoute>
-        }
-        />
+            <ProtectedRoute user={user} >
+              <UserOrders />
+            </ProtectedRoute>
+          }
+          />
+          <Route path='user-orders/:id' element={
+            <ProtectedRoute user={user} >
+              <UserOrderDetails />
+            </ProtectedRoute>
+          }
+          />
+          <Route index element={
+            <ProtectedRoute user={user} >
+              <UserProfile />
+            </ProtectedRoute>
+          }
+          />
+        </Route>
+
+
         <Route path='*' element={
           <Error />
         }

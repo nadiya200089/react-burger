@@ -45,7 +45,8 @@ export const Enter = () => {
     };
 
 
-    const onLogin = () => {
+    const onLogin = (evt: any) => {
+       evt.preventDefault()
         if (userData) {
             dispatch(loginUser(userData));
         }

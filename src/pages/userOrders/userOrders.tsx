@@ -23,9 +23,7 @@ export const UserOrders = () => {
     const navigate = useNavigate();
 
     const handleNavigateToFeedId = (id: string) => {
-       
-        //TODO navigate personal card 
-        console.log(id);
+        navigate(`/profile/user-orders/${id}`);
     };
 
     useEffect(() => {

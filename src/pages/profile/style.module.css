@@ -22,6 +22,7 @@
     justify-content: center;
     align-items: start;
     max-width: 320px;
+    gap: 35px;
 
 }
 
@@ -36,3 +37,22 @@
 .paragraph {
     display: flex;
 }
+
+.textActive {
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 24px;
+    line-height: 30px;
+    color: white;
+    text-decoration: none;
+}
+
+ .textInactive {
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 24px;
+    line-height: 30px;
+    color: #8585ad;
+    text-decoration: none;
+    
+ }

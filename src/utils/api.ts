@@ -3,6 +3,10 @@ import { IRegisterData, IUserData, ILogout, IUpdateToken, IForgotPassword, IRese
 const burgerProjectUrl:string = "https://norma.nomoreparties.space/api";
 
 function getResponseData(res: Response) {
+  if (res.redirected) {
+    const redirectUrl = res.url;
+    console.log(redirectUrl);
+  }
   return res.ok ? res.json() : res.json().then((err) => Promise.reject(err));
 }
 
@@ -51,7 +55,7 @@ export const getUser = () => {
 }
 
 export const loginUser = (res: IUserData) => {
-  return fetch(`${burgerProjectUrl}/auth/login`, {
+  const a = fetch(`${burgerProjectUrl}/auth/login`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -62,6 +66,11 @@ export const loginUser = (res: IUserData) => {
       if (res?.success) return res;
       return Promise.reject(res);
     })
+    .catch(error => {
+      console.log(error);
+    })
+    debugger;
+  return a;
 }
 
 export const logoutUser = (res: ILogout) => {

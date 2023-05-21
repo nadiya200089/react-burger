@@ -1,7 +1,7 @@
-import type { Middleware, MiddlewareAPI  } from "redux";
-import { wsMessage,wsOpen, wsClose, wsConnect } from "../services/actions/feed";
+import type { Middleware, MiddlewareAPI } from "redux";
+import { wsMessage, wsOpen, wsClose, wsConnect } from "../services/actions/feed";
 
-import { 
+import {
     wsMessage as wsMessageUser,
     wsOpen as wsOpenUserOrders,
     wsClose as wsCloseUserOrders,
@@ -14,7 +14,7 @@ import { current } from "@reduxjs/toolkit";
 import { useSelector } from "react-redux";
 import { getCookie } from "./cookie";
 
- export const apiSocket: Middleware = (store: MiddlewareAPI<AppDispatch, RootStore>) => (next) => (action:any) => { 
+export const apiSocket: Middleware = (store: MiddlewareAPI<AppDispatch, RootStore>) => (next) => (action) => {
     const socket: any = new WebSocket('wss://norma.nomoreparties.space/orders/all');
     if (socket) {
 
@@ -35,7 +35,7 @@ import { getCookie } from "./cookie";
 
         }
         socket.onclose = (event: any) => {
-            console.log( 'WS close')
+            console.log('WS close')
 
         }
 
@@ -43,36 +43,36 @@ import { getCookie } from "./cookie";
     next(action);
 }
 
-export const apiUserSocket: Middleware = (store: MiddlewareAPI<AppDispatch, RootStore>) => (next) => (action:any) => { 
+export const apiUserSocket: Middleware = (store: MiddlewareAPI<AppDispatch, RootStore>) => (next) => (action: any) => {
     const wsUrl = 'wss://norma.nomoreparties.space/orders';
     const token = getCookie('token');
-    if (!token) {
-        return;
+    if (token) {
+        const socket: any = new WebSocket(`${wsUrl}?token=${token}`);
+        if (socket) {
+
+            socket.onmessage = (event: any) => {
+
+                const jsonData = JSON.parse(event.data);
+                store.dispatch(wsMessageUser(jsonData));
+                console.log('data', jsonData)
+            }
+
+            socket.onopen = (event: WebSocketEventMap) => {
+                store.dispatch(wsOpenUserOrders)
+            }
+
+            socket.onerror = (event: any) => {
+                store.dispatch(wsCloseUserOrders)
+
+            }
+            socket.onclose = (event: any) => {
+                console.log('WS close')
+
+            }
+
+        }
     }
-    const socket: any = new WebSocket(`${wsUrl}?token=${token}`);
-    if (socket) {                        
 
-        socket.onmessage = (event: any) => {
-
-            const jsonData = JSON.parse(event.data);
-            store.dispatch(wsMessageUser(jsonData));
-            console.log('data', jsonData)
-        }
-
-        socket.onopen = (event: WebSocketEventMap) => {
-            store.dispatch(wsOpenUserOrders)
-        }
-
-        socket.onerror = (event: any) => {
-            store.dispatch(wsCloseUserOrders)
-
-        }
-        socket.onclose = (event: any) => {
-            console.log( 'WS close')
-
-        }
-
-    }
     next(action);
 }
 
@@ -89,7 +89,7 @@ export const apiUserSocket: Middleware = (store: MiddlewareAPI<AppDispatch, Root
 //         console.error('Has not a token');
 //         return;
 //       }
-//       socket = new WebSocket(`${wsUrl}?token=${token}`);//   
+//       socket = new WebSocket(`${wsUrl}?token=${token}`);//
 //     //   if (type === 'FEED_WS_CONNECT') {
 //     //   }
 //       if (socket) {

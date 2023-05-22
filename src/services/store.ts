@@ -18,8 +18,7 @@ export const store = configureStore({
         userOrdersStore: userOrders
     },
     middleware: (getDefaultMiddleware) => {
-        // return getDefaultMiddleware().concat([apiSocket])
-        return getDefaultMiddleware().concat([apiUserSocket])
+        return getDefaultMiddleware().concat([apiUserSocket, apiSocket])
     },
 },
 

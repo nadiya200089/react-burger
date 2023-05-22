@@ -98,4 +98,5 @@ export interface IFeedCard {
     totalPrice: number;
     onClick: ()=> void;
     ingredientName: string;
+    status?: string;
 }

@@ -63,12 +63,6 @@ export const FeedCardDetails: React.FC = () => {
                         parseOrder.ingredients.map((ingredientId) => {
                             const ingredient = ingredients.find((ing) => ing._id === ingredientId);
 
-                            // const makeUniq = (arr: string[]) => {
-                            //     return arr.filter((elem, _id) => arr.indexOf(elem) === _id)
-                            // }
-                            // makeUniq(parseOrder.ingredients);
-                            // console.log(parseOrder.ingredients)
-
                             const imgSrc = ingredient?.image_mobile;
 
                             if (usedIdIngredients.includes(ingredientId) || !ingredient) {

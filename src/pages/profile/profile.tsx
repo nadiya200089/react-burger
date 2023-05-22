@@ -1,21 +1,12 @@
-import { useState } from 'react';
-import { useSelector } from "react-redux";
 import { logoutUser } from "../../services/actions/auth";
-
 import classNames from "classnames";
 import styles from "./style.module.css";
-import { Button, CheckMarkIcon, EmailInput, Input, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
-import { updateInfoUser } from '../../services/actions/auth';
-
-import { RootStore } from '../../services/store';
-import { IRegisterData } from '../../types';
 import { useDispatch } from '../../services/hooks';
 import { useNavigate, NavLink, Outlet } from 'react-router-dom';
 
 export const Profile = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-
 
     const onLogout = () => {
         const refreshToken = window.localStorage.getItem('refreshToken');

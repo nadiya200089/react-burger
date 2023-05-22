@@ -12,7 +12,8 @@ import { useDispatch } from "../../services/hooks";
 import ingredients from "../../services/reducers/ingredients";
 import { FeedCard } from "../../components/feedCard";
 import { useNavigate } from 'react-router-dom';
-import { parseOrdersToClient } from '../../utils/utils'
+import { parseOrdersToClient } from '../../utils/utils';
+import { IFeedOrders } from '../../types'
 
 
 export const UserOrders = () => {
@@ -40,11 +41,26 @@ export const UserOrders = () => {
             setParseOrders(parseOrders);
         }
     }, [orders])
-    const getStatus = (orders: any[], status: any): number[] => {
-        const sortedOrders = orders.filter((item) => item.status === status);
-        return sortedOrders.map((item) => item.number).slice(0, 10);
-    };
+    // const getStatus = (orders: any[], status: any): number[] => {
+    //     const sortedOrders = orders.filter((item) => item.status === status);
+    //     return sortedOrders.map((item) => item.number).slice(0, 10);
+    // };
 
+    // let statusElem: string | undefined;
+
+    // switch (parseOrders.status) {
+    //     case 'done':
+    //         statusElem = 'Выполнен';
+    //         break;
+    //     case 'created':
+    //         statusElem = 'Создан';
+    //         break;
+    //     case 'pending':
+    //         statusElem = 'Готовится';
+    //         break;
+    //     default:
+    //         statusElem = 'Статус заказа неизвестен...';
+    // }
 
     return (
         <div className={style.wrapper}>
@@ -54,7 +70,7 @@ export const UserOrders = () => {
             <div className={style.main}>
                 <div className={classNames(style.orders, "custom-scroll")}>
                     {parseOrders.length ?
-                        parseOrders.map((item: any) => (
+                        parseOrders.map((item) => (
                             <FeedCard
                                 _id={item._id}
                                 totalPrice={item.total}
@@ -64,6 +80,7 @@ export const UserOrders = () => {
                                 arrImgsUri={item.arrImgsUri}
                                 onClick={() => handleNavigateToFeedId(item._id)}
                                 ingredientName={item.ingredientName}
+                                status={item.status}
                             />
                         )
                         ) : <div className="text text_type_main-large mr-2 mt-15 mb-15">Пока заказов нет</div>}

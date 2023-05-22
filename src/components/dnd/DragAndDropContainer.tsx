@@ -1,17 +1,35 @@
 import { useRef } from "react";
-import { useDrag, useDrop } from "react-dnd";
+import { useDrag, useDrop,  } from "react-dnd";
+import React, { ReactElement } from 'react';
 
-export const DragAndDropContainer = ({ children, id, index, moveCard }) => {
-  const ref = useRef(null);
 
-  const [{ handlerId }, drop] = useDrop({
+interface IDragAndDrop {
+  id: string;
+  index: number;
+  children: ReactElement;
+  moveCard: (di: number , hi: number ) => void;
+}
+
+
+interface IItemDrag {
+  id: string;
+  index: number;
+}
+
+interface CollectedProps { 
+  handlerId: string;
+}
+export const DragAndDropContainer: React.FC<IDragAndDrop> = ({ children, id, index, moveCard }) => {
+  const ref = useRef<HTMLInputElement>(null);
+
+  const [{ handlerId,  }, drop] = useDrop<IItemDrag, any, CollectedProps>({
     accept: "orderIngredients",
-    collect(monitor) {
+    collect: (monitor):CollectedProps => {
       return {
-        handlerId: monitor.getHandlerId(),
+        handlerId: String(monitor.getHandlerId())
       };
     },
-    hover(item, monitor) {
+    hover(item: IItemDrag, monitor) {
       if (!ref.current) {
         return;
       }
@@ -24,12 +42,16 @@ export const DragAndDropContainer = ({ children, id, index, moveCard }) => {
       // Determine rectangle on screen
       const hoverBoundingRect = ref.current?.getBoundingClientRect();
       // Get vertical middle
+
       const hoverMiddleY =
         (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
       // Determine mouse position
       const clientOffset = monitor.getClientOffset();
       // Get pixels to the top
+     
+      if (!clientOffset) return;
       const hoverClientY = clientOffset.y - hoverBoundingRect.top;
+      
       // Only perform the move when the mouse has crossed half of the items height
       // When dragging downwards, only move when the cursor is below 50%
       // When dragging upwards, only move when the cursor is above 50%
@@ -63,6 +85,7 @@ export const DragAndDropContainer = ({ children, id, index, moveCard }) => {
       //   item.index = hoverIndex;
     },
   });
+
   const [{ isDragging }, drag] = useDrag({
     type: "orderIngredients",
     item: () => {

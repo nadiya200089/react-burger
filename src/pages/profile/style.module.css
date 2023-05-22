@@ -3,7 +3,10 @@
     max-width: 1280px;
     width: 100%;
     display: flex;
-    margin-top: 120px;
+    justify-content: start;
+    align-items: flex-start;
+    gap: 30px;
+    /* margin-top: 120px; */
 }
 .wrapper {
     width: 550px;
@@ -23,6 +26,7 @@
     align-items: start;
     max-width: 320px;
     gap: 35px;
+    margin-top: 100px;
 
 }
 

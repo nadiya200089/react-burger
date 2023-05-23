@@ -27,11 +27,7 @@ export const FeedCardDetails: React.FC = () => {
 
     const parseOrder = parseOrderToClient(order, ingredients);
 
-
-    //    const count = {};
-    //    parseOrder.ingredientPrice.forEach((n) => {count(n) = (count(n) || 0) + 1;});
-
-
+    
     let statusElem: string | undefined;
 
     switch (parseOrder.status) {

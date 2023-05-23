@@ -12,13 +12,13 @@ import { useDispatch } from "../../services/hooks";
 import ingredients from "../../services/reducers/ingredients";
 import { FeedCard } from "../../components/feedCard";
 import { useNavigate } from 'react-router-dom';
-import { parseOrdersToClient } from '../../utils/utils';
-import { IFeedOrders } from '../../types'
+import { parseOrdersToClient, parseOrderToClient } from '../../utils/utils';
+import { IFeedOrders, IWebsocketOrders } from '../../types'
 
 
 export const UserOrders = () => {
     const { data: ingredients } = useSelector((state: RootStore) => state.ingredientsStore)
-    const { connectionError, orders, total, totalToday, status } = useSelector((state: RootStore) => state.userOrdersStore);
+    const { isConnectionError, orders, total, totalToday, status } = useSelector((state: RootStore) => state.userOrdersStore);
     const [parseOrders, setParseOrders] = useState<any[]>([])
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -41,26 +41,16 @@ export const UserOrders = () => {
             setParseOrders(parseOrders);
         }
     }, [orders])
-    // const getStatus = (orders: any[], status: any): number[] => {
-    //     const sortedOrders = orders.filter((item) => item.status === status);
-    //     return sortedOrders.map((item) => item.number).slice(0, 10);
-    // };
+    const getStatus = (orders: any[], status: any): number[] => {
+        const sortedOrders = orders.filter((item) => item.status === status);
+        return sortedOrders.map((item) => item.number).slice(0, 10);
+    };
 
-    // let statusElem: string | undefined;
-
-    // switch (parseOrders.status) {
-    //     case 'done':
-    //         statusElem = 'Выполнен';
-    //         break;
-    //     case 'created':
-    //         statusElem = 'Создан';
-    //         break;
-    //     case 'pending':
-    //         statusElem = 'Готовится';
-    //         break;
-    //     default:
-    //         statusElem = 'Статус заказа неизвестен...';
-    // }
+    const order = orders.find((item: IWebsocketOrders) => item);
+    if (!order) {
+        return <> </>
+    }
+    const parseOrder = parseOrderToClient(order, ingredients);
 
     return (
         <div className={style.wrapper}>
@@ -80,7 +70,8 @@ export const UserOrders = () => {
                                 arrImgsUri={item.arrImgsUri}
                                 onClick={() => handleNavigateToFeedId(item._id)}
                                 ingredientName={item.ingredientName}
-                                status={item.status}
+                                status={item.status} //TODO переименовать в title/ localization status 
+                                // rawStatus={item.}
                             />
                         )
                         ) : <div className="text text_type_main-large mr-2 mt-15 mb-15">Пока заказов нет</div>}

@@ -1,6 +1,8 @@
+import { PayloadAction } from "@reduxjs/toolkit";
+
 import type { Middleware, MiddlewareAPI } from "redux";
 import { wsMessage, wsOpen, wsClose, wsConnect } from "../services/actions/feed";
-
+import { WsActionType } from '../services/actions/userOrders'
 import {
     wsMessage as wsMessageUser,
     wsOpen as wsOpenUserOrders,
@@ -42,8 +44,12 @@ export const apiSocket: Middleware = (store: MiddlewareAPI<AppDispatch, RootStor
     }
     next(action);
 }
-
-export const apiUserSocket: Middleware = (store: MiddlewareAPI<AppDispatch, RootStore>) => (next) => (action: any) => {
+interface WSTest {
+    message?: {};
+}
+export const apiUserSocket: Middleware = (store: MiddlewareAPI<AppDispatch, RootStore>) => (next) => (action:  PayloadAction<
+        typeof WsActionType
+    >) => {
     const wsUrl = 'wss://norma.nomoreparties.space/orders';
     const token = getCookie('token');
     if (token) {
@@ -62,7 +68,7 @@ export const apiUserSocket: Middleware = (store: MiddlewareAPI<AppDispatch, Root
             }
 
             socket.onerror = (event: any) => {
-                store.dispatch(wsCloseUserOrders)
+                store.dispatch(wsCloseUserOrders);
 
             }
             socket.onclose = (event: any) => {
@@ -75,40 +81,3 @@ export const apiUserSocket: Middleware = (store: MiddlewareAPI<AppDispatch, Root
 
     next(action);
 }
-
-// export const apiUserSocket: Middleware = ((store: MiddlewareAPI<AppDispatch, RootStore>) => {
-//         let socket: WebSocket | null = null;
-
-//     return next => (action: {type: string; payload: any}) => {
-//       const { dispatch, getState } = store;
-//       const { type, payload } = action;
-//       const {user} = useSelector((state:RootStore) => state.auth);
-//       const wsUrl = 'wss://norma.nomoreparties.space/orders/all';
-//       const token = getCookie('token');
-//       if (!token) {
-//         console.error('Has not a token');
-//         return;
-//       }
-//       socket = new WebSocket(`${wsUrl}?token=${token}`);//
-//     //   if (type === 'FEED_WS_CONNECT') {
-//     //   }
-//       if (socket) {
-//         socket.onopen = event => {
-//         //   dispatch({ type: 'FEED_WS_OPEN', payload: event });
-//         };
-//         socket.onerror = event => {
-//         //   dispatch({ type: 'FEED_WS_CLOSE', payload: event });
-//         };
-//         socket.onmessage = event => {
-//           const { data } = event;
-//           console.log('Data history', data);
-//         //   dispatch({ type: 'FEED_WS_MESSAGE', payload: data });
-//         };
-//         socket.onclose = event => {
-//         //   dispatch({ type: 'FEED_WS_CLOSE', payload: event });
-//         };
-//       }
-
-//       next(action);
-//     };
-//     }) as Middleware;

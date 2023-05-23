@@ -24,18 +24,19 @@ import { ResetPassword } from "../../pages/reset-password/reset-password";
 import { getCookie } from '../../utils/cookie';
 import { useDispatch } from "../../services/hooks";
 import { RootStore } from "../../services/store";
-import { IIngredientsData } from "../../types";
 import { Feed } from "../feed/feed";
-import { FeedCard } from "../feedCard/feedCard";
 import { FeedCardDetails } from "../feedCardDetails/feedCardDetails";
 import { UserOrders } from "../../pages/userOrders/userOrders";
 import { UserProfile } from "../../pages/userProfile/userProfile";
 import {UserOrderDetails} from '../user-orders-details/userOrderDetails'
+import { PreLoader } from "../preLoader/preloader";
 
 
 export const App: React.FC = () => {
   const dispatch = useDispatch();
   const { user, isOldToken } = useSelector((state: RootStore) => state.auth);
+  const { isLoading} = useSelector((state: RootStore) => state.orderStore);
+
   const location = useLocation();
   const background = location.state?.background;
   const navigate = useNavigate();
@@ -60,7 +61,6 @@ export const App: React.FC = () => {
   useEffect(() => {
     if (isOldToken) {
       const refreshToken = window.localStorage.getItem('refreshToken');
-      // if token became old
       if (refreshToken) {
         dispatch(updateToken({
           token: refreshToken
@@ -90,8 +90,18 @@ export const App: React.FC = () => {
               Соберите бургер
             </h1>
             <main className={style.main}>
-              <BurgerIngredients />
-              <BurgerConstructor />
+              {
+                isLoading && 
+                <PreLoader/>
+              }
+              {
+                !isLoading && 
+                <>
+                     <BurgerIngredients />
+                     <BurgerConstructor />
+                </>
+              }
+         
             </main>
           </div>
         </DndProvider>}

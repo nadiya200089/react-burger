@@ -45,6 +45,7 @@ export const BurgerConstructor: FC = () => {
 
 
 
+
   useEffect(() => {
     if (Number(order) > 0) {
       setOrderModal(true);
@@ -60,9 +61,7 @@ export const BurgerConstructor: FC = () => {
       const ids: string[] = ingredients.map((ingredient: IIngredientsData) => ingredient._id);
       ids.push(bun._id);
       ids.push(bun._id);
-      // ...ids, ...idBulok
       if (ids && ids.length > 0) {
-        //const t: any = fetchOrder(ids)
         dispatch(fetchOrder(ids));
       }
     }

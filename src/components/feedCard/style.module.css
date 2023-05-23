@@ -47,3 +47,15 @@
     display: flex;
     gap: 7px;
 }
+
+.white {
+    color: red;
+}
+
+.textGreen {
+    color: green;
+}
+
+.textWhite {
+    color: white;
+}

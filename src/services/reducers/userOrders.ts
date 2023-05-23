@@ -6,7 +6,7 @@ import { IWebsocketOrders } from '../../types'
 
 
 const initialState: TInitialState= {
-  connectionError: '',
+  isConnectionError: false,
   total: 0,
   totalToday: 0,
   orders: [],
@@ -14,7 +14,7 @@ const initialState: TInitialState= {
 };
 
 type TInitialState = {
-  connectionError: string;
+  isConnectionError: boolean;
   total: number;
   totalToday: number;
   orders: IWebsocketOrders[];
@@ -36,13 +36,13 @@ export const userOrdersSlice = createSlice({
     })
     .addCase(wsOpen, (state) => {
         state.status = WebsocketStatus.ONLINE;
-        state.connectionError = '';
+        state.isConnectionError = false;
     })
     .addCase(wsClose, (state) => {
         state.status = WebsocketStatus.OFFLINE
     })
     .addCase(wsError, (state, action) => {
-        // state.connectionError = action.payload;
+        state.isConnectionError = true;
     })
     .addCase(wsMessage, (state, action) => {
         const { total, totalToday, orders  } = action.payload;

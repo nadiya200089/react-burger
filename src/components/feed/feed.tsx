@@ -17,7 +17,7 @@ import { parseOrdersToClient } from '../../utils/utils'
 
 export const Feed = () => {
     const { data: ingredients } = useSelector((state: RootStore) => state.ingredientsStore)
-    const { connectionError, orders, total, totalToday, status } = useSelector((state: RootStore) => state.feedStore);
+    const { isConnectionError, orders, total, totalToday, status } = useSelector((state: RootStore) => state.feedStore);
     const [parseOrders, setParseOrders] = useState<any[]>([])
     const dispatch = useDispatch();
     const navigate = useNavigate();

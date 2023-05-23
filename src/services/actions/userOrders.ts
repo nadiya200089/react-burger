@@ -21,3 +21,9 @@ export const wsMessage = createAction('USER_ORDERS_WS_MESSAGE', function prepare
     }
 });
 export const wsError = createAction('USER_ORDERS_WS_ERROR');
+
+export const WsActionType = {
+    wsConnect,
+    wsDisonnect
+    ///..
+};

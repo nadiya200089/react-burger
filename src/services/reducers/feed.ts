@@ -25,9 +25,7 @@ export const feedSlice = createSlice({
   name: "feed",
   initialState: initialState,
   reducers: {
-    // wsMessage: (state => {
-    //     debugger;
-    // })
+    
   },
   extraReducers: (builder) => {
     builder

@@ -23,7 +23,7 @@ export const FeedCard: React.FC<IFeedCard> = ({ number, createdAt, name, status,
             statusElem = 'Готовится';
             break;
         default:
-            statusElem = 'Статус заказа неизвестен...';
+            statusElem = '';
     }
 
     // let colorStatusName = '';

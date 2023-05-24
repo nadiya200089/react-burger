@@ -32,7 +32,6 @@ export const registerUser = createAsyncThunk(
 export const loginUser = createAsyncThunk(
     'auth/login',
     async (UserData: IUserData, { rejectWithValue, fulfillWithValue }) => {
-       debugger;
         const res = await loginAsync(UserData);
 
         if (!res?.success) {

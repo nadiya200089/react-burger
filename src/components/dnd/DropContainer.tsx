@@ -1,7 +1,14 @@
-import React from "react";
+import React, { ReactElement } from 'react';
 import { useDrop } from "react-dnd";
 
-const DropContainer = ({
+interface IDropContainer {
+  typeAccept?: string;
+  onDropHandler: (arg0: any) => void;
+  children?: ReactElement;
+}
+
+
+const DropContainer: React.FC<IDropContainer>  = ({
   children,
   onDropHandler,
   typeAccept = "ingredient",

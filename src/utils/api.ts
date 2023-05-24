@@ -69,7 +69,6 @@ export const loginUser = (res: IUserData) => {
     .catch(error => {
       console.log(error);
     })
-    debugger;
   return a;
 }
 

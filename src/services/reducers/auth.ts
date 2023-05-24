@@ -41,7 +41,6 @@ export const authSlice = createSlice({
       builder
          //login
         .addCase(loginUser.fulfilled, (state, action) => {
-          debugger;
           const accessToken = String(action.payload.accessToken.split('Bearer ')[1]);
           const refreshToken = action.payload.refreshToken;
           setCookie('token', accessToken,  {});
@@ -90,12 +89,10 @@ export const authSlice = createSlice({
       
         //update info user
         .addCase(updateInfoUser.fulfilled, (state, action) => {
-          debugger;
           console.log('3');
          })
 
           .addCase(updateInfoUser.rejected, (state, action) => {
-            debugger;
             console.log('3');
           })
         // forgot password

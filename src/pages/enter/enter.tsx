@@ -45,7 +45,7 @@ export const Enter = () => {
     };
 
 
-    const onLogin = (evt: any) => {
+    const onLogin = (evt: React.FormEvent) => {
        evt.preventDefault()
         if (userData) {
             dispatch(loginUser(userData));

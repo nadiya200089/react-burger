@@ -8,7 +8,9 @@ export const Profile = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const onLogout = () => {
+    const onLogout = (evt: any) => {
+        evt.preventDefault()
+
         const refreshToken = window.localStorage.getItem('refreshToken');
         if (refreshToken) {
 

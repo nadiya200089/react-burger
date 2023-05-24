@@ -22,7 +22,8 @@ export const ResetPassword = () => {
         navigate('/enter');
     };
 
-    const handleResetPassword = () => {
+    const handleResetPassword = (e: React.FormEvent) => {
+        e.preventDefault();
         const req = {
             password: psw,
             token: code,

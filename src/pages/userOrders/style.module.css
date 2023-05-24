@@ -1,0 +1,42 @@
+.wrapper {
+    margin: 0 auto;
+    max-width: 1280px;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    justify-content: start;
+
+}
+
+.main {
+    display: flex;
+    gap: 50px;
+}
+
+.wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 80px;
+
+
+}
+
+.status {
+    display: flex;
+    gap: 150px;
+}
+
+.done {
+    color: #00cccc;
+
+}
+
+.orders {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    overflow-y: scroll;
+    max-height: 90vh;
+}

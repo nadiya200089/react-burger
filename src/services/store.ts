@@ -2,7 +2,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import constructor from "./reducers/constructor";
 import ingredients from "./reducers/ingredients";
 import auth from "./reducers/auth";
-import { apiSocket, apiUserSocket } from '../utils/apiSocket';
+import { apiUserSocket } from '../utils/apiSocket';
 import order from "./reducers/order";
 import feed from './reducers/feed';
 import userOrders from './reducers/userOrders';
@@ -18,7 +18,9 @@ export const store = configureStore({
         userOrdersStore: userOrders
     },
     middleware: (getDefaultMiddleware) => {
-        return getDefaultMiddleware().concat([apiUserSocket, apiSocket])
+        // return getDefaultMiddleware().concat([apiUserSocket, apiSocket])
+        return getDefaultMiddleware().concat([apiUserSocket])
+
     },
 },
 

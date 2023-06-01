@@ -4,8 +4,8 @@ import style from "./style.module.css";
 import { useSelector } from "react-redux";
 import { RootStore } from "../../services/store";
 import { OrderCard } from "@ya.praktikum/react-developer-burger-ui-components";
-import { apiSocket } from "../../utils/apiSocket";
-import { wsOpen, wsClose } from "../../services/actions/feed";
+
+import { wsOpen, wsClose } from "../../services/actions/userOrders";
 
 import { useEffect } from "react";
 import { useDispatch } from "../../services/hooks";
@@ -30,7 +30,7 @@ export const UserOrders = () => {
     useEffect(() => {
         dispatch(wsOpen());
         return () => {
-
+            console.log('close socket')
             dispatch(wsClose());
         };
     }, [dispatch]);

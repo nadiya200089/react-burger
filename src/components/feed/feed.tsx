@@ -4,7 +4,7 @@ import style from "./style.module.css";
 import { useSelector } from "react-redux";
 import { RootStore } from "../../services/store";
 import { OrderCard } from "@ya.praktikum/react-developer-burger-ui-components";
-import { apiSocket } from "../../utils/apiSocket";
+
 import { wsOpen, wsClose } from "../../services/actions/feed";
 
 import { useEffect } from "react";
@@ -29,7 +29,7 @@ export const Feed = () => {
     useEffect(() => {
         dispatch(wsOpen());
         return () => {
-
+            console.log('cose feed ws')
             dispatch(wsClose());
         };
     }, [dispatch]);

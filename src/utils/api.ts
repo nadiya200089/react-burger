@@ -115,12 +115,12 @@ export const updateInfoUser = (res: IRegisterData) => {
     })
   return a;
 }
-export const getInfoUser = (res: string) => {
+export const getInfoUser = (req: string) => {
   return fetch(`${burgerProjectUrl}/auth/user`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
-      Authorization: `Bearer ${res}`,
+      Authorization: `Bearer ${req}`,
     }
   }).then(getResponseData)
     .then(res => {

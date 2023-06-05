@@ -21,7 +21,7 @@ interface ICoordinat {
   di: number
 }
 
-const initialState: IinitialState  = {
+export const initialState: IinitialState  = {
   bun: {
     calories: 0,
     carbohydrates: 0,
@@ -50,16 +50,20 @@ export const constructorSlice = createSlice({
   initialState,
   reducers: {
     addConstructorA: (state, action: PayloadAction<IIngredientsData>) => {
+      const uuid =  action.payload.uuid;
       if (action.payload.type === "bun") {
-        state.bun = { ...action.payload, uuid: uuidv4() };
+        
+
+        state.bun = { ...action.payload, uuid: uuid && uuid.length ? uuid : uuidv4() };
         return;
       }
       if (!state.ingredients) {
         state.ingredients = [];
       }
-      state.ingredients.push({ ...action.payload, uuid: String(uuidv4()) });
+      state.ingredients.push({ ...action.payload, uuid: uuid && uuid.length ? uuid : uuidv4() });
     },
     moveItemA: (state, action: PayloadAction<ICoordinat>) => {
+      //di - start
       const { di, hi } = action.payload;
       const ingrds = state.ingredients;
       if (ingrds) {

@@ -22,6 +22,7 @@ export const ForgotPassword = () => {
     const handleResetPassword = () => {
         const req = { email: email }
         dispatch(forgotPassword(req));
+        navigate('/reset-password');
     }
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {

@@ -23,7 +23,7 @@ interface IUserState {
     isSuccessRegister: boolean
 }
 
-const initialState: IUserState = {
+export const initialState: IUserState = {
     isAuthChecked: false,
     accessToken: null,
     isOldToken: false,
@@ -48,6 +48,7 @@ export const authSlice = createSlice({
           state.user = action.payload.user;
           state.accessToken = accessToken;
         })
+        // register
         .addCase(registerUser.fulfilled, (state, action) => {
           const accessToken = action.payload.accessToken.split('Bearer ')[1];
           const refreshToken = action.payload.refreshToken;

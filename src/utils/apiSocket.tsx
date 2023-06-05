@@ -19,7 +19,6 @@ import { getCookie } from "./cookie";
 export const apiUserSocket: Middleware = (store: MiddlewareAPI<AppDispatch, RootStore>) => (next) => (action: PayloadAction<
     typeof WsActionType
 >) => {
-    console.log('type init', action.type)
 
     const wsUrl = 'wss://norma.nomoreparties.space/orders';
     let socket;

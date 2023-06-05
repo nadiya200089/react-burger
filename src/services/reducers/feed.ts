@@ -5,7 +5,7 @@ import { IWebsocketOrders } from '../../types'
 
 
 
-const initialState: TInitialState= {
+export const initialState: TInitialState= {
   isConnectionError: false,
   total: 0,
   totalToday: 0,

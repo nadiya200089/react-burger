@@ -72,13 +72,13 @@ export const loginUser = (res: IUserData) => {
   return a;
 }
 
-export const logoutUser = (res: ILogout) => {
+export const logoutUser = (req: ILogout) => {
   return fetch(`${burgerProjectUrl}/auth/logout`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(res),
+    body: JSON.stringify(req),
   }).then(getResponseData)
     .then(res => {
       if (res?.success) return res;

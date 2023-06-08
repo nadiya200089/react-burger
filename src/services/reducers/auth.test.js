@@ -270,7 +270,7 @@ describe('Test of reducers: auth', () => {
 
         const store = mockStore();
 
-        store.dispatch(forgotPassword()).then(() => {
+        store.dispatch(forgotPassword({ email: 'test@mail.ru'})).then(() => {
             const arrParse = store.getActions().map(action => ({
                 type: action.type,
                 payload: action.payload

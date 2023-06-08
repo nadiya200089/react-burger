@@ -99,4 +99,5 @@ export interface IFeedCard {
     onClick: ()=> void;
     ingredientName: string;
     status?: string;
+    path: string;
 }

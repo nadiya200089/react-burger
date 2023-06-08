@@ -18,6 +18,7 @@ import constructor, {
   deleteIngredient,
   addConstructor,
   moveItem,
+  deleteAll,
 } from "../../services/reducers/constructor";
 import DropContainer from "../dnd/DropContainer";
 import { DragAndDropContainer } from "../dnd/DragAndDropContainer";
@@ -25,9 +26,6 @@ import { fetchOrder } from "../../services/actions/order";
 import { RootStore } from '../../services/store';
 import { IIngredientsData } from '../../types';
 
-// interface IIngridients {
-
-// }
 
 export const BurgerConstructor: FC = () => {
   const navigate = useNavigate();
@@ -44,8 +42,6 @@ export const BurgerConstructor: FC = () => {
   };
 
 
-
-
   useEffect(() => {
     if (Number(order) > 0) {
       setOrderModal(true);
@@ -55,6 +51,7 @@ export const BurgerConstructor: FC = () => {
   const handleSaveOrder = () => {
     if (user === null) {
       navigate('/enter');
+      return;
     } 
     
     if (ingredients) {
@@ -64,6 +61,7 @@ export const BurgerConstructor: FC = () => {
       if (ids && ids.length > 0) {
         dispatch(fetchOrder(ids));
       }
+       dispatch(deleteAll());
     }
   };
 

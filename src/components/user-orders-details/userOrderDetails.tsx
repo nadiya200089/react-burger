@@ -7,19 +7,41 @@ import { getTimeFromTimestamp, parseOrderToClient } from "../../utils/utils";
 import { IWebsocketOrders } from "../../types";
 import classNames from "classnames";
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import { useDispatch } from "../../services/hooks";
+import { wsOpen, wsClose } from "../../services/actions/feed";
 
 
 
-export const UserOrderDetails: React.FC = () => {
+interface FeedCardDetailsProps {
+    isNotModal?: boolean;
+}
+
+
+export const UserOrderDetails: React.FC<FeedCardDetailsProps> = ({ isNotModal }) => {
     const { id } = useParams();
     const { data: ingredients } = useSelector((state: RootStore) => state.ingredientsStore)
     const { orders } = useSelector((state: RootStore) => state.userOrdersStore);
 
     const order = orders.find((item: IWebsocketOrders) => id === item._id);
 
+    const [parseOrders, setParseOrders] = useState<any[]>([]);
+    const dispatch = useDispatch();
 
 
-    const [parseOrders, setParseOrders] = useState<any[]>([])
+    useEffect(() => {
+        if (!isNotModal) {
+            return;
+        }
+        dispatch(wsOpen());
+        return () => {
+            if (!isNotModal) {
+                return;
+            }
+            console.log('cose feed ws')
+            dispatch(wsClose());
+        };
+    }, [dispatch]);
+
 
     if (!order) {
         return <> </>
@@ -56,7 +78,7 @@ export const UserOrderDetails: React.FC = () => {
             <div className={classNames(style.wrap, "custom-scroll")}>
                 {
                     parseOrder.ingredients.length ?
-                    
+
                         parseOrder.ingredients.map((ingredientId) => {
                             const ingredient = ingredients.find((ing) => ing._id === ingredientId);
 

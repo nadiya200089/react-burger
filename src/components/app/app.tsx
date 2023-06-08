@@ -39,6 +39,7 @@ export const App: React.FC = () => {
 
   const location = useLocation();
   const background = location.state?.background;
+
   const navigate = useNavigate();
 
   const onModalClose = () => {
@@ -75,6 +76,7 @@ export const App: React.FC = () => {
     }
   }, [isOldToken]);
 
+  console.log('backgroundd', background);
   return (
     <>
       <AppHeader />
@@ -111,7 +113,7 @@ export const App: React.FC = () => {
         }
         />
         <Route path='feed/:id' element={
-          <FeedCardDetails />
+          <FeedCardDetails isNotModal={true} />
         }
         />
         <Route path='feed' element={
@@ -158,7 +160,7 @@ export const App: React.FC = () => {
           />
           <Route path='user-orders/:id' element={
             <ProtectedRoute user={user} >
-              <UserOrderDetails />
+              <UserOrderDetails isNotModal={true} />
             </ProtectedRoute>
           }
           />
@@ -182,6 +184,18 @@ export const App: React.FC = () => {
           <Route path='ingredientDetails/:id' element={
             <Modal onClose={onModalClose}>
               <IngredientDetails />
+            </Modal>
+          }
+          />
+           <Route path='feed/:id' element={
+            <Modal onClose={onModalClose}>
+              <FeedCardDetails />
+            </Modal>
+          }
+          />
+           <Route path='user-orders/:id' element={
+            <Modal onClose={onModalClose}>
+              <UserOrderDetails />
             </Modal>
           }
           />

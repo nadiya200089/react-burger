@@ -3,24 +3,42 @@ import { useParams } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import style from "./style.module.css";
 import { RootStore } from "../../services/store";
+import { wsOpen, wsClose } from "../../services/actions/feed";
+
+import { useDispatch } from "../../services/hooks";
 import { getTimeFromTimestamp, parseOrderToClient } from "../../utils/utils";
 import { IWebsocketOrders } from "../../types";
 import classNames from "classnames";
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
+interface FeedCardDetailsProps {
+    isNotModal?: boolean;
+}
 
-
-export const FeedCardDetails: React.FC = () => {
+export const FeedCardDetails: React.FC<FeedCardDetailsProps> = ({isNotModal}) => {
     const { id } = useParams();
     const { data: ingredients } = useSelector((state: RootStore) => state.ingredientsStore)
-    const { orders } = useSelector((state: RootStore) => state.feedStore);
+    const { orders, status } = useSelector((state: RootStore) => state.feedStore);
 
     const order = orders.find((item: IWebsocketOrders) => id === item._id);
-
-
-
     const [parseOrders, setParseOrders] = useState<any[]>([])
 
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        if (!isNotModal) {
+            return;
+        }
+        dispatch(wsOpen());
+        return () => {
+            if (!isNotModal) {
+                return;
+            }
+            console.log('cose feed ws')
+            dispatch(wsClose());
+        };
+    }, [dispatch]);
+    
     if (!order) {
         return <> </>
     }

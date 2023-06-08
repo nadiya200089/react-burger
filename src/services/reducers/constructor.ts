@@ -86,6 +86,10 @@ export const constructorSlice = createSlice({
       const { name, order } = action.payload;
       state.lastOrder = { name, order };
     },
+    deleteAllA: (state) => {
+      debugger;
+      state.ingredients = null;
+    }
   },
 });
 
@@ -93,6 +97,7 @@ export const {
   addConstructorA: addConstructor,
   updateOrderA: updateOrder,
   deleteIngredientA: deleteIngredient,
-  moveItemA: moveItem 
+  moveItemA: moveItem,
+  deleteAllA: deleteAll
 } = constructorSlice.actions;
 export default constructorSlice.reducer;

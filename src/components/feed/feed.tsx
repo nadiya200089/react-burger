@@ -13,6 +13,7 @@ import ingredients from "../../services/reducers/ingredients";
 import { FeedCard } from "../feedCard/feedCard";
 import { useNavigate } from 'react-router-dom';
 import { parseOrdersToClient } from '../../utils/utils'
+import { IWebsocketOrders } from "../../types";
 
 
 export const Feed = () => {
@@ -25,6 +26,8 @@ export const Feed = () => {
     const handleNavigateToFeedId = (id: string) => {
         navigate(`/feed/${id}`);
     };
+
+    const [feedDetailsModal, setfeedDetailsModal] = useState<IWebsocketOrders | null>(null);
 
     useEffect(() => {
         dispatch(wsOpen());
@@ -40,6 +43,7 @@ export const Feed = () => {
             setParseOrders(parseOrders);
         }
     }, [orders])
+    
     const getStatus = (orders: any[], status: any): number[] => {
         const sortedOrders = orders.filter((item) => item.status === status);
         return sortedOrders.map((item) => item.number).slice(0, 10);
@@ -62,8 +66,9 @@ export const Feed = () => {
                                 name={item.name}
                                 number={item.number}
                                 arrImgsUri={item.arrImgsUri}
-                                onClick={() => handleNavigateToFeedId(item._id)}
+                                onClick={() => setfeedDetailsModal(item)}
                                 ingredientName={item.ingredientName}
+                                path={`/feed/${item._id}`}
                             />
                         )
                         ) : ''}

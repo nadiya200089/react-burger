@@ -4,10 +4,11 @@ import style from "./style.module.css";
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import 'moment/locale/ru';
 import cn from "classnames";
+import { Link, useLocation } from "react-router-dom";
 
 
 
-export const FeedCard: React.FC<IFeedCard> = ({ number, createdAt, name, status, arrImgsUri, _id, totalPrice, onClick, ingredientName }) => {
+export const FeedCard: React.FC<IFeedCard> = ({ path, number, createdAt, name, status, arrImgsUri, _id, totalPrice, onClick, ingredientName }) => {
     let deltaMargin = 20;
     let classStatus;
 
@@ -25,27 +26,14 @@ export const FeedCard: React.FC<IFeedCard> = ({ number, createdAt, name, status,
         default:
             statusElem = '';
     }
-
-    // let colorStatusName = '';
-
-    // switch (status) {
-    //     case 'done':
-    //         colorStatusName = 'green';
-    //         break;
-    //     case 'created':
-    //         colorStatusName = 'green';
-    //         break;
-    //     case 'pending':
-    //         colorStatusName = 'brown';
-    //         break;
-    //     default:
-    //         colorStatusName = 'black';
-    // }
-
-
+    const location = useLocation();
 
     return (
-        <div onClick={onClick}
+        <Link
+            to={{pathname: path}}
+            state={{ background: location }}
+            replace
+            onClick={onClick}
             className={style.wrapper}>
             <div className={style.wrap}>
                 <div className="text text_type_digits-default">#{number}</div>
@@ -53,8 +41,8 @@ export const FeedCard: React.FC<IFeedCard> = ({ number, createdAt, name, status,
             </div>
             <div className="text text_type_main-medium">{name}</div>
 
-            <div  
-                className={ 
+            <div
+                className={
                     cn('text text_type_main-small', {
                         [style.textGreen]: status === 'created',
                         [style.textWhite]: status === 'done',
@@ -65,21 +53,21 @@ export const FeedCard: React.FC<IFeedCard> = ({ number, createdAt, name, status,
                 {statusElem}
             </div>
 
-           
+
             <div className={style.wrap}>
                 <div className={style.images}> {arrImgsUri.length ?
                     arrImgsUri.slice(0, 6).map((item: string, index: number) => (
-                    <div 
-                        key={index}
-                        className={style.img}
-                        style={{
-                            top: 0,
-                            left: index === 0 ? 0 : `${deltaMargin + 30 }px`,
-                            zIndex: index
-                        }}
-                    >
-                        <img className={style.image} src={item} alt={ingredientName}></img>
-                    </div>
+                        <div
+                            key={index}
+                            className={style.img}
+                            style={{
+                                top: 0,
+                                left: index === 0 ? 0 : `${deltaMargin + 30}px`,
+                                zIndex: index
+                            }}
+                        >
+                            <img className={style.image} src={item} alt={ingredientName}></img>
+                        </div>
                     )) : ''}
                 </div>
                 <div className={style.price}>
@@ -87,6 +75,6 @@ export const FeedCard: React.FC<IFeedCard> = ({ number, createdAt, name, status,
                     <CurrencyIcon type="primary" />
                 </div>
             </div>
-        </div >
+        </Link >
     )
 }

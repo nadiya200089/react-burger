@@ -34,6 +34,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
+    "test-cypress": "cypress open",
     "format": "prettier --write \"**/*.{js,jsx,json,css,md,html}\""
   },
   "eslintConfig": {
@@ -60,6 +61,7 @@
     "@redux-devtools/log-monitor": "^4.0.2",
     "@types/uuid": "^9.0.1",
     "cypress": "^12.13.0",
+    "eslint-plugin-cypress": "^2.13.3",
     "fetch-mock": "^9.11.0",
     "redux-mock-store": "^1.5.4"
   }

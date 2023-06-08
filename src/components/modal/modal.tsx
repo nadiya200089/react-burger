@@ -10,9 +10,6 @@ type TModal = {
   onClose: ()=> void;
   children?: any;
 }
-//  type TModalRoot = {
-//   modalRoot: Element | DocumentFragment
-//  }
 
 export const Modal: React.FC<TModal> = ({ onClose, children }) => {
   

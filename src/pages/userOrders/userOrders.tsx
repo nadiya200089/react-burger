@@ -19,7 +19,9 @@ import { IFeedOrders, IWebsocketOrders } from '../../types'
 export const UserOrders = () => {
     const { data: ingredients } = useSelector((state: RootStore) => state.ingredientsStore)
     const { isConnectionError, orders, total, totalToday, status } = useSelector((state: RootStore) => state.userOrdersStore);
-    const [parseOrders, setParseOrders] = useState<any[]>([])
+    const [parseOrders, setParseOrders] = useState<any[]>([]);
+    const [feedDetailsModal, setfeedDetailsModal] = useState<IWebsocketOrders | null>(null);
+
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
@@ -52,6 +54,7 @@ export const UserOrders = () => {
     }
     const parseOrder = parseOrderToClient(order, ingredients);
 
+
     return (
         <div className={style.wrapper}>
             <h2 className="text text_type_main-large mt-10 mb-5">
@@ -68,10 +71,10 @@ export const UserOrders = () => {
                                 name={item.name}
                                 number={item.number}
                                 arrImgsUri={item.arrImgsUri}
-                                onClick={() => handleNavigateToFeedId(item._id)}
+                                onClick={() => setfeedDetailsModal(item)}
                                 ingredientName={item.ingredientName}
-                                status={item.status} //TODO переименовать в title/ localization status 
-                                // rawStatus={item.}
+                                status={item.status}
+                                path={ `/user-orders/${item._id}`}
                             />
                         )
                         ) : <div className="text text_type_main-large mr-2 mt-15 mb-15">Пока заказов нет</div>}

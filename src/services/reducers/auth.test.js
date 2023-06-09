@@ -3,7 +3,7 @@ import fetchMock from 'fetch-mock';
 import configureMockStore from 'redux-mock-store'
 import thunk from 'redux-thunk';
 import { initialState } from "./auth";
-import { loginUser, getInfoUser, registerUser, logoutUser, updateToken, forgotPassword } from "../actions/auth";
+import { loginUser, getInfoUser, registerUser, logoutUser, updateToken, forgotPassword, resetPassword} from "../actions/auth";
 import { getCookie } from "../../utils/cookie";
 
 const middlewares = [thunk]
@@ -113,8 +113,6 @@ describe('Test of reducers: auth', () => {
     })
 
     it('Action test:  register', () => {
-
-        // const token = 'test-token';
 
         fetchMock.postOnce("https://norma.nomoreparties.space/api/auth/register", {
             body: {
@@ -263,7 +261,6 @@ describe('Test of reducers: auth', () => {
                 payload: {
                     success: true,
                     message: "Reset email sent",
-                    // email: "test@mail.ru"
                 }
             }
         ];
@@ -271,6 +268,45 @@ describe('Test of reducers: auth', () => {
         const store = mockStore();
 
         store.dispatch(forgotPassword({ email: 'test@mail.ru'})).then(() => {
+            const arrParse = store.getActions().map(action => ({
+                type: action.type,
+                payload: action.payload
+            }));
+            expect(arrParse).toEqual(
+                expectedAction
+            )
+        })
+
+    })
+
+    it('Action test:  reset password', () => {
+
+        fetchMock.postOnce("https://norma.nomoreparties.space/api/password-reset/reset", {
+            body: {
+                success: true,
+                message: "Reset email sent",
+            },
+            headers: {
+                'content-type': 'application/json',
+            }
+        });
+
+        const expectedAction = [
+            {
+                type: resetPassword.pending.type,
+            },
+            {
+                type: resetPassword.fulfilled.type,
+                payload: {
+                    success: true,
+                    message: "Reset email sent",
+                }
+            }
+        ];
+
+        const store = mockStore();
+
+        store.dispatch(resetPassword({ password: 'test'}, {token: 'test'})).then(() => {
             const arrParse = store.getActions().map(action => ({
                 type: action.type,
                 payload: action.payload

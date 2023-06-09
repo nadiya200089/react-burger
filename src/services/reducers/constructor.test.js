@@ -1,4 +1,4 @@
-import constructor from "./constructor";
+import constructor, { deleteAll } from "./constructor";
 import { addConstructor, updateOrder, deleteIngredient, moveItem } from './constructor'
 import fetchMock from 'fetch-mock';
 import configureMockStore from 'redux-mock-store'
@@ -95,6 +95,21 @@ describe('Test of reducers: constructor', () => {
             payload: { di: 0, hi: 2},
         });
         const trueResult = { ...initialState, ingredients:  [{uuid: '3' }, {uuid: '1'}, {uuid: '2'}] };
+        expect(stateReducer
+        ).toEqual(
+            trueResult
+        )
+
+    })
+
+    it('should delete all ingredients', () => {
+        const testIngredients = [{uuid: '1' }, {uuid: '2'}];
+        const initStateForDelete =  { ...initialState, ingredients: testIngredients };
+
+        const stateReducer = constructor(initStateForDelete, {
+            type: deleteAll.type,
+        });
+        const trueResult = { ...initialState, ingredients: null};
         expect(stateReducer
         ).toEqual(
             trueResult

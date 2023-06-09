@@ -87,7 +87,6 @@ export const constructorSlice = createSlice({
       state.lastOrder = { name, order };
     },
     deleteAllA: (state) => {
-      debugger;
       state.ingredients = null;
     }
   },

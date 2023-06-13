@@ -30,7 +30,7 @@ export const Feed = () => {
     const [feedDetailsModal, setfeedDetailsModal] = useState<IWebsocketOrders | null>(null);
 
     useEffect(() => {
-        dispatch(wsOpen());
+        dispatch(wsOpen({ url: 'wss://norma.nomoreparties.space/orders/all'}));
         return () => {
             console.log('cose feed ws')
             dispatch(wsClose());

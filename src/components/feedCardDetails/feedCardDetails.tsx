@@ -29,7 +29,7 @@ export const FeedCardDetails: React.FC<FeedCardDetailsProps> = ({isNotModal}) =>
         if (!isNotModal) {
             return;
         }
-        dispatch(wsOpen());
+        dispatch(wsOpen({ url: 'wss://norma.nomoreparties.space/orders/all'}));
         return () => {
             if (!isNotModal) {
                 return;

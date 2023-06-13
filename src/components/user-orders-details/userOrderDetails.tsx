@@ -8,7 +8,8 @@ import { IWebsocketOrders } from "../../types";
 import classNames from "classnames";
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useDispatch } from "../../services/hooks";
-import { wsOpen, wsClose } from "../../services/actions/feed";
+import { wsOpen, wsClose } from "../../services/actions/userOrders";
+import { getCookie } from "../../utils/cookie";
 
 
 
@@ -32,12 +33,17 @@ export const UserOrderDetails: React.FC<FeedCardDetailsProps> = ({ isNotModal })
         if (!isNotModal) {
             return;
         }
-        dispatch(wsOpen());
+        const token = getCookie('token');
+        dispatch(wsOpen(
+            {
+                url: `wss://norma.nomoreparties.space/orders?token=${token}`
+            }
+        ));
         return () => {
             if (!isNotModal) {
                 return;
             }
-            console.log('cose feed ws')
+            console.log('close feed ws')
             dispatch(wsClose());
         };
     }, [dispatch]);

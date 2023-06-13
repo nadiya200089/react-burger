@@ -152,18 +152,19 @@ export const App: React.FC = () => {
             </ProtectedRoute>
           }
         >
-          <Route path='user-orders' element={
-            <ProtectedRoute user={user} >
-              <UserOrders />
-            </ProtectedRoute>
-          }
-          />
           <Route path='user-orders/:id' element={
             <ProtectedRoute user={user} >
               <UserOrderDetails isNotModal={true} />
             </ProtectedRoute>
           }
           />
+          <Route path='user-orders' element={
+            <ProtectedRoute user={user} >
+              <UserOrders />
+            </ProtectedRoute>
+          }
+          />
+        
           <Route index element={
             <ProtectedRoute user={user} >
               <UserProfile />
@@ -193,7 +194,7 @@ export const App: React.FC = () => {
             </Modal>
           }
           />
-           <Route path='user-orders/:id' element={
+           <Route path='profile/user-orders/:id' element={
             <Modal onClose={onModalClose}>
               <UserOrderDetails />
             </Modal>

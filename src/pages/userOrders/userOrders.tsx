@@ -75,7 +75,7 @@ export const UserOrders = () => {
                                 onClick={() => setfeedDetailsModal(item)}
                                 ingredientName={item.ingredientName}
                                 status={item.status}
-                                path={`/user-orders/${item._id}`}
+                                path={`/profile/user-orders/${item._id}`}
                             />
                         )
                         ) : <div className="text text_type_main-large mr-2 mt-15 mb-15">Пока заказов нет</div>}

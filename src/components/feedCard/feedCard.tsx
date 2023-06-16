@@ -8,7 +8,7 @@ import { Link, useLocation } from "react-router-dom";
 
 
 
-export const FeedCard: React.FC<IFeedCard> = ({ path, number, createdAt, name, status, arrImgsUri, _id, totalPrice, onClick, ingredientName }) => {
+export const FeedCard: React.FC<IFeedCard> = ({ path, number, createdAt, name, status, arrImgsUri, _id, key, totalPrice, onClick, ingredientName }) => {
     let deltaMargin = 20;
     let classStatus;
 

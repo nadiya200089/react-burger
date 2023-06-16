@@ -4,7 +4,7 @@ import classNames from "classnames";
 import { AppHeader } from "../app-header/app-header";
 import { BurgerIngredients } from "../burger-ingredients/burger-ingredients";
 import { BurgerConstructor } from "../burger-constructor/burger-constructor ";
-import { useSelector } from "react-redux";
+import { useSelector } from "../../services/hooks";
 
 import fetchIngredients from "../../services/actions/ingredients";
 import { getInfoUser, updateToken } from "../../services/actions/auth";
@@ -23,19 +23,18 @@ import { ProtectedRoute } from "../protected-route/protected-route";
 import { ResetPassword } from "../../pages/reset-password/reset-password";
 import { getCookie } from '../../utils/cookie';
 import { useDispatch } from "../../services/hooks";
-import { RootStore } from "../../services/store";
 import { Feed } from "../feed/feed";
 import { FeedCardDetails } from "../feedCardDetails/feedCardDetails";
 import { UserOrders } from "../../pages/userOrders/userOrders";
 import { UserProfile } from "../../pages/userProfile/userProfile";
-import {UserOrderDetails} from '../user-orders-details/userOrderDetails'
+import { UserOrderDetails } from '../user-orders-details/userOrderDetails'
 import { PreLoader } from "../preLoader/preloader";
 
 
 export const App: React.FC = () => {
   const dispatch = useDispatch();
-  const { user, isOldToken } = useSelector((state: RootStore) => state.auth);
-  const { isLoading} = useSelector((state: RootStore) => state.orderStore);
+  const { user, isOldToken, loading } = useSelector((state) => state.auth);
+  const { isLoading } = useSelector((state) => state.orderStore);
 
   const location = useLocation();
   const background = location.state?.background;
@@ -76,7 +75,12 @@ export const App: React.FC = () => {
     }
   }, [isOldToken]);
 
-  console.log('backgroundd', background);
+
+  if (loading) {
+    return < PreLoader/>
+  }
+
+  
   return (
     <>
       <AppHeader />
@@ -93,17 +97,17 @@ export const App: React.FC = () => {
             </h1>
             <main className={style.main}>
               {
-                isLoading && 
-                <PreLoader/>
+                isLoading &&
+                <PreLoader />
               }
               {
-                !isLoading && 
+                !isLoading &&
                 <>
-                     <BurgerIngredients />
-                     <BurgerConstructor />
+                  <BurgerIngredients />
+                  <BurgerConstructor />
                 </>
               }
-         
+
             </main>
           </div>
         </DndProvider>}
@@ -144,7 +148,7 @@ export const App: React.FC = () => {
           </ProtectedRoute>
         }
         />
-        <Route 
+        <Route
           path='/profile/'
           element={
             <ProtectedRoute user={user} >
@@ -164,7 +168,7 @@ export const App: React.FC = () => {
             </ProtectedRoute>
           }
           />
-        
+
           <Route index element={
             <ProtectedRoute user={user} >
               <UserProfile />
@@ -180,7 +184,7 @@ export const App: React.FC = () => {
         />
       </Routes>
       {
-        background &&
+        true &&
         <Routes>
           <Route path='ingredientDetails/:id' element={
             <Modal onClose={onModalClose}>
@@ -188,16 +192,19 @@ export const App: React.FC = () => {
             </Modal>
           }
           />
-           <Route path='feed/:id' element={
+          <Route path='feed/:id' element={
             <Modal onClose={onModalClose}>
               <FeedCardDetails />
             </Modal>
           }
           />
-           <Route path='profile/user-orders/:id' element={
-            <Modal onClose={onModalClose}>
-              <UserOrderDetails />
-            </Modal>
+          <Route path='profile/user-orders/:id' element={
+            <ProtectedRoute user={user} >
+              <Modal onClose={onModalClose}>
+                <UserOrderDetails />
+              </Modal>
+            </ProtectedRoute>
+
           }
           />
         </Routes>

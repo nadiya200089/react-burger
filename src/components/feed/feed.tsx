@@ -61,6 +61,7 @@ export const Feed = () => {
                         parseOrders.map((item: any) => (
                             <FeedCard
                                 _id={item._id}
+                                key={item._id}
                                 totalPrice={item.total}
                                 createdAt={item.createdAt}
                                 name={item.name}

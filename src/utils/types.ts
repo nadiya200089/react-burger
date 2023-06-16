@@ -1,3 +1,10 @@
-export const WsActionType = {
-    url: ''
+import { wsClose, wsOpen } from "../services/actions/feed";
+
+export type WsActionType = {
+    url: string,
 };
+
+
+
+
+

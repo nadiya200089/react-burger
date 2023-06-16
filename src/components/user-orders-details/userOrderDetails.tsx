@@ -1,8 +1,7 @@
-import { useSelector } from "react-redux";
+import { useSelector } from "../../services/hooks";
 import { useParams } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import style from "./style.module.css";
-import { RootStore } from "../../services/store";
 import { getTimeFromTimestamp, parseOrderToClient } from "../../utils/utils";
 import { IWebsocketOrders } from "../../types";
 import classNames from "classnames";
@@ -20,8 +19,8 @@ interface FeedCardDetailsProps {
 
 export const UserOrderDetails: React.FC<FeedCardDetailsProps> = ({ isNotModal }) => {
     const { id } = useParams();
-    const { data: ingredients } = useSelector((state: RootStore) => state.ingredientsStore)
-    const { orders } = useSelector((state: RootStore) => state.userOrdersStore);
+    const { data: ingredients } = useSelector((state) => state.ingredientsStore)
+    const { orders } = useSelector((state) => state.userOrdersStore);
 
     const order = orders.find((item: IWebsocketOrders) => id === item._id);
 

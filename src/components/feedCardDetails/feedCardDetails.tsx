@@ -1,4 +1,4 @@
-import { useSelector } from "react-redux";
+import { useSelector } from "../../services/hooks";
 import { useParams } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import style from "./style.module.css";
@@ -17,8 +17,8 @@ interface FeedCardDetailsProps {
 
 export const FeedCardDetails: React.FC<FeedCardDetailsProps> = ({isNotModal}) => {
     const { id } = useParams();
-    const { data: ingredients } = useSelector((state: RootStore) => state.ingredientsStore)
-    const { orders, status } = useSelector((state: RootStore) => state.feedStore);
+    const { data: ingredients } = useSelector((state) => state.ingredientsStore)
+    const { orders, status } = useSelector((state) => state.feedStore);
 
     const order = orders.find((item: IWebsocketOrders) => id === item._id);
     const [parseOrders, setParseOrders] = useState<any[]>([])

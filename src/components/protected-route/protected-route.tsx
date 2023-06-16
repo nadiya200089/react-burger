@@ -11,10 +11,8 @@ type TProtectedRoute = {
 
 export const ProtectedRoute: React.FC<TProtectedRoute> = ({ onlyUnAuth, user, children, ...props }) => {
     const location = useLocation();
-    const id = useParams();
-    console.log ('id', id)
-    console.log('location', location);
-    const pathInWindow = window.location.pathname;
+    // const id = useParams();
+    // const pathInWindow = window.location.pathname;
     if (onlyUnAuth && user) {
          const { from } = location.state || { from: {pathname: '/'}}
         return (

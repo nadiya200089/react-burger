@@ -66,6 +66,7 @@ export const UserOrders = () => {
                     {parseOrders.length ?
                         parseOrders.map((item) => (
                             <FeedCard
+                                key={item._id}
                                 _id={item._id}
                                 totalPrice={item.total}
                                 createdAt={item.createdAt}
@@ -80,7 +81,7 @@ export const UserOrders = () => {
                         )
                         ) : <div className="text text_type_main-large mr-2 mt-15 mb-15">Пока заказов нет</div>}
                 </div>
-            
+
             </div>
         </div>
 

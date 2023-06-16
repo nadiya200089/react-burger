@@ -1,6 +1,6 @@
 import { getCookie } from "./cookie";
 import { IRegisterData, IUserData, ILogout, IUpdateToken, IForgotPassword, IResetPassword } from '../types';
-const burgerProjectUrl:string = "https://norma.nomoreparties.space/api";
+export const burgerProjectUrl: string = "https://norma.nomoreparties.space/api";
 
 function getResponseData(res: Response) {
   if (res.redirected) {
@@ -86,7 +86,7 @@ export const logoutUser = (req: ILogout) => {
     })
 }
 
-export const updateToken = (res:IUpdateToken) => {
+export const updateToken = (res: IUpdateToken) => {
   return fetch(`${burgerProjectUrl}/auth/token`, {
     method: "POST",
     headers: {
@@ -101,7 +101,7 @@ export const updateToken = (res:IUpdateToken) => {
 }
 export const updateInfoUser = (res: IRegisterData) => {
   const token = getCookie('token');
-  const a =  fetch(`${burgerProjectUrl}/auth/user`, {
+  const a = fetch(`${burgerProjectUrl}/auth/user`, {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",

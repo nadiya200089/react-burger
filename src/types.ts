@@ -90,6 +90,7 @@ export interface IFeedOrders extends IWebsocketOrders {
 
 export interface IFeedCard {
     _id: string;
+    key: string,
     name: 'string';
     number: number;
     createdAt?: string;

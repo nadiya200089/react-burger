@@ -20,7 +20,8 @@ interface IUserState {
     isResetPassword: boolean;
     isSuccessPassword: boolean;
     user: IRegisterData | null;
-    isSuccessRegister: boolean
+    isSuccessRegister: boolean;
+    loading: boolean;
 }
 
 export const initialState: IUserState = {
@@ -30,7 +31,8 @@ export const initialState: IUserState = {
     isResetPassword: false,
     isSuccessPassword: false,
     user: null, 
-    isSuccessRegister: false
+    isSuccessRegister: false,
+    loading: true,
 }
 
 export const authSlice = createSlice({
@@ -60,11 +62,18 @@ export const authSlice = createSlice({
 
       
         //get user
+        .addCase(getInfoUser.pending, (state) => {
+          state.loading = true
+        })
         .addCase(getInfoUser.fulfilled, (state, action) => {
           state.user = action.payload.user
+          state.loading = false
+
         })
         .addCase(getInfoUser.rejected, (state, action) => {
           state.isOldToken = true;
+          state.loading = false
+
         })
 
         //refresh token 

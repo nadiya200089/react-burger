@@ -11,42 +11,36 @@ import {
 } from "../services/actions/userOrders";
 
 import { AppDispatch, RootStore } from "../services/store";
-import { IIngredientsData, IWebsocketOrders } from "../types";
-import { current } from "@reduxjs/toolkit";
-import { useSelector } from "react-redux";
-import { getCookie } from "./cookie";
 
 import { WsActionType } from './types';
+import { typeUsersActions } from "../services/actions/userOrders";
+import {typeFeedActions} from '../services/actions/feed'
 
 export const socketMiddleware: Middleware = (store: MiddlewareAPI<AppDispatch, RootStore>) => (next) => (action: PayloadAction<
-    typeof WsActionType
+    WsActionType
 >) => {
 
-    const wsUrl = 'wss://norma.nomoreparties.space/orders';
+
     let socket;
     let url;
     const { type, payload } = action;
 
-    if (type === 'USER_ORDERS_WS_OPEN' || type === 'FEED_WS_OPEN' ) {
+    const  { wsUserOpen, wsUserClose } = typeUsersActions;
+    const  { wsOpen, wsClose } = typeFeedActions;
+
+
+    if (type === wsUserOpen || type === wsOpen ) {
         url = payload.url;
         console.log('connected feed')
-        // url = wsUrl + '/all';
         socket = new WebSocket(url);
-        // console.log('connected user-orders');
-        // const token = getCookie('token');
-        // if (token) {
-        //     socket = new WebSocket(`${wsUrl}?token=${token}`);
-        // }
     }
-
-
     
     if (socket) {
-        if (type === 'FEED_WS_CLOSE') {
+        if (type === wsClose) {
             socket.close(1000, 'work is complete');
         }
 
-        if (type === 'USER_ORDERS_WS_CLOSE') {
+        if (type === wsUserClose) {
             socket.close(1000, 'work is complete');
         }
 

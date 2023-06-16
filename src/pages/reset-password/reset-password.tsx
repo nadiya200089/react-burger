@@ -6,15 +6,14 @@ import { useDispatch } from "../../services/hooks";
 
 
 import { Button, Input, PasswordInput } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useSelector } from "react-redux";
+import { useSelector } from "../../services/hooks";
 import { resetPassword } from "../../services/actions/auth";
-import { RootStore } from '../../services/store';
 
 export const ResetPassword = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     
-    const {isSuccessPassword}  = useSelector((state: RootStore) => state.auth);
+    const {isSuccessPassword}  = useSelector((state) => state.auth);
 
     const [code, setCode] = useState('');
     const [psw, setPsw] = useState('');

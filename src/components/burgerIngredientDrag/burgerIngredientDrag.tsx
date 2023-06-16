@@ -1,4 +1,3 @@
-import { BurgerIngredient as Test } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useDrag } from "react-dnd";
 import style from "./style.module.css";
 import { BurgerIngredient } from "../burger-ingredient/burger-ingredient";

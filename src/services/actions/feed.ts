@@ -10,12 +10,16 @@ interface IWsMessage {
 interface IUrl {
     url: string;
 }
-//const url = 'wss://norma.nomoreparties.space/orders/all'
+
+export const typeFeedActions = {
+    wsOpen: 'FEED_WS_OPEN',
+    wsClose: 'FEED_WS_CLOSE',
+};
+
 export const wsConnect = createAction('FEED_WS_CONNECT');
 export const wsDisonnect = createAction('FEED_WS_DISCONNECT');
 export const wsConnecting = createAction('FEED_WS_CONNECTING');
 export const wsOpen = createAction('FEED_WS_OPEN', function prepare ({ url }: IUrl) {
-    //const {  total, totalToday, orders } = props;
     return {
         payload: {
            url

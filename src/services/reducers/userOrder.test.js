@@ -1,10 +1,8 @@
 import userOrders from "./userOrders";
-import fetchMock from 'fetch-mock';
 import configureMockStore from 'redux-mock-store'
 import thunk from 'redux-thunk';
 import { initialState } from "./userOrders";
-import { apiUserSocket } from '../../utils/apiSocket';
-import { wsMessage, wsOpen, wsClose, wsConnect } from "../actions/userOrders";
+import { wsMessage} from "../actions/userOrders";
 
 
 

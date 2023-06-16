@@ -1,20 +1,16 @@
 import { useState } from 'react';
-import { useSelector } from "react-redux";
-import { logoutUser } from "../../services/actions/auth";
+import { useSelector } from "../../services/hooks";
 
-import classNames from "classnames";
 import styles from "./style.module.css";
-import { Button, CheckMarkIcon, EmailInput, Input, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
+import { Button, Input, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
 import { updateInfoUser } from '../../services/actions/auth';
 
-import { RootStore } from '../../services/store';
 import { IRegisterData } from '../../types';
 import { useDispatch } from '../../services/hooks';
 
 export const UserProfile = () => {
     const dispatch = useDispatch();
-    const { user } = useSelector((state: RootStore
-        ) => state.auth);
+    const { user } = useSelector((state) => state.auth);
     const [userData, setUserData] = useState<IRegisterData | null>(user);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {

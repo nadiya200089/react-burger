@@ -66,13 +66,18 @@ export const authSlice = createSlice({
 
 
       //get user
+      .addCase(getInfoUser.pending, (state, action) => {
 
+        state.isLoading = true;
+      })
       .addCase(getInfoUser.fulfilled, (state, action) => {
         state.user = action.payload.user
+        state.isLoading = false;
 
       })
       .addCase(getInfoUser.rejected, (state, action) => {
         state.isOldToken = true;
+        state.isLoading = false;
       })
 
       //refresh token 

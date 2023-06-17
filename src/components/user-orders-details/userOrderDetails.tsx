@@ -75,9 +75,7 @@ export const UserOrderDetails: React.FC<FeedCardDetailsProps> = ({ isNotModal })
     const usedIdIngredients: string[] = [];
     return (
 
-        <div className={style.wrapper}
-        key={order._id}
-        >
+        <div className={style.wrapper} key={!isNotModal ? `${order._id}-modal` : order._id}>
             <div className={classNames(style.number, "text text_type_digits-default")}>#{parseOrder.number}</div>
             <div className="text text_type_main-medium">{parseOrder.name}</div>
             <div className={classNames(style.status, "text text_type_main-small")}>{statusElem}</div>
@@ -98,7 +96,7 @@ export const UserOrderDetails: React.FC<FeedCardDetailsProps> = ({ isNotModal })
                             usedIdIngredients.push(ingredient._id);
                             const counter = parseOrder.ingredients.filter((id) => id === ingredientId).length;
                             return (
-                                <div className={style.ingredientWrap}>
+                                <div key={!isNotModal ? `${ingredient?._id}-modal` : order._id} className={style.ingredientWrap}>
                                     <div className={style.ingredient}>
                                         <img className={style.img} src={imgSrc}></img>
                                         <div className="text text_type_main-small">{ingredient?.name}</div>

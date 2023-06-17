@@ -57,11 +57,13 @@ export const App: React.FC = () => {
       const token = getCookie("token");
       if (token && token.length > 0) {
         dispatch(getInfoUser(token));
+      } else {
+        dispatch(changeLoading(false));
       }
 
     } finally {
       dispatch(fetchIngredients());
-      dispatch(changeLoading(false));
+     
     }
   }, [dispatch]);
 
@@ -193,7 +195,7 @@ export const App: React.FC = () => {
         />
       </Routes>
       {
-        true &&
+        background &&
         <Routes>
           <Route path='ingredientDetails/:id' element={
             <Modal onClose={onModalClose}>
@@ -202,18 +204,16 @@ export const App: React.FC = () => {
           }
           />
           <Route path='feed/:id' element={
-            <Modal onClose={onModalClose}>
-              <FeedCardDetails key={feedOrderId?._id} />
+            <Modal onClose={onModalClose} >
+              <FeedCardDetails isNotModal={false} />
             </Modal>
           }
           />
           <Route path='profile/user-orders/:id' element={
-            <ProtectedRoute user={user} >
-              <Modal onClose={onModalClose}>
-                <UserOrderDetails key={orderId?._id}/>
-              </Modal>
-            </ProtectedRoute>
 
+              <Modal onClose={onModalClose}>
+                <UserOrderDetails  isNotModal={false}/>
+              </Modal>
           }
           />
         </Routes>

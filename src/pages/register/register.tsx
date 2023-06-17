@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, FormEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from "../../services/hooks";
 import { useDispatch } from "../../services/hooks";
@@ -37,7 +37,7 @@ export const Register = () => {
     });
   }
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     onRegister()
   }

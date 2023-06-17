@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, FormEvent } from 'react';
 import classNames from "classnames";
 import { useNavigate } from 'react-router-dom';
 import styles from "./style.module.css";
@@ -21,7 +21,7 @@ export const ResetPassword = () => {
         navigate('/enter');
     };
 
-    const handleResetPassword = (e: React.FormEvent) => {
+    const handleResetPassword = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const req = {
             password: psw,

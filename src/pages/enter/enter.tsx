@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { FormEvent, useState } from 'react';
 import { useDispatch } from "../../services/hooks";
 import { useNavigate } from 'react-router-dom';
 import classNames from "classnames";
@@ -36,7 +36,7 @@ export const Enter = () => {
     };
 
 
-    const onLogin = (evt: React.FormEvent) => {
+    const onLogin = (evt: FormEvent<HTMLFormElement>) => {
        evt.preventDefault()
         if (userData) {
             dispatch(loginUser(userData));

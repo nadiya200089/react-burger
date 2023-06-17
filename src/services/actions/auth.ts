@@ -1,4 +1,4 @@
-import { createAsyncThunk } from '@reduxjs/toolkit';
+import { createAsyncThunk, createAction } from '@reduxjs/toolkit';
 import { IRegisterData, IUserData, ILogout, IUpdateToken, IForgotPassword, IResetPassword } from '../../types';
 
 import {
@@ -12,6 +12,13 @@ import {
     resetPsw
 } from "../../utils/api";
 
+export const changeLoading = createAction('change/loading', function prepare(state: boolean) {
+    return{
+        payload: {
+            state
+        }
+    }
+});
 
 export const registerUser = createAsyncThunk(
     '/auth/register',

@@ -75,7 +75,9 @@ export const UserOrderDetails: React.FC<FeedCardDetailsProps> = ({ isNotModal })
     const usedIdIngredients: string[] = [];
     return (
 
-        <div className={style.wrapper}>
+        <div className={style.wrapper}
+        key={order._id}
+        >
             <div className={classNames(style.number, "text text_type_digits-default")}>#{parseOrder.number}</div>
             <div className="text text_type_main-medium">{parseOrder.name}</div>
             <div className={classNames(style.status, "text text_type_main-small")}>{statusElem}</div>

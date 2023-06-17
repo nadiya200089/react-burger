@@ -7,7 +7,7 @@ import { BurgerConstructor } from "../burger-constructor/burger-constructor ";
 import { useSelector } from "../../services/hooks";
 
 import fetchIngredients from "../../services/actions/ingredients";
-import { getInfoUser, updateToken } from "../../services/actions/auth";
+import { getInfoUser, updateToken , changeLoading} from "../../services/actions/auth";
 
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
@@ -33,8 +33,14 @@ import { PreLoader } from "../preLoader/preloader";
 
 export const App: React.FC = () => {
   const dispatch = useDispatch();
-  const { user, isOldToken, loading } = useSelector((state) => state.auth);
+  const { user, isOldToken, isLoading: isLoadingGetUser } = useSelector((state) => state.auth);
   const { isLoading } = useSelector((state) => state.orderStore);
+  const {orders} = useSelector((state)=> state.userOrdersStore);
+  const {orders: feedOrders} = useSelector((state)=> state.feedStore);
+  const orderId = orders.find((order) => order._id);
+  const feedOrderId = feedOrders.find((order) => order._id);
+
+
 
   const location = useLocation();
   const background = location.state?.background;
@@ -55,6 +61,7 @@ export const App: React.FC = () => {
 
     } finally {
       dispatch(fetchIngredients());
+      dispatch(changeLoading(false));
     }
   }, [dispatch]);
 
@@ -76,8 +83,10 @@ export const App: React.FC = () => {
   }, [isOldToken]);
 
 
-  if (loading) {
-    return < PreLoader/>
+  if (isLoadingGetUser) {
+    return (
+    < PreLoader/>
+    )
   }
 
   
@@ -194,14 +203,14 @@ export const App: React.FC = () => {
           />
           <Route path='feed/:id' element={
             <Modal onClose={onModalClose}>
-              <FeedCardDetails />
+              <FeedCardDetails key={feedOrderId?._id} />
             </Modal>
           }
           />
           <Route path='profile/user-orders/:id' element={
             <ProtectedRoute user={user} >
               <Modal onClose={onModalClose}>
-                <UserOrderDetails />
+                <UserOrderDetails key={orderId?._id}/>
               </Modal>
             </ProtectedRoute>
 

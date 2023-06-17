@@ -1,7 +1,9 @@
+import { burgerProjectUrl } from '../../src/utils/api';
 describe("test", () => {
     beforeEach(function () {
-        cy.visit('http://localhost:3000/');
-        cy.intercept('GET', "https://norma.nomoreparties.space/api/ingredients").as('baseQuery');
+        const baseUrl = 'http://localhost:3000/'
+        cy.visit(baseUrl);
+        cy.intercept('GET', `${burgerProjectUrl}/ingredients`).as('baseQuery');
         cy.wait('@baseQuery');
     })
 

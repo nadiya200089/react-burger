@@ -44,7 +44,7 @@ export const Feed = () => {
         }
     }, [orders])
     
-    const getStatus = (orders: any[], status: any): number[] => {
+    const getStatus = (orders: IWebsocketOrders[], status: string): number[] => {
         const sortedOrders = orders.filter((item) => item.status === status);
         return sortedOrders.map((item) => item.number).slice(0, 10);
     };
@@ -58,7 +58,7 @@ export const Feed = () => {
             <div className={style.main}>
                 <div className={classNames(style.orders, "custom-scroll")}>
                     {parseOrders.length ?
-                        parseOrders.map((item: any) => (
+                        parseOrders.map((item) => (
                             <FeedCard
                                 _id={item._id}
                                 key={item._id}

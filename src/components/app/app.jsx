@@ -9,27 +9,27 @@ import fetchIngredients from '../../services/actions/ingredients';
 import { DndProvider } from 'react-dnd'
 import { HTML5Backend } from 'react-dnd-html5-backend';
 export const App = () => {
-   // const [ingredients, setIngredients] = useState([]);
-   const dispatch = useDispatch();
+    // const [ingredients, setIngredients] = useState([]);
+    const dispatch = useDispatch();
 
     useEffect(() => {
         // getIngredients()
         // .then(ingredients => setIngredients(ingredients.data))
         dispatch(fetchIngredients())
     }, [dispatch]);
-
+    console.log('123');
     return (
         <DndProvider backend={HTML5Backend}>
-             <div className={style.app}>
-        <AppHeader />
-        <h1 className={classNames(style.title, 'text text_type_main-large mt-10 mb-5')}>Соберите бургер</h1>
-        <main className={style.main}>
-            <BurgerIngredients /> 
-            <BurgerConstructor />
-        </main>
-    </div>
+            <div className={style.app}>
+                <AppHeader />
+                <h1 className={classNames(style.title, 'text text_type_main-large mt-10 mb-5')}>Соберите бургер</h1>
+                <main className={style.main}>
+                    <BurgerIngredients />
+                    <BurgerConstructor />
+                </main>
+            </div>
         </DndProvider>
-   
+
     )
-    
+
 }

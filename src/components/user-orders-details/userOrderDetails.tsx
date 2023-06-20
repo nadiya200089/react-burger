@@ -1,14 +1,15 @@
-import { useSelector } from "react-redux";
+import { useSelector } from "../../services/hooks";
 import { useParams } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import style from "./style.module.css";
-import { RootStore } from "../../services/store";
 import { getTimeFromTimestamp, parseOrderToClient } from "../../utils/utils";
 import { IWebsocketOrders } from "../../types";
 import classNames from "classnames";
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useDispatch } from "../../services/hooks";
-import { wsOpen, wsClose } from "../../services/actions/feed";
+import { wsOpen, wsClose } from "../../services/actions/userOrders";
+import { getCookie } from "../../utils/cookie";
+import { socketUrl } from "../../utils/apiSocket";
 
 
 
@@ -19,8 +20,8 @@ interface FeedCardDetailsProps {
 
 export const UserOrderDetails: React.FC<FeedCardDetailsProps> = ({ isNotModal }) => {
     const { id } = useParams();
-    const { data: ingredients } = useSelector((state: RootStore) => state.ingredientsStore)
-    const { orders } = useSelector((state: RootStore) => state.userOrdersStore);
+    const { data: ingredients } = useSelector((state) => state.ingredientsStore)
+    const { orders } = useSelector((state) => state.userOrdersStore);
 
     const order = orders.find((item: IWebsocketOrders) => id === item._id);
 
@@ -32,12 +33,17 @@ export const UserOrderDetails: React.FC<FeedCardDetailsProps> = ({ isNotModal })
         if (!isNotModal) {
             return;
         }
-        dispatch(wsOpen());
+        const token = getCookie('token');
+        dispatch(wsOpen(
+            {
+                url: `${socketUrl}?token=${token}`
+            }
+        ));
         return () => {
             if (!isNotModal) {
                 return;
             }
-            console.log('cose feed ws')
+            console.log('close feed ws')
             dispatch(wsClose());
         };
     }, [dispatch]);
@@ -70,7 +76,7 @@ export const UserOrderDetails: React.FC<FeedCardDetailsProps> = ({ isNotModal })
     const usedIdIngredients: string[] = [];
     return (
 
-        <div className={style.wrapper}>
+        <div className={style.wrapper} key={!isNotModal ? `${order._id}-modal` : order._id}>
             <div className={classNames(style.number, "text text_type_digits-default")}>#{parseOrder.number}</div>
             <div className="text text_type_main-medium">{parseOrder.name}</div>
             <div className={classNames(style.status, "text text_type_main-small")}>{statusElem}</div>
@@ -91,7 +97,7 @@ export const UserOrderDetails: React.FC<FeedCardDetailsProps> = ({ isNotModal })
                             usedIdIngredients.push(ingredient._id);
                             const counter = parseOrder.ingredients.filter((id) => id === ingredientId).length;
                             return (
-                                <div className={style.ingredientWrap}>
+                                <div key={!isNotModal ? `${ingredient?._id}-modal` : order._id} className={style.ingredientWrap}>
                                     <div className={style.ingredient}>
                                         <img className={style.img} src={imgSrc}></img>
                                         <div className="text text_type_main-small">{ingredient?.name}</div>

@@ -8,7 +8,7 @@ export const Profile = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const onLogout = (evt: any) => {
+    const onLogout = (evt: React.MouseEvent<HTMLParagraphElement>) => {
         evt.preventDefault()
 
         const refreshToken = window.localStorage.getItem('refreshToken');

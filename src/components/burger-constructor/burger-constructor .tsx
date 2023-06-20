@@ -10,7 +10,7 @@ import {
 import { OrderDetails } from "../order-details/order-details";
 import { useEffect, useMemo, useState } from "react";
 import { Modal } from "../modal/modal";
-import { useSelector } from "react-redux";
+import { useSelector } from "../../services/hooks";
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from '../../services/hooks';
 
@@ -23,16 +23,15 @@ import constructor, {
 import DropContainer from "../dnd/DropContainer";
 import { DragAndDropContainer } from "../dnd/DragAndDropContainer";
 import { fetchOrder } from "../../services/actions/order";
-import { RootStore } from '../../services/store';
 import { IIngredientsData } from '../../types';
 
 
 export const BurgerConstructor: FC = () => {
   const navigate = useNavigate();
-  const { bun, ingredients } = useSelector((state: RootStore) => state.constructorStore);
+  const { bun, ingredients } = useSelector((state) => state.constructorStore);
 
-  const { order } = useSelector((state: RootStore) => state.orderStore.data);
-  const { user } = useSelector((state: RootStore) => state.auth);
+  const { order } = useSelector((state) => state.orderStore.data);
+  const { user } = useSelector((state) => state.auth);
 
   const dispatch = useDispatch();
   const [orderModal, setOrderModal] = useState(false);
@@ -117,10 +116,6 @@ export const BurgerConstructor: FC = () => {
           {ingredients && ingredients.map((data: IIngredientsData, index: number) => {
                   const tData = {};
                   return (<DragAndDropContainer
-                    // className={classNames(
-                    //   style.main_ingredients_wrap,
-                    //   "custom-scroll"
-                    // )}
                     index={index}
                     id={data.uuid}
                     key={data.uuid}
@@ -129,7 +124,6 @@ export const BurgerConstructor: FC = () => {
                     <div className={classNames(style.main, "mr-4")}>
                       <DragIcon type="primary" />
                       <ConstructorElement
-                        // className="ml-2 mr-2 mb-2 mt-2"
                         text={data.name}
                         thumbnail={data.image}
                         price={data.price}

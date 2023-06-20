@@ -1,18 +1,16 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, FormEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useSelector } from "react-redux";
+import { useSelector } from "../../services/hooks";
 import { useDispatch } from "../../services/hooks";
 import { Button, EmailInput, Input, PasswordInput } from "@ya.praktikum/react-developer-burger-ui-components";
 
 import classNames from "classnames";
 import styles from "./style.module.css";
 import { registerUser } from "../../services/actions/auth";
-import { RootStore } from '../../services/store';
-import { IRegisterData } from '../../types';
 
 export const Register = () => {
   const dispatch = useDispatch();
-  const { isSuccessRegister } = useSelector((state: RootStore) => state.auth);
+  const { isSuccessRegister } = useSelector((state) => state.auth);
 
 
   useEffect(() => {
@@ -39,7 +37,7 @@ export const Register = () => {
     });
   }
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     onRegister()
   }

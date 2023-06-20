@@ -2,10 +2,9 @@ import React, { forwardRef } from "react";
 import style from "./style.module.css";
 import classNames from "classnames";
 import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector, useDispatch } from "../../services/hooks";
 import BurgerIngredientDrag from "../burgerIngredientDrag/burgerIngredientDrag";
 import { IIngredientsDto, IIngredientsData } from "../../types";
-import { RootStore } from "../../services/store";
 
 interface ICategory {
   title: string;
@@ -16,10 +15,10 @@ interface ICategory {
 
 type Ref = HTMLDivElement;
 
-export const Category: React.FC<ICategory> = forwardRef<Ref, ICategory>(({ title, id, ingredients , ref}, forwardRef) => {
+export const Category: React.FC<ICategory> = forwardRef<Ref, ICategory>(({ title, id, ingredients }, forwardRef) => {
 
   const { bun, ingredients: constructorIngredients } = useSelector(
-    (state: RootStore) => state.constructorStore
+    (state) => state.constructorStore
   );
 
   const [ingredientModal, setIngredientModal] = useState<IIngredientsData | null>(null);

@@ -1,9 +1,8 @@
 import style from "./style.module.css";
-import { useSelector } from "react-redux";
-import { RootStore } from "../../services/store";
+import { useSelector } from "../../services/hooks";
 
 export const OrderDetails = () => {
-  const { order } = useSelector((state: RootStore) => state.orderStore.data);
+  const { order } = useSelector((state) => state.orderStore.data);
 
   return (
     <div className={style.order_details}>

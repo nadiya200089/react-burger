@@ -7,11 +7,10 @@ import {
   ListIcon,
   ProfileIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/icons";
-import { RootStore } from "../../services/store";
-import { useSelector } from "react-redux";
+import { useSelector } from "../../services/hooks";
 
 export const AppHeader = () => {
-  const {user }  = useSelector((state:RootStore) => state.auth);
+  const {user }  = useSelector((state) => state.auth);
 
   const navigate = useNavigate();
 

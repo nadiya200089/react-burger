@@ -4,6 +4,7 @@ import { fetchOrder } from '../actions/order';
 
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
+import {burgerProjectUrl} from '../../utils/api';
 
 
 const middlewares = [thunk]
@@ -25,13 +26,9 @@ describe('Test of reducers: Order', () => {
 
 
     it('Action test: order fetch', () => {
-        //даныне которые подходят под входные данные запроса fetchOrder
         const reqData = ["1", "2", "3"];
 
-        //иницилизирцем mock для асинхронного запроса fetchOrder
-        //первый параметр это реальный урл запроса
-        // bode мы заполняем сами. Body будет возвращаться в теле ответа mock server
-        fetchMock.postOnce('https://norma.nomoreparties.space/api/orders', {
+        fetchMock.postOnce(`${burgerProjectUrl}/orders`, {
             body: { order: { number: 1 }},
             headers: { 'content-type': 'application/json' }
         });

@@ -1,24 +1,21 @@
 import { useState } from "react";
 import classNames from "classnames";
 import style from "./style.module.css";
-import { useSelector } from "react-redux";
-import { RootStore } from "../../services/store";
-import { OrderCard } from "@ya.praktikum/react-developer-burger-ui-components";
-
 import { wsOpen, wsClose } from "../../services/actions/feed";
-
 import { useEffect } from "react";
 import { useDispatch } from "../../services/hooks";
-import ingredients from "../../services/reducers/ingredients";
 import { FeedCard } from "../feedCard/feedCard";
 import { useNavigate } from 'react-router-dom';
 import { parseOrdersToClient } from '../../utils/utils'
 import { IWebsocketOrders } from "../../types";
+import { useSelector } from "../../services/hooks";
+import { socketUrl } from "../../utils/apiSocket";
+
 
 
 export const Feed = () => {
-    const { data: ingredients } = useSelector((state: RootStore) => state.ingredientsStore)
-    const { isConnectionError, orders, total, totalToday, status } = useSelector((state: RootStore) => state.feedStore);
+    const { data: ingredients } = useSelector((state) => state.ingredientsStore)
+    const { isConnectionError, orders, total, totalToday, status } = useSelector((state) => state.feedStore);
     const [parseOrders, setParseOrders] = useState<any[]>([])
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -30,7 +27,7 @@ export const Feed = () => {
     const [feedDetailsModal, setfeedDetailsModal] = useState<IWebsocketOrders | null>(null);
 
     useEffect(() => {
-        dispatch(wsOpen());
+        dispatch(wsOpen({ url: `${socketUrl}/all`}));
         return () => {
             console.log('cose feed ws')
             dispatch(wsClose());
@@ -44,7 +41,7 @@ export const Feed = () => {
         }
     }, [orders])
     
-    const getStatus = (orders: any[], status: any): number[] => {
+    const getStatus = (orders: IWebsocketOrders[], status: string): number[] => {
         const sortedOrders = orders.filter((item) => item.status === status);
         return sortedOrders.map((item) => item.number).slice(0, 10);
     };
@@ -58,9 +55,10 @@ export const Feed = () => {
             <div className={style.main}>
                 <div className={classNames(style.orders, "custom-scroll")}>
                     {parseOrders.length ?
-                        parseOrders.map((item: any) => (
+                        parseOrders.map((item) => (
                             <FeedCard
                                 _id={item._id}
+                                key={item._id}
                                 totalPrice={item.total}
                                 createdAt={item.createdAt}
                                 name={item.name}

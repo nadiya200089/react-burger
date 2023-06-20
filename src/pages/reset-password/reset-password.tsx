@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, FormEvent } from 'react';
 import classNames from "classnames";
 import { useNavigate } from 'react-router-dom';
 import styles from "./style.module.css";
@@ -6,15 +6,14 @@ import { useDispatch } from "../../services/hooks";
 
 
 import { Button, Input, PasswordInput } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useSelector } from "react-redux";
+import { useSelector } from "../../services/hooks";
 import { resetPassword } from "../../services/actions/auth";
-import { RootStore } from '../../services/store';
 
 export const ResetPassword = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     
-    const {isSuccessPassword}  = useSelector((state: RootStore) => state.auth);
+    const {isSuccessPassword}  = useSelector((state) => state.auth);
 
     const [code, setCode] = useState('');
     const [psw, setPsw] = useState('');
@@ -22,7 +21,7 @@ export const ResetPassword = () => {
         navigate('/enter');
     };
 
-    const handleResetPassword = (e: React.FormEvent) => {
+    const handleResetPassword = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const req = {
             password: psw,

@@ -3,6 +3,8 @@ import fetchMock from 'fetch-mock';
 import fetchIngredients from '../actions/ingredients';
 import configureMockStore from 'redux-mock-store'
 import thunk from 'redux-thunk';
+import {burgerProjectUrl} from '../../utils/api';
+
 
 
 const middlewares = [thunk]
@@ -23,7 +25,7 @@ describe('Test of reducers: ingredients', () => {
 
     it('Action test: ingredients fetch', () => {
 
-        fetchMock.getOnce('https://norma.nomoreparties.space/api/ingredients', {
+        fetchMock.getOnce(`${burgerProjectUrl}/ingredients`, {
             body: [{}, {}],
             headers: { 'content-type': 'application/json' }
         });

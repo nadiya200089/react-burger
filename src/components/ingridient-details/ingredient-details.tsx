@@ -1,13 +1,13 @@
 import classNames from "classnames";
 import style from "./style.module.css";
 import { useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector } from "../../services/hooks";
 import { RootStore } from "../../services/store";
 
 export const IngredientDetails = () => {
   const { id } = useParams();
 
-   const { data: ingredient } = useSelector((state: RootStore) => state.ingredientsStore);
+   const { data: ingredient } = useSelector((state) => state.ingredientsStore);
    const data = ingredient.find(item => item._id === id);
    if (!data) {
     return <div>404</div>

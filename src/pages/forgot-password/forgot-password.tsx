@@ -1,18 +1,17 @@
 import { useState, useEffect } from 'react';
 import classNames from "classnames";
 import { useNavigate } from 'react-router-dom';
-import { useSelector } from "react-redux";
+import { useSelector } from "../../services/hooks";
 import { useDispatch } from "../../services/hooks";
 
 
 import styles from "./style.module.css";
 import { Button, EmailInput } from "@ya.praktikum/react-developer-burger-ui-components";
 import { forgotPassword } from "../../services/actions/auth";
-import { RootStore } from '../../services/store';
 
 export const ForgotPassword = () => {
     const dispatch = useDispatch();
-    const {isResetPassword}  = useSelector((state: RootStore) => state.auth);
+    const {isResetPassword}  = useSelector((state) => state.auth);
     const [email, setEmail] = useState('');
     const navigate = useNavigate();
 

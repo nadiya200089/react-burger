@@ -4,7 +4,7 @@ import configureMockStore from 'redux-mock-store'
 import thunk from 'redux-thunk';
 import { initialState } from "./auth";
 import { loginUser, getInfoUser, registerUser, logoutUser, updateToken, forgotPassword, resetPassword} from "../actions/auth";
-import { getCookie } from "../../utils/cookie";
+import {burgerProjectUrl} from '../../utils/api';
 
 const middlewares = [thunk]
 const mockStore = configureMockStore(middlewares)
@@ -19,7 +19,7 @@ describe('Test of reducers: auth', () => {
     it('Action test:  get info user', () => {
         const token = 'test-token';
 
-        fetchMock.getOnce("https://norma.nomoreparties.space/api/auth/user", {
+        fetchMock.getOnce(`${burgerProjectUrl}/auth/user`, {
             body: {
                 success: true,
                 user: {
@@ -65,7 +65,7 @@ describe('Test of reducers: auth', () => {
 
     it('Action test:  login', () => {
 
-        fetchMock.postOnce("https://norma.nomoreparties.space/api/auth/login", {
+        fetchMock.postOnce(`${burgerProjectUrl}/auth/login`, {
             body: {
                 success: true,
                 user: {
@@ -114,7 +114,7 @@ describe('Test of reducers: auth', () => {
 
     it('Action test:  register', () => {
 
-        fetchMock.postOnce("https://norma.nomoreparties.space/api/auth/register", {
+        fetchMock.postOnce(`${burgerProjectUrl}/auth/register`, {
             body: {
                 success: true,
                 user: {
@@ -163,7 +163,7 @@ describe('Test of reducers: auth', () => {
 
     it('Action test:  logout', () => {
 
-        fetchMock.postOnce("https://norma.nomoreparties.space/api/auth/logout", {
+        fetchMock.postOnce(`${burgerProjectUrl}/auth/logout`, {
             body: {
                 success: true,
                 message: "success"
@@ -202,7 +202,7 @@ describe('Test of reducers: auth', () => {
 
     it('Action test:  updateToken', () => {
 
-        fetchMock.postOnce("https://norma.nomoreparties.space/api/auth/token", {
+        fetchMock.postOnce(`${burgerProjectUrl}/auth/token`, {
             body: {
                 success: true,
                 accessToken: "test"
@@ -241,11 +241,10 @@ describe('Test of reducers: auth', () => {
 
     it('Action test:  forgot password', () => {
 
-        fetchMock.postOnce("https://norma.nomoreparties.space/api/password-reset", {
+        fetchMock.postOnce(`${burgerProjectUrl}/password-reset`, {
             body: {
                 success: true,
                 message: "Reset email sent",
-                // email: "test@mail.ru"
             },
             headers: {
                 'content-type': 'application/json',
@@ -281,7 +280,7 @@ describe('Test of reducers: auth', () => {
 
     it('Action test:  reset password', () => {
 
-        fetchMock.postOnce("https://norma.nomoreparties.space/api/password-reset/reset", {
+        fetchMock.postOnce(`${burgerProjectUrl}/password-reset/reset`, {
             body: {
                 success: true,
                 message: "Reset email sent",

@@ -1,6 +1,6 @@
 import { ReactElement} from "react";
 import React from "react";
-import { Navigate, useLocation, RouteProps } from "react-router-dom";
+import { Navigate, useLocation, RouteProps, useParams } from "react-router-dom";
 import { IUserData } from "../../types";
 
 type TProtectedRoute = {
@@ -11,7 +11,8 @@ type TProtectedRoute = {
 
 export const ProtectedRoute: React.FC<TProtectedRoute> = ({ onlyUnAuth, user, children, ...props }) => {
     const location = useLocation();
-    
+    // const id = useParams();
+    // const pathInWindow = window.location.pathname;
     if (onlyUnAuth && user) {
          const { from } = location.state || { from: {pathname: '/'}}
         return (

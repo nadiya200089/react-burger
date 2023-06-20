@@ -2,8 +2,7 @@ import React, { forwardRef } from "react";
 import style from "./style.module.css";
 import classNames from "classnames";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { useSelector } from "../../services/hooks";
+import { useSelector, useDispatch } from "../../services/hooks";
 import BurgerIngredientDrag from "../burgerIngredientDrag/burgerIngredientDrag";
 import { IIngredientsDto, IIngredientsData } from "../../types";
 

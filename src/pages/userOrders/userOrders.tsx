@@ -10,6 +10,7 @@ import { useNavigate } from 'react-router-dom';
 import { parseOrdersToClient, parseOrderToClient } from '../../utils/utils';
 import { IWebsocketOrders } from '../../types'
 import { getCookie } from "../../utils/cookie";
+import { socketUrl } from "../../utils/apiSocket";
 
 
 export const UserOrders = () => {
@@ -29,7 +30,7 @@ export const UserOrders = () => {
         const token = getCookie('token');
         dispatch(wsOpen(
             {
-                url: `wss://norma.nomoreparties.space/orders?token=${token}`
+                url:  `${socketUrl}?token=${token}`
             }
         ));
         return () => {

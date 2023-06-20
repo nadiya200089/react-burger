@@ -9,6 +9,7 @@ import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components
 import { useDispatch } from "../../services/hooks";
 import { wsOpen, wsClose } from "../../services/actions/userOrders";
 import { getCookie } from "../../utils/cookie";
+import { socketUrl } from "../../utils/apiSocket";
 
 
 
@@ -35,7 +36,7 @@ export const UserOrderDetails: React.FC<FeedCardDetailsProps> = ({ isNotModal })
         const token = getCookie('token');
         dispatch(wsOpen(
             {
-                url: `wss://norma.nomoreparties.space/orders?token=${token}`
+                url: `${socketUrl}?token=${token}`
             }
         ));
         return () => {

@@ -67,12 +67,10 @@ describe("test", () => {
             cy.get('@enter').click().then(($button) => {
                 cy.location().should((loc) => {
                     expect(loc.pathname).to.eq('/')
-                })
-                // cy.intercept('POST', "https://norma.nomoreparties.space/api/auth/login").as('baseQuery');
-                // cy.wait('@baseQuery');
+                });
                 cy.get('button').click();
                 cy.get('[class^=style_ldsDefault__]');
-                 cy.intercept('POST', "https://norma.nomoreparties.space/api/orders").as('baseQuery');
+                 cy.intercept('POST', `${burgerProjectUrl}/orders`).as('baseQuery');
                 cy.wait('@baseQuery').then((inter) => {
                     cy.wait(15000);
                     cy.get('h3').contains('идентификатор заказа').should('exist');

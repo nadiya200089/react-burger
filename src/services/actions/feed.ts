@@ -1,7 +1,7 @@
 import { createAction } from "@reduxjs/toolkit";
 import { IWebsocketOrders } from "../../types";
 
-interface IWsMessage {
+export interface IWsMessage {
     total: number;
     totalToday: number;
     orders: IWebsocketOrders[];
@@ -11,10 +11,10 @@ interface IUrl {
     url: string;
 }
 
-export const typeFeedActions = {
-    wsOpen: 'FEED_WS_OPEN',
-    wsClose: 'FEED_WS_CLOSE',
-};
+// export const typeFeedActions = {
+//     wsOpen: 'FEED_WS_OPEN',
+//     wsClose: 'FEED_WS_CLOSE',
+// };
 
 export const wsConnect = createAction('FEED_WS_CONNECT');
 export const wsDisonnect = createAction('FEED_WS_DISCONNECT');

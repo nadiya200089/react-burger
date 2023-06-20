@@ -10,6 +10,7 @@ import { getTimeFromTimestamp, parseOrderToClient } from "../../utils/utils";
 import { IWebsocketOrders } from "../../types";
 import classNames from "classnames";
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import { socketUrl } from "../../utils/apiSocket";
 
 interface FeedCardDetailsProps {
     isNotModal?: boolean;
@@ -29,7 +30,7 @@ export const FeedCardDetails: React.FC<FeedCardDetailsProps> = ({isNotModal}) =>
         if (!isNotModal) {
             return;
         }
-        dispatch(wsOpen({ url: 'wss://norma.nomoreparties.space/orders/all'}));
+        dispatch(wsOpen({ url: `${socketUrl}/all`}));
         return () => {
             if (!isNotModal) {
                 return;
